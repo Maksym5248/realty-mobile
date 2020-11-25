@@ -1,11 +1,10 @@
 // @flow
 import 'react-native-gesture-handler';
 import './reactotron';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { enableScreens } from 'react-native-screens';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 
 import { RootNavigation } from '~/navigation';
