@@ -1,0 +1,60 @@
+{
+  "common": {
+    "ok": "OK!",
+    "cancel": "Cancel",
+    "back": "Назад",
+    "buy":"Купити"
+  },
+  "permissions": {
+    "photo_library_title": "Доступ до галереї",
+    "photo_library_text": "Для завантаження фото надайте будь ласка доступ до галереї",
+    "audio_call_title": "Доступ до мікрофона",
+    "audio_call_text": "Для здійснення дзвінків ласка дозвольте доступ до мікрофона",
+    "video_call_title": "Доступ до камери",
+    "video_call_text": "Для здійснення дзвінків ласка дозвольте доступ до камери",
+    "title_unavailable": "Дозвіл недоступний",
+    "text_unavailable": "Ця функція недоступна на цьому пристрої",
+    "no": "Ні",
+    "ok": "OK",
+    "open_settings": "Відкрити параметри"
+  },
+  "errors": {
+    "required_name": "Введіть ваше ім'я",
+    "required_phone": "Введіть номер",
+    "required_password": "Введіть пароль",
+    "required_new_password": "Введіть пароль",
+    "required_confirm_password": "Введіть пароль",
+    "required_phone_code": "Виберіть країну",
+    "required_privacy_policy": "Обов'язкове поле",
+
+    "incorrect_phone": "Некоректний номер телефону",
+    "incorrect_password": "Невірний пароль",
+    "incorrect_new_password": "Невірний пароль",
+    "incorrect_confirm_password": "Невірний пароль",
+    "incorrect_code": "Код вказано некоректно",
+    "incorrect_email": "Некоректний Email",
+
+    "min_password": "Мінімум 8 символів",
+    "max": "Максимум :max",
+    "confirm_password": "Повторіть пароль",
+    "passwords_not_match": "Паролі не співпадають",
+    "unexpected_error": "Виникла помилка",
+
+    "You are already registered": "Невірно вказані дані",
+    "canceled": "Дія відмінена",
+    "canNotGetAccess": "Виникла помилка",
+    "too_much_attempts": "Занадто багато спроб. Будь-ласка спробуйте пізніше"
+  },
+  "signUp": {
+    "title": "Реєстрація",
+    "sign_up_btn": "Реєстрація",
+    "name_input": "Ім'я",
+    "phone_input": "Моб. телефон",
+    "password_input": "Пароль",
+    "social_btn": "Увійти з",
+    "confirm_text_1": "Підтверджую, що я старше 18 років, ознайомлений з ",
+    "confirm_link_2": "умовами надання послуг",
+    "confirm_text_3": " і з ",
+    "confirm_link_4": "політикою конфіденційності"
+  },
+}
