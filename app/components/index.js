@@ -1,3 +1,4 @@
+export * from './Button/Button';
 export * from './Icon';
 export * from './KeyboardAwareScrollView';
 export * from './ScrollView';

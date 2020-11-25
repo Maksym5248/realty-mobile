@@ -1,5 +1,4 @@
 export * from './colors';
 export * from './styles';
-export * from './fontSizes';
-export * from './spacing';
-export * from './typography';
+export * from './dimensions';
+export * from './theme';

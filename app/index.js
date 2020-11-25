@@ -6,12 +6,14 @@ import { StatusBar } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 import { RootNavigation } from '~/navigation';
 import { LocalizationProvider } from '~/localization';
 import { RootStoreProvider, createStore } from '~/store';
 import { NavigationService, ModalProvider } from '~/services';
 import { modals } from '~/modals';
+import { theme } from '~/styles';
 
 enableScreens();
 
@@ -34,9 +36,11 @@ const App = observer(() => {
     <LocalizationProvider>
       <RootStoreProvider>
         <SafeAreaProvider>
-          <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
-          <RootNavigation ref={NavigationService.init} />
-          <ModalProvider modals={modals} />
+          <PaperProvider theme={theme}>
+            <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
+            <RootNavigation ref={NavigationService.init} />
+            <ModalProvider modals={modals} />
+          </PaperProvider>
         </SafeAreaProvider>
       </RootStoreProvider>
     </LocalizationProvider>

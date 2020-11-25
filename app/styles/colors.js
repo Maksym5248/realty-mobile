@@ -1,16 +1,18 @@
-export const colors = {
-  primary: '#359691',
-  primaryLight: '#92D1CE',
-  textPrimary: '#000000',
-  textSecondary: '#555555',
-  textInert: '#616161',
-  backgroundPrimary: '#ffffff',
-  inert: '#DFDFDF',
-  inertDark: '#C4C4C4',
+import { DefaultTheme } from 'react-native-paper';
 
-  white: '#ffffff',
+export const colors = {
+  ...DefaultTheme.colors,
+  primary: '#628395',
+  accent: '#96897B',
+  background: '#f6f6f6',
+  surface: '#ffffff',
+  error: '#B00020',
+  text: '#000000',
   black: '#000000',
-  error: '#FF7373',
-  transparent: 'transparent',
-  blackOpacity: 'rgba(0,0,0,0.3)',
+  onBackground: '#000000',
+  onSurface: '#000000',
+  // disabled: color(black).alpha(0.26).rgb().string(),
+  // placeholder: color(black).alpha(0.54).rgb().string(),
+  // backdrop: color(black).alpha(0.5).rgb().string(),
+  notification: 'pink',
 };

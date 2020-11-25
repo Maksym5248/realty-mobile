@@ -3,12 +3,10 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
 import { screens } from '~/constants';
-import { Spinner } from '~/components';
+import { translate } from '~/localization';
 
 import * as components from '~/screens';
 import { useStores } from '~/store';
-
-import { styles } from '~/styles';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +24,13 @@ export const StackNavigator = observer(() => {
 
       {!store?.auth?.isAuthorized && (
         <>
-          <Stack.Screen name={screens.SignUp} component={components.SignUp} />
+          <Stack.Screen
+            name={screens.SignUp}
+            options={{
+              title: translate('sign_up.title'),
+            }}
+            component={components.SignUp}
+          />
         </>
       )}
     </Stack.Navigator>

@@ -45,16 +45,8 @@
     "canNotGetAccess": "Виникла помилка",
     "too_much_attempts": "Занадто багато спроб. Будь-ласка спробуйте пізніше"
   },
-  "signUp": {
+  "sign_up": {
     "title": "Реєстрація",
-    "sign_up_btn": "Реєстрація",
-    "name_input": "Ім'я",
-    "phone_input": "Моб. телефон",
-    "password_input": "Пароль",
-    "social_btn": "Увійти з",
-    "confirm_text_1": "Підтверджую, що я старше 18 років, ознайомлений з ",
-    "confirm_link_2": "умовами надання послуг",
-    "confirm_text_3": " і з ",
-    "confirm_link_4": "політикою конфіденційності"
-  },
+    "sign_up_btn": "Реєстрація"
+  }
 }

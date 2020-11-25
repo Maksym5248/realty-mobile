@@ -1,4 +1,4 @@
-const HOST = 'https://dev.holdyou.net';
+const HOST = 'localhost:';
 
 export const configDev = {
   APP_NAME: 'REALTY_DEV',
