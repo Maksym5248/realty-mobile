@@ -6,4 +6,7 @@ export const s = StyleSheet.create({
     height: dimensions.xl,
     justifyContent: 'center',
   },
+  message: {
+    marginLeft: 15,
+  },
 });

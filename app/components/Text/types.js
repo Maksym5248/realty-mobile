@@ -3,6 +3,7 @@ import * as React from 'react';
 import { type TextStyle } from '~/types';
 
 export type TextProps = {
+  type?: 'caption' | 'title' | 'text' | 'paragraph' | 'subheading' | 'headline',
   /**
    * The text to display if not using `translate` or nested components.
    */

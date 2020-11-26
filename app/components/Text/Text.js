@@ -1,9 +1,27 @@
 // @flow
 import React from 'react';
-import { Text as TextRN } from 'react-native';
 import { type TextProps } from './types';
+import {
+  Caption,
+  Title,
+  Text as TextPaper,
+  Subheading,
+  Paragraph,
+  Headline,
+} from 'react-native-paper';
 
-export const Text = ({ text, children, color, size, style, onPress }: TextProps) => {
+const types = {
+  caption: Caption,
+  title: Title,
+  text: TextPaper,
+  paragraph: Paragraph,
+  subheading: Subheading,
+  headline: Headline,
+};
+
+export const Text = ({ type = 'text', text, children, color, size, style, onPress }: TextProps) => {
+  const Component = types[type];
+
   const additionalStyles = {};
 
   if (color) {
@@ -17,8 +35,8 @@ export const Text = ({ text, children, color, size, style, onPress }: TextProps)
   }
 
   return (
-    <TextRN onPress={onPress} style={[style, additionalStyles]}>
+    <Component onPress={onPress} style={[style, additionalStyles]}>
       {text || children}
-    </TextRN>
+    </Component>
   );
 };

@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
 import { screens } from '~/constants';
-import { translate } from '~/localization';
+import { useLocalization } from '~/localization';
 
 import * as components from '~/screens';
 import { useStores } from '~/store';
@@ -12,6 +12,7 @@ const Stack = createNativeStackNavigator();
 
 export const StackNavigator = observer(() => {
   const store = useStores();
+  const { t } = useLocalization();
 
   const params = {
     screenOptions: { headerShown: true },
@@ -27,7 +28,7 @@ export const StackNavigator = observer(() => {
           <Stack.Screen
             name={screens.SignUp}
             options={{
-              title: translate('sign_up.title'),
+              title: t('sign_up.title'),
             }}
             component={components.SignUp}
           />

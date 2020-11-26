@@ -6,7 +6,7 @@ export const colors = {
   accent: '#96897B',
   background: '#f6f6f6',
   surface: '#ffffff',
-  error: '#B00020',
+  error: '#ff3333',
   text: '#000000',
   black: '#000000',
   onBackground: '#000000',
