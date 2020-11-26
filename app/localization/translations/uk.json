@@ -28,5 +28,12 @@
     "sign_up_btn": "Реєстрація",
     "email": "Email",
     "password": "Пароль"
+  },
+  "sign_in": {
+    "title": "Вхід",
+    "login_btn": "Увійти",
+    "social_btn": "Увійти з",
+    "not_account": "У Вас немає акаунта?",
+    "to_reg_link": "Реєстрація"
   }
 }
