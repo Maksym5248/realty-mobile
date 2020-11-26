@@ -1,5 +1,6 @@
-export * from './Button/Button';
+export * from './Button';
 export * from './Icon';
+export * from './Input';
 export * from './KeyboardAwareScrollView';
 export * from './ScrollView';
 export * from './Separator';

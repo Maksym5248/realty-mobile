@@ -2,8 +2,8 @@
 import React from 'react';
 import { Button as ButtonPaper } from 'react-native-paper';
 
-import { type ButtonProps } from './Button.props';
-import { s } from './Button.styles';
+import { type ButtonProps } from './types';
+import { s } from './styles';
 
 export const Button = ({
   title,

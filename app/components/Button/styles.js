@@ -3,7 +3,7 @@ import { dimensions } from '~/styles';
 
 export const s = StyleSheet.create({
   contentStyle: {
-    height: dimensions.xl,
+    height: dimensions.xxl,
     justifyContent: 'center',
   },
 });

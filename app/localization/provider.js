@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { localization } from './localization';
-import { translate as t } from './translate';
+import { translate } from './translate';
 
 export const LocalizationContext = createContext({});
 
@@ -23,18 +23,18 @@ export const LocalizationProvider = ({ children }) => {
 export const useLocalization = ({ screen } = {}) => {
   const data = useContext(LocalizationContext);
 
-  const translate = useCallback(
+  const t = useCallback(
     (key, options) => {
       const _key = screen ? `${screen}.${key}` : key;
 
-      return t(_key, options);
+      return translate(_key, options);
     },
     [screen],
   );
 
   return {
     ...data,
-    translate,
+    t,
     localization,
   };
 };

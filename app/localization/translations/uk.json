@@ -47,6 +47,8 @@
   },
   "sign_up": {
     "title": "Реєстрація",
-    "sign_up_btn": "Реєстрація"
+    "sign_up_btn": "Реєстрація",
+    "email": "Email",
+    "password": "Пароль"
   }
 }

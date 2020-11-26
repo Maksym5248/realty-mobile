@@ -18,4 +18,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: dimensions.l,
     paddingTop: dimensions.l,
   },
+  marginBottomM: {
+    marginBottom: dimensions.m,
+  },
+  marginBottomL: {
+    marginBottom: dimensions.l,
+  },
+  marginBottomLX: {
+    marginBottom: dimensions.lx,
+  },
 });

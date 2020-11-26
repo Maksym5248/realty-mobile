@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 
 import { useLocalization } from '~/localization';
 import { useStores } from '~/store';
-import { Text, KeyboardAwareScrollView, Button } from '~/components';
+import { Input, KeyboardAwareScrollView, Button } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
 import { styles } from '~/styles';
@@ -26,7 +26,7 @@ const icons = {
 
 export const SignUp = observer((props: SignUpProps) => {
   const store = useStores();
-  const { translate } = useLocalization({ screen: 'sign_up' });
+  const { t } = useLocalization({ screen: 'sign_up' });
   const [refPhone, onEditedName] = useFocusInput();
   const [refPassword, onEditedPhone] = useFocusInput();
 
@@ -50,8 +50,10 @@ export const SignUp = observer((props: SignUpProps) => {
   });
 
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-      <Button title={translate('sign_up_btn')} onPress={() => console.log('Pressed')} />
+    <KeyboardAwareScrollView contentContainerStyle={s.container}>
+      <Input label={t('email')} style={styles.marginBottomM} />
+      <Input label={t('password')} style={styles.marginBottomLX} />
+      <Button title={t('sign_up_btn')} onPress={() => console.log('Pressed')} />
     </KeyboardAwareScrollView>
   );
 });

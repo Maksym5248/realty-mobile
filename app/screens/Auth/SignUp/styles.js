@@ -6,5 +6,6 @@ export const s = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
     paddingHorizontal: 40,
+    justifyContent: 'center',
   },
 });

@@ -18,8 +18,9 @@
 const indent = 4;
 
 export const dimensions = {
-  xxl: indent * 16,
-  xl: indent * 10,
+  xxl: indent * 14,
+  xl: indent * 12,
+  lx: indent * 10,
   l: indent * 6,
   m: indent * 3,
   s: indent * 2,
