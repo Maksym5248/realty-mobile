@@ -16,7 +16,7 @@ export const StackNavigator = observer(() => {
 
   const params = {
     screenOptions: { headerShown: true },
-    initialRouteName: screens.SignUp,
+    initialRouteName: screens.SignIn,
   };
 
   return (
@@ -25,6 +25,13 @@ export const StackNavigator = observer(() => {
 
       {!store?.auth?.isAuthorized && (
         <>
+          <Stack.Screen
+            name={screens.SignIn}
+            options={{
+              title: t('sign_in.title'),
+            }}
+            component={components.SignIn}
+          />
           <Stack.Screen
             name={screens.SignUp}
             options={{
