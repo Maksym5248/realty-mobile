@@ -73,7 +73,7 @@ export const SignIn = observer((props: SignUpProps) => {
         disabled={!formik.isValid}
       />
       <Touchable onPress={onGoToSignUp} style={s.footerContainer}>
-        <Text color={colors.inert} text={`${t('sign_up_btn')}  `} />
+        <Text color={colors.placeholder} text={`${t('sign_up_btn')}  `} />
         <Text color={colors.primary} text={t('to_reg_link')} />
       </Touchable>
     </KeyboardAwareScrollView>
