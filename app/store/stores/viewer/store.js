@@ -17,6 +17,9 @@ export const ViewerStore = t
       const newUser = Object.assign({}, user);
       store.user = newUser;
     },
+    removeUser() {
+      store.user = undefined;
+    },
   }));
 
 function getUser(retry) {

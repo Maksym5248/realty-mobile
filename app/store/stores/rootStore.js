@@ -21,9 +21,9 @@ export const RootStore = types
     },
   }))
   .actions((store) => ({
-    initTokens: flow(function* init() {
+    initTokens: flow(function* initTokens() {
       SecureStore.onChange(secureStorage.AUTH_TOKEN, (tokens) => {
-        store.Api.setAuthToken(tokens.access.token);
+        store.Api.setAuthToken(tokens?.access?.token || null);
       });
 
       const tokens = yield SecureStore.get(secureStorage.AUTH_TOKEN);
@@ -41,19 +41,19 @@ export const RootStore = types
       const isAccessTokenExpired = fns.isBefore(new Date(tokens.access.expires), Date.now());
 
       if (isAccessTokenExpired) {
-        const data = store.Api.refreshTokens({ refreshToken: tokens.refresh.token });
-        yield SecureStore.set(secureStorage.AUTH_TOKEN, data.tokens);
+        const { data } = yield store.Api.refreshTokens({ refreshToken: tokens.refresh.token });
+        yield SecureStore.set(secureStorage.AUTH_TOKEN, data);
       }
     }),
     init: flow(function* init() {
       try {
         yield localization.init();
         yield store.initTokens();
-
         // yield store.viewer.getUser.run();
 
         store.auth.setAuthorizationStatus(true);
       } catch (err) {
+        yield SecureStore.remove(secureStorage.AUTH_TOKEN);
         console.log(err);
       } finally {
         store.isInitialized = true;

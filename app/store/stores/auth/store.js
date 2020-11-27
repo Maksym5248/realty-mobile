@@ -67,13 +67,13 @@ function signOut() {
   return async (flow, store, root) => {
     try {
       flow.start();
-      const tokens = await SecureStore.get(secureStorage.REFRESH_AUTH_TOKEN);
+      const tokens = await SecureStore.get(secureStorage.AUTH_TOKEN);
 
-      await flow.Api.signOut({ refreshToken: tokens.refresh.token });
+      flow.Api.signOut({ refreshToken: tokens.refresh.token });
       await SecureStore.remove(secureStorage.AUTH_TOKEN);
 
       store.setAuthorizationStatus(false);
-      root.viewer.setUser(null);
+      root.viewer.removeUser();
 
       flow.success();
     } catch (e) {
