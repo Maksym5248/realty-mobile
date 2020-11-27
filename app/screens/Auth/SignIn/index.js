@@ -4,12 +4,12 @@ import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { useLocalization } from '~/localization';
-import { useStores } from '~/store';
+import { useStore } from '~/store';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
-import { NavigationService } from '~/services';
+import { Navigation } from '~/services';
 import { screens } from '~/constants';
 
 import { s } from './styles';
@@ -21,11 +21,11 @@ const validationSchema = validation.shape({
 });
 
 export const SignIn = observer((props: SignUpProps) => {
-  const store = useStores();
+  const store = useStore();
   const { t } = useLocalization({ screen: 'sign_in' });
   const [refPassword, onEditedEmail] = useFocusInput();
 
-  const onSubmit = ({ confirm, phone, ...values }) => {
+  const onSubmit = (values) => {
     store?.auth?.signIn.run(values);
   };
 
@@ -39,7 +39,7 @@ export const SignIn = observer((props: SignUpProps) => {
   });
 
   const onGoToSignUp = () => {
-    NavigationService.navigate(screens.SignUp);
+    Navigation.navigate(screens.SignUp);
   };
 
   return (
@@ -52,6 +52,7 @@ export const SignIn = observer((props: SignUpProps) => {
         containerStyle={styles.marginBottomM}
         returnKeyType="next"
         onEndEditing={onEditedEmail}
+        autoCapitalize="none"
         keyboardType="email-address"
         autoCompleteType="email"
         {...fields.email}
@@ -67,11 +68,7 @@ export const SignIn = observer((props: SignUpProps) => {
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
         {...fields.password}
       />
-      <Button
-        title={t('sign_in_btn')}
-        onPress={() => console.log('Pressed')}
-        disabled={!formik.isValid}
-      />
+      <Button title={t('sign_in_btn')} onPress={formik.handleSubmit} disabled={!formik.isValid} />
       <Touchable onPress={onGoToSignUp} style={s.footerContainer}>
         <Text color={colors.placeholder} text={`${t('sign_up_btn')}  `} />
         <Text color={colors.primary} text={t('to_reg_link')} />

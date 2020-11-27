@@ -16,6 +16,10 @@ class Api {
   setAuthToken(token: string) {
     common.Authorization = token ? `Bearer ${token}` : undefined;
   }
+  signUp = (params: { name: string, email: string, password: string }) =>
+    this.post('auth/register', params);
+  signIn = (params: { email: string, password: string }) => this.post('auth/login', params);
+  signOut = () => this.post('auth/logout');
 }
 
 export const ApiService = new Api(config.API_URL);

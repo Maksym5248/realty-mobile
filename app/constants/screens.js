@@ -2,4 +2,6 @@
 export const screens = Object.freeze({
   SignIn: 'SignIn',
   SignUp: 'SignUp',
+
+  Home: 'Home',
 });

@@ -26,6 +26,7 @@
   "sign_up": {
     "title": "Реєстрація",
     "sign_up_btn": "Реєстрація",
+    "name": "Ім'я",
     "email": "Email",
     "password": "Пароль"
   },
@@ -36,5 +37,8 @@
     "to_reg_link": "Реєстрація",
     "email": "Email",
     "password": "Пароль"
+  },
+  "home": {
+    "title": "Home"
   }
 }

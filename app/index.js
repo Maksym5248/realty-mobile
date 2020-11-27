@@ -11,7 +11,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { RootNavigation } from '~/navigation';
 import { LocalizationProvider } from '~/localization';
 import { RootStoreProvider, createStore } from '~/store';
-import { NavigationService, ModalProvider } from '~/services';
+import { Navigation, ModalProvider, AlertProvider } from '~/services';
 import { modals } from '~/modals';
 import { theme } from '~/styles';
 
@@ -34,12 +34,13 @@ const App = observer(() => {
 
   return (
     <LocalizationProvider>
-      <RootStoreProvider>
+      <RootStoreProvider value={store}>
         <SafeAreaProvider>
           <PaperProvider theme={theme}>
             <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
-            <RootNavigation ref={NavigationService.init} />
+            <RootNavigation ref={Navigation.init} />
             <ModalProvider modals={modals} />
+            <AlertProvider />
           </PaperProvider>
         </SafeAreaProvider>
       </RootStoreProvider>

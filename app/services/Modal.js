@@ -66,12 +66,6 @@ class ModalServiceClass {
 
     this.send();
   }
-  showLoading = () => {
-    this.show(modalsConstants.Loading);
-  };
-  hideLoading = () => {
-    this.hide(modalsConstants.Loading);
-  };
   removeVisibleModal(name: string) {
     delete this._visibleModals[name];
     this.send();

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { useLocalization } from '~/localization';
-import { useStores } from '~/store';
+import { useStore } from '~/store';
 import { Input, KeyboardAwareScrollView, Button, Text } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
@@ -14,21 +14,24 @@ import { s } from './styles';
 import { type SignUpProps } from './types';
 
 const validationSchema = validation.shape({
+  name: validation.name,
   email: validation.email,
   password: validation.password,
 });
 
 export const SignUp = observer((props: SignUpProps) => {
-  const store = useStores();
+  const store = useStore();
   const { t } = useLocalization({ screen: 'sign_up' });
   const [refPassword, onEditedEmail] = useFocusInput();
+  const [refEmail, onEditedName] = useFocusInput();
 
-  const onSubmit = ({ confirm, phone, ...values }) => {
+  const onSubmit = (values) => {
     store?.auth?.signUp.run(values);
   };
 
   const { formik, fields } = useForm({
     initialValues: {
+      name: '',
       email: '',
       password: '',
     },
@@ -42,12 +45,21 @@ export const SignUp = observer((props: SignUpProps) => {
         <Text type="headline" text={t('title')} />
       </View>
       <Input
+        label={t('name')}
+        containerStyle={styles.marginBottomM}
+        returnKeyType="next"
+        onEndEditing={onEditedName}
+        {...fields.name}
+      />
+      <Input
         label={t('email')}
+        autoCapitalize="none"
         containerStyle={styles.marginBottomM}
         returnKeyType="next"
         onEndEditing={onEditedEmail}
         keyboardType="email-address"
         autoCompleteType="email"
+        ref={refEmail}
         {...fields.email}
       />
       <Input
@@ -61,11 +73,7 @@ export const SignUp = observer((props: SignUpProps) => {
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
         {...fields.password}
       />
-      <Button
-        title={t('sign_up_btn')}
-        onPress={() => console.log('Pressed')}
-        disabled={!formik.isValid}
-      />
+      <Button title={t('sign_up_btn')} onPress={formik.handleSubmit} disabled={!formik.isValid} />
     </KeyboardAwareScrollView>
   );
 });

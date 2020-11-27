@@ -1,7 +1,6 @@
 // @flow
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { RootStore } from '../stores/rootStore';
-import { observer } from 'mobx-react';
 
 /**
  * Create a context we can use to
@@ -19,15 +18,7 @@ export const RootStoreConsumer = RootStoreContext.Consumer;
 
 /**
  * A hook that screens can use to gain access to our stores, with
- * `const { someStore, someOtherStore } = useStores()`,
- * or less likely: `const rootStore = useStores()`
+ * `const { someStore, someOtherStore } = useStore()`,
+ * or less likely: `const rootStore = useStore()`
  */
-export const useStores = () => useContext<RootStore>(RootStoreContext);
-export const withStores = (mapStateToProps: (value: Object) => Object = (value) => null) => (
-  Component: any,
-) => (props: Object) => {
-  const store = useStores();
-  const storeProps = mapStateToProps(store) || {};
-  const ObservedComponent = observer(Component);
-  return <ObservedComponent {...props} {...storeProps} />;
-};
+export const useStore = () => useContext<RootStore>(RootStoreContext);
