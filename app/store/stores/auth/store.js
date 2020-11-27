@@ -22,9 +22,10 @@ export const AuthStore = t
     },
   }));
 
-function authenticate({ token, user }) {
+function authenticate({ tokens, user }) {
   return async (flow, store, root) => {
-    await SecureStore.set(secureStorage.AUTH_TOKEN, token);
+    await SecureStore.set(secureStorage.AUTH_TOKEN, tokens);
+
     root.viewer.setUser(user);
 
     store.setAuthorizationStatus(true);
@@ -36,7 +37,7 @@ function signUp(params) {
     try {
       flow.start();
       const { data } = await flow.Api.signUp(params);
-      await store.authenticate.run({ token: data.tokens.access.token, user: data.user });
+      await store.authenticate.run(data);
       flow.success();
     } catch (e) {
       Alert.show(error.get(e));
@@ -52,7 +53,7 @@ function signIn(params) {
 
       const { data } = await flow.Api.signIn(params);
 
-      await store.authenticate.run({ token: data.tokens.access.token, user: data.user });
+      await store.authenticate.run(data);
 
       flow.success();
     } catch (e) {
@@ -62,14 +63,17 @@ function signIn(params) {
   };
 }
 
-function signOut(params) {
+function signOut() {
   return async (flow, store, root) => {
     try {
       flow.start();
+      const tokens = await SecureStore.get(secureStorage.REFRESH_AUTH_TOKEN);
 
-      await flow.Api.signOut(params);
-      root.viewer.setUser(null);
+      await flow.Api.signOut({ refreshToken: tokens.refresh.token });
       await SecureStore.remove(secureStorage.AUTH_TOKEN);
+
+      store.setAuthorizationStatus(false);
+      root.viewer.setUser(null);
 
       flow.success();
     } catch (e) {

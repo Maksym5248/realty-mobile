@@ -9,6 +9,8 @@ import { asyncAction } from '../../utils';
 export const ViewerStore = t
   .model('Viewer', {
     user: t.maybe(CurrentUserModel),
+
+    getUser: asyncAction(getUser),
   })
   .actions((store) => ({
     setUser(user) {
@@ -16,3 +18,19 @@ export const ViewerStore = t
       store.user = newUser;
     },
   }));
+
+function getUser(retry) {
+  return async (flow, store, root) => {
+    try {
+      flow.start(retry);
+
+      const res = await flow.Api.getCurrentUser();
+
+      store.setUser(res.data);
+
+      flow.success();
+    } catch (e) {
+      flow.failed(e);
+    }
+  };
+}
