@@ -68,7 +68,12 @@ export const SignIn = observer((props: SignUpProps) => {
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
         {...fields.password}
       />
-      <Button title={t('sign_in_btn')} onPress={formik.handleSubmit} disabled={!formik.isValid} />
+      <Button
+        loading={store?.auth?.signIn.inProgress}
+        title={t('sign_in_btn')}
+        onPress={formik.handleSubmit}
+        disabled={!formik.isValid}
+      />
       <Touchable onPress={onGoToSignUp} style={s.footerContainer}>
         <Text color={colors.placeholder} text={`${t('sign_up_btn')}  `} />
         <Text color={colors.primary} text={t('to_reg_link')} />

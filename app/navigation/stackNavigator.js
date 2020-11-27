@@ -1,4 +1,5 @@
 import React from 'react';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
@@ -8,6 +9,8 @@ import { useLocalization } from '~/localization';
 import * as components from '~/screens';
 import { useStore } from '~/store';
 import { colors } from '~/styles';
+
+import { TabsNavigator } from './tabsNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +22,20 @@ export const StackNavigator = observer(() => {
     screenOptions: { headerShown: true, headerTintColor: colors.primary },
     initialRouteName: screens.SignIn,
   };
+
+  function getHeaderTitle(route) {
+    const routeName = getFocusedRouteNameFromRoute(route) ?? screens.Main;
+
+    switch (routeName) {
+      case screens.Main:
+        return t('main.title');
+      case screens.Settings:
+        return t('settings.title');
+      case 'stub1':
+      case 'stub2':
+        return 'Stub';
+    }
+  }
 
   return (
     store?.isInitialized && (
@@ -43,16 +60,16 @@ export const StackNavigator = observer(() => {
           </>
         )}
 
-        {/* Home */}
+        {/* Main */}
         {store?.auth?.isAuthorized && (
           <>
             <Stack.Screen
-              name={screens.Home}
-              options={{
-                title: t('home.title'),
+              name="TabsNavigator"
+              options={({ route }) => ({
+                title: getHeaderTitle(route),
                 replaceAnimation: 'push',
-              }}
-              component={components.Home}
+              })}
+              component={TabsNavigator}
             />
           </>
         )}

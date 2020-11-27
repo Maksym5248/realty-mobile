@@ -38,7 +38,11 @@
     "email": "Email",
     "password": "Пароль"
   },
-  "home": {
-    "title": "Home"
+  "main": {
+    "title": "Головна"
+  },
+  "settings": {
+    "title": "Налаштування",
+    "sign_out": "Вийти"
   }
 }

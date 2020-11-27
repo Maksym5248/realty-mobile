@@ -9,14 +9,14 @@ import { Text } from '~/components';
 import { styles, colors } from '~/styles';
 
 import { s } from './styles';
-import { type HomeProps } from './types';
+import { type MainProps } from './types';
 
-export const Home = observer((props: HomeProps) => {
+export const Main = observer((props: MainProps) => {
   const store = useStore();
 
   return (
     <View style={styles.container}>
-      <Text color={colors.placeholder} text="home" />
+      <Text color={colors.placeholder} text="Main" />
     </View>
   );
 });

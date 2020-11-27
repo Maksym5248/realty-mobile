@@ -24,6 +24,9 @@ class NavigationService {
   reset = (state) => {
     this.nav.dispatch(CommonActions.reset(state));
   };
+  addListener = (name, func) => {
+    return this.nav.addListener(name, func);
+  };
 }
 
 export const Navigation = new NavigationService();

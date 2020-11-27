@@ -73,7 +73,12 @@ export const SignUp = observer((props: SignUpProps) => {
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
         {...fields.password}
       />
-      <Button title={t('sign_up_btn')} onPress={formik.handleSubmit} disabled={!formik.isValid} />
+      <Button
+        loading={store?.auth?.signUp.inProgress}
+        title={t('sign_up_btn')}
+        onPress={formik.handleSubmit}
+        disabled={!formik.isValid}
+      />
     </KeyboardAwareScrollView>
   );
 });

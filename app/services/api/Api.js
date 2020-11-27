@@ -19,7 +19,7 @@ class Api {
   signUp = (params: { name: string, email: string, password: string }) =>
     this.post('auth/register', params);
   signIn = (params: { email: string, password: string }) => this.post('auth/login', params);
-  signOut = () => this.post('auth/logout');
+  signOut = (params: { refreshToken: string }) => this.post('auth/logout', params);
 }
 
 export const ApiService = new Api(config.API_URL);
