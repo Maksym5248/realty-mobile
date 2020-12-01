@@ -22,7 +22,7 @@ class Api {
   signOut = (params: { refreshToken: string }) => this.post('auth/logout', params);
   refreshTokens = (params: { refreshToken: string }) => this.post('auth/refresh-tokens', params);
 
-  getCurrentUser = () => (id: string) => this.get(`users/${id}`);
+  getCurrentUser = () => this.get('users/current');
 }
 
 export const ApiService = new Api(config.API_URL);

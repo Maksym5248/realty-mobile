@@ -49,7 +49,7 @@ export const RootStore = types
       try {
         yield localization.init();
         yield store.initTokens();
-        // yield store.viewer.getUser.run();
+        yield store.viewer.getUser.run();
 
         store.auth.setAuthorizationStatus(true);
       } catch (err) {
