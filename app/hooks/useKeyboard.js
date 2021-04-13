@@ -5,13 +5,15 @@ import { device } from '~/utils';
 const SHOW_EVENT = device.isAndroid ? 'keyboardDidShow' : 'keyboardWillShow';
 const HIDE_EVENT = device.isAndroid ? 'keyboardDidHide' : 'keyboardWillHide';
 
+const initialEvent = {
+  endCoordinates: {
+    height: 0,
+  },
+};
+
 export const useKeyboard = () => {
   const [state, setState] = useState({
-    event: {
-      endCoordinates: {
-        height: 0,
-      },
-    },
+    event: { ...initialEvent },
     isVisible: false,
   });
 
@@ -20,7 +22,7 @@ export const useKeyboard = () => {
   }, []);
 
   const onHide = useCallback(() => {
-    setState((prev) => ({ ...prev, isVisible: false }));
+    setState((prev) => ({ ...prev, event: { ...initialEvent }, Visible: false }));
   }, []);
 
   useEffect(() => {
