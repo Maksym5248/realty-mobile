@@ -21,10 +21,12 @@ export const useForm = (params = {}) => {
     };
   };
 
-  const fields = Object.keys(formik.values).reduce((prev, key) => {
-    prev[key] = getField(key);
-    return prev;
-  }, {});
+  const fields = formik.values
+    ? Object.keys(formik.values).reduce((prev, key) => {
+        prev[key] = getField(key);
+        return prev;
+      }, {})
+    : {};
 
   return {
     formik,

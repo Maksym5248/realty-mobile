@@ -10,7 +10,8 @@
     "lint": "eslint *.js ./app --fix",
     "clean": "/bin/sh ./bin/clean.sh",
     "clean-android": "cd android && ./gradlew cleanBuildCache",
-    "postinstall": "node ./bin/postInstall",
+    "code-push": "/bin/sh ./scripts/code-push.sh",
+    "reset": "npm run clean && npm install && cd ios && pod install",
     "apk": "cd android && ./gradlew assembleRelease",
     "bundle": "cd android && ./gradlew bundleRelease"
   },
