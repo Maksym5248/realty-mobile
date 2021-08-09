@@ -1,4 +1,4 @@
 export * from './device';
 export * from './error';
-export * from './layoutConfig';
+export * from './animation';
 export * from './validation';

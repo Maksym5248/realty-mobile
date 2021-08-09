@@ -1,6 +1,6 @@
 #!/bin/bash
 
-simulator="iPhone 8"
+simulator="iPhone 8 (12.2)"
 # simulator="iPhone 5s"
 # simulator="iPhone X"
 

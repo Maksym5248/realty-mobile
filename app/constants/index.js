@@ -1,5 +1,5 @@
 // @flow
 export * from './modals';
 export * from './screens';
-export * from './secureStorage';
+export * from './secure-storage';
 export * from './storage';

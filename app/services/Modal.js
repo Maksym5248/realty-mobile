@@ -3,7 +3,6 @@ import React, { type ElementType } from 'react';
 import Modal from 'react-native-modal';
 import { v4 as uuid } from 'uuid';
 import { styles } from '~/styles';
-import { modals as modalsConstants } from '~/constants';
 
 type ModalType = {
   name: string,
@@ -111,6 +110,8 @@ type ModalProviderState = {
 
 export class ModalProvider extends React.PureComponent<ModalProviderProps, ModalProviderState> {
   _removeListener: () => void;
+  hide: (name: string) => void;
+
   constructor(props: ModalProviderProps) {
     super(props);
     this.state = {

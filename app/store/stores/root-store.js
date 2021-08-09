@@ -19,6 +19,9 @@ export const RootStore = types
     get Api() {
       return getEnv(store).Api;
     },
+    get SecureStore() {
+      return getEnv(store).SecureStore;
+    },
   }))
   .actions((store) => ({
     initTokens: flow(function* initTokens() {

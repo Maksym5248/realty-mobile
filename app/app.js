@@ -19,7 +19,7 @@ enableScreens();
 
 const { store, persist } = createStore();
 
-const App = observer(() => {
+export const App = observer(() => {
   useEffect(() => {
     (async () => {
       try {
@@ -47,5 +47,3 @@ const App = observer(() => {
     </LocalizationProvider>
   );
 });
-
-export default App;

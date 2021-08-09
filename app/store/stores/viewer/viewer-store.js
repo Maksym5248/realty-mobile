@@ -1,9 +1,6 @@
 import { types as t } from 'mobx-state-tree';
 
-import { SecureStore } from '~/services';
-import { secureStorage } from '~/constants';
-
-import { CurrentUserModel } from './CurrentUser';
+import { CurrentUserModel } from './current-user';
 import { asyncAction } from '../../utils';
 
 export const ViewerStore = t

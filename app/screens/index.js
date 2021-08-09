@@ -1,6 +1,6 @@
-export * from './Auth/SignIn';
-export * from './Auth/SignUp';
-export * from './Main/Main';
-export * from './Settings/Settings';
+export * from './auth/sign-in';
+export * from './auth/sign-up';
+export * from './main/main';
+export * from './settings/settings';
 
-export * from './Stub';
+export * from './stub';

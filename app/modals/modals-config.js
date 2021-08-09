@@ -2,7 +2,7 @@
 import React from 'react';
 import { modals as modalsNames } from '~/constants';
 
-import { Loading } from './Loading';
+import { Loading } from './loading';
 
 export const modals = {
   [modalsNames.Loading]: {

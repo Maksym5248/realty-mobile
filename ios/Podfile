@@ -6,41 +6,31 @@ platform :ios, '10.0'
 target 'realty' do
   config = use_native_modules!
 
-  use_react_native!(:path => config["reactNativePath"])
-
-  target 'realtyTests' do
-    inherit! :complete
-    # Pods for testing
-  end
+  use_react_native!(
+    :path => config[:reactNativePath],
+    # to enable hermes on iOS, change `false` to `true` and then install pods
+    :hermes_enabled => false
+  )
 
   # Enables Flipper.
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable these next few lines.
-  use_flipper!
+  use_flipper!()
   post_install do |installer|
-    flipper_post_install(installer)
+    react_native_post_install(installer)
     
     ## Fix for XCode 12.5
-    find_and_replace(
-      "../node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm",
-      "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules",
-      "_initializeModules:(NSArray<Class> *)modules"
-    )
-    find_and_replace(
-      "../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm",
-      "RCTBridgeModuleNameForClass(module))",
-      "RCTBridgeModuleNameForClass(Class(module)))"
-    )
-  end
-end
-
-target 'realty-tvOS' do
-  # Pods for realty-tvOS
-
-  target 'realty-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
+    # find_and_replace(
+    #   "../node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm",
+    #   "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules",
+    #   "_initializeModules:(NSArray<Class> *)modules"
+    # )
+    # find_and_replace(
+    #   "../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm",
+    #   "RCTBridgeModuleNameForClass(module))",
+    #   "RCTBridgeModuleNameForClass(Class(module)))"
+    # )
   end
 end
 

@@ -19,7 +19,16 @@ const types = {
   headline: Headline,
 };
 
-export const Text = ({ type = 'text', text, children, color, size, style, onPress }: TextProps) => {
+export const Text = ({
+  type = 'text',
+  text,
+  children,
+  color,
+  size,
+  style,
+  onPress,
+  testID,
+}: TextProps) => {
   const Component = types[type];
 
   const additionalStyles = {};
@@ -35,7 +44,7 @@ export const Text = ({ type = 'text', text, children, color, size, style, onPres
   }
 
   return (
-    <Component onPress={onPress} style={[style, additionalStyles]}>
+    <Component testID={testID} onPress={onPress} style={[style, additionalStyles]}>
       {text || children}
     </Component>
   );

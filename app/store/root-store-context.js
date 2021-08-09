@@ -1,6 +1,6 @@
 // @flow
 import { createContext, useContext } from 'react';
-import { RootStore } from '../stores/rootStore';
+import { RootStore } from './stores';
 
 /**
  * Create a context we can use to

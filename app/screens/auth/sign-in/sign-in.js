@@ -55,6 +55,7 @@ export const SignIn = observer((props: SignUpProps) => {
         autoCapitalize="none"
         keyboardType="email-address"
         autoCompleteType="email"
+        testID="input.email"
         {...fields.email}
       />
       <Input
@@ -66,6 +67,7 @@ export const SignIn = observer((props: SignUpProps) => {
         secureTextEntry
         autoCompleteType="password"
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
+        testID="input.password"
         {...fields.password}
       />
       <Button
@@ -73,8 +75,9 @@ export const SignIn = observer((props: SignUpProps) => {
         title={t('sign_in_btn')}
         onPress={formik.handleSubmit}
         disabled={!formik.isValid}
+        testID="button.sign_in"
       />
-      <Touchable onPress={onGoToSignUp} style={s.footerContainer}>
+      <Touchable onPress={onGoToSignUp} style={s.footerContainer} testID="touchable.go_to_sign_up">
         <Text color={colors.placeholder} text={`${t('sign_up_btn')}  `} />
         <Text color={colors.primary} text={t('to_reg_link')} />
       </Touchable>

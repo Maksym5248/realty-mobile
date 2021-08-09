@@ -33,4 +33,9 @@ export type TextProps = {
    * Text which is looked up via i18n.
    */
   onPress?: () => void,
+
+  /**
+   * Size of text.
+   */
+  testID?: string,
 };

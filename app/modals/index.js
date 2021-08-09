@@ -1,1 +1,1 @@
-export * from './modalsConfig';
+export * from './modals-config';

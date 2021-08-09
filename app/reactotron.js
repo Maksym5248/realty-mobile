@@ -6,9 +6,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 const noop = () => undefined;
 declare var console: { tron: typeof Tron };
 
-const host = NativeModules.SourceCode.scriptURL.split('://')[1].split(':')[0];
-
 if (__DEV__) {
+  const host = (NativeModules.SourceCode.scriptURL || 'localhost://9998')
+    .split('://')[1]
+    .split(':')[0];
+
   console.tron = Tron; // attach reactotron to `console.tron`
 
   Tron.setAsyncStorageHandler(AsyncStorage)

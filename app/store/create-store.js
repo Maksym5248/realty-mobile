@@ -1,10 +1,8 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import { ApiService, SecureStore, Storage } from '~/services';
 
-import { ApiService } from '~/services';
-
-import { RootStore } from '../stores/rootStore';
-import { createPersist } from './createPersist';
-import { serialize } from '../persist';
+import { RootStore } from './stores';
+import { serialize } from './persist';
+import { createPersist } from './utils';
 
 /**
  * Setup the environment that all the models will be sharing.
@@ -19,7 +17,8 @@ import { serialize } from '../persist';
  */
 export function createStore(initialState = {}) {
   const store = RootStore.create(initialState, {
-    Storage: AsyncStorage,
+    Storage: Storage,
+    SecureStore: SecureStore,
     Api: ApiService,
   });
 

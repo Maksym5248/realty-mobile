@@ -29,10 +29,6 @@ function setStatusBarHeight() {
   const { StatusBarManager } = NativeModules;
   statusBarHeight = 0; // so there will be a value for any case
   statusBarHeight = isIOS ? 20 : StatusBarManager.HEIGHT;
-  if (isIOS) {
-    // override guesstimate height with the actual height from StatusBarManager
-    StatusBarManager.getHeight((data: any) => (statusBarHeight = data.height));
-  }
 }
 
 function getAspectRatio() {
@@ -50,7 +46,7 @@ function getOrientation(height: number, width: number) {
   return width < height ? orientations.PORTRAIT : orientations.LANDSCAPE;
 }
 
-export function updateConstants(dimensions: any) {
+function updateConstants(dimensions: any) {
   screenHeight = dimensions.screen.height;
   screenWidth = dimensions.screen.width;
   windowWidth = dimensions.window.width;

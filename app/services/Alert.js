@@ -35,6 +35,8 @@ class AlertService {
 
 export const Alert = new AlertService();
 
+const wrapperStyle = { marginBottom: 30 };
+
 export const AlertProvider = () => {
   const [data, setData] = useState({ ...initialData });
 
@@ -52,7 +54,7 @@ export const AlertProvider = () => {
     <Snackbar
       visible={data.isVisible}
       onDismiss={onDismissSnackBar}
-      wrapperStyle={{ marginBottom: 30 }}
+      wrapperStyle={wrapperStyle}
       action={{
         label: data.buttonLabel,
         onPress: data?.onPress || onDismissSnackBar,

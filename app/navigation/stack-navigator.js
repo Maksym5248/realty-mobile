@@ -10,7 +10,7 @@ import * as components from '~/screens';
 import { useStore } from '~/store';
 import { colors } from '~/styles';
 
-import { TabsNavigator } from './tabsNavigator';
+import { TabsNavigator } from './tabs-navigator';
 
 const Stack = createNativeStackNavigator();
 

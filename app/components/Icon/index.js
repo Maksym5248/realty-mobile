@@ -1,3 +1,3 @@
 // @flow
-export * from './Icon';
+export * from './icon';
 export * from './types';

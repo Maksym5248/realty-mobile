@@ -1,11 +1,10 @@
 import { useFormik } from 'formik';
-
 import { useLocalization } from '~/localization';
 
 export const useForm = (params = {}) => {
   const { t } = useLocalization();
   const formik = useFormik({
-    isInitialValid: false,
+    validateOnMount: true,
     ...params,
   });
 

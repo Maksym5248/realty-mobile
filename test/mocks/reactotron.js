@@ -1,9 +1,28 @@
 jest.mock('reactotron-react-native', () => {
   return {
-    configure: jest.fn(),
-    useReactNative: jest.fn(),
-    use: jest.fn(),
-    connect: jest.fn(),
-    setAsyncStorageHandler: jest.fn(),
+    trackGlobalErrors: jest.fn(),
+    openInEditor: jest.fn(),
+    setAsyncStorageHandler: () => ({
+      configure: () => ({
+        useReactNative: () => ({
+          use: () => ({
+            use: () => ({
+              connect: () => ({
+                createEnhancer: jest.fn(),
+              }),
+            }),
+          }),
+        }),
+      }),
+    }),
   };
 });
+
+// Tron.setAsyncStorageHandler(AsyncStorage)
+// .configure({ host })
+// .useReactNative({
+//   storybook: true,
+// })
+// .use(trackGlobalErrors())
+// .use(openInEditor())
+// .connect();
