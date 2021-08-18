@@ -1,6 +1,6 @@
 // @flow
 import React, { type ElementType } from 'react';
-import Modal from 'react-native-modal';
+import ModalUI from 'react-native-modal';
 import { v4 as uuid } from 'uuid';
 import { styles } from '~/styles';
 
@@ -12,6 +12,7 @@ type ModalType = {
   renderComponent: (value: any) => ElementType,
   isVisible?: boolean,
 };
+
 type ModalsMap = {
   [key: string]: ModalType,
 };
@@ -97,7 +98,7 @@ class ModalServiceClass {
   };
 }
 
-export const ModalService = new ModalServiceClass();
+export const Modal = new ModalServiceClass();
 
 type ModalProviderProps = {
   modals: ModalsMap,
@@ -115,7 +116,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
   constructor(props: ModalProviderProps) {
     super(props);
     this.state = {
-      modals: ModalService.registerModals(props.modals),
+      modals: Modal.registerModals(props.modals),
       visibleModals: {},
     };
 
@@ -123,7 +124,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
   }
 
   componentDidMount() {
-    this._removeListener = ModalService.addListener(async (nextState) => {
+    this._removeListener = Modal.addListener(async (nextState) => {
       this.setState({
         ...this.state,
         visibleModals: nextState,
@@ -136,11 +137,11 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
   }
 
   hide = (name: string) => {
-    ModalService.hide(name);
+    Modal.hide(name);
   };
 
   onModalHide = (name: string) => {
-    ModalService.removeVisibleModal(name);
+    Modal.removeVisibleModal(name);
   };
 
   render() {
@@ -160,7 +161,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
       );
 
       return (
-        <Modal
+        <ModalUI
           key={modal?.name}
           isVisible={visibleModal?.isVisible}
           style={[styles.modal, modal?.styles]}
@@ -170,7 +171,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
           onModalHide={() => this.onModalHide(modal.name)}
           {...propsForModal}>
           {modal.renderComponent(propsForComponent)}
-        </Modal>
+        </ModalUI>
       );
     });
   }
