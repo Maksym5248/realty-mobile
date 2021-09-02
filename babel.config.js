@@ -1,12 +1,13 @@
 module.exports = (api) => {
   const isProd = api.env('production');
-  
+
   const plugins = [
     [
       'module-resolver',
       {
         alias: {
           '~/components': './app/components',
+          '~/containers': './app/containers',
           '~/config': './app/config',
           '~/constants': './app/constants',
           '~/hooks': './app/hooks',
@@ -23,14 +24,14 @@ module.exports = (api) => {
       },
     ],
     ['@babel/plugin-proposal-optional-chaining'],
- ];
+  ];
 
   if (!isProd) {
     plugins.push(['transform-remove-console']);
   }
 
   return {
-    presets: ['module:metro-react-native-babel-preset', '@babel/preset-flow'],
+    presets: ['module:metro-react-native-babel-preset'],
     plugins,
   };
 };

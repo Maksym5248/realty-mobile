@@ -25,3 +25,8 @@ TODO:
 - rewirite it with typescript
 - setup eslint rules and use ts lint rules
 - finish test, where to write integration test ?
+
+
+// eslint config
+// editor config
+// pritter with eslint

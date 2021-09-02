@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "jsx": "react-native",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "strict": true, 
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/components": ["./app/components"],
+      "~/containers": ["./app/containers"],
+      "~/config": ["./app/config"],
+      "~/constants": ["./app/constants"],
+      "~/hooks": ["./app/hooks"],
+      "~/localization": ["./app/localization"],
+      "~/modals": ["./app/modals"],
+      "~/store": ["./app/store"],
+      "~/navigation": ["./app/navigation"],
+      "~/screens": ["./app/screens"],
+      "~/services": ["./app/services"],
+      "~/styles": ["./app/styles"],
+      "~/types": ["./app/types"],
+      "~/utils": ["./app/utils"],
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "jest.config.js"
+  ],
+  "include": [
+    "./app",
+    "./test",
+    "./index.js",
+    "./App.tsx",
+  ]
+}
