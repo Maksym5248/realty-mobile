@@ -36,15 +36,16 @@
     }
   },
   "exclude": [
-    "node_modules",
-    "babel.config.js",
-    "metro.config.js",
-    "jest.config.js"
+    "./node_modules",
+    "./babel.config.js",
+    "./metro.config.js",
+    "./jest.config.js",
   ],
   "include": [
     "./app",
     "./test",
+    "./index.js",
     "./App.tsx",
-    "babel.config.js"
+    "./babel.config.js"
   ]
 }

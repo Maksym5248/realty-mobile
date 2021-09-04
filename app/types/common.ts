@@ -9,7 +9,7 @@ export type ImageStyle = ViewStyleProp;
 export type ID = string;
 
 type ref = { current: ElementRef<ElementType> | null };
-export type Ref = ref | ((ref) => void);
+export type Ref = ref | (() => void);
 export type Event = Object;
 export type AnimatedInterpolation = Object;
 export type Node = any;
