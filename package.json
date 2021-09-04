@@ -12,7 +12,8 @@
     "clean-android": "cd android && ./gradlew cleanBuildCache",
     "reset": "yarn clean-cache && yarn install && cd ios && pod install",
     "apk": "cd android && ./gradlew assembleRelease",
-    "bundle": "cd android && ./gradlew bundleRelease"
+    "bundle": "cd android && ./gradlew bundleRelease",
+    "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
