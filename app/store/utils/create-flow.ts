@@ -68,7 +68,6 @@ export const asyncModel = types
       }
 
       if (__DEV__ && process.env.JEST_WORKER_ID === undefined) {
-        // eslint-disable-next-line global-require
         const Reactotron = require('reactotron-react-native').default;
         const { message, stack } = err;
         if (stack) {
