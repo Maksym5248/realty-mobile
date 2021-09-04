@@ -6,12 +6,6 @@ module.exports = {
     jest: true,
     node: true,
   },
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    project: './tsconfig.json',
-  },
   settings: {
     'import/resolver': {
       'babel-module': {
