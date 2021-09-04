@@ -1,12 +1,11 @@
 import React from 'react';
+
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { useStore } from '~/store';
 import { useLocalization } from '~/localization';
-
 import { Button } from '~/components';
-
 import { styles } from '~/styles';
 
 import { s } from './settings.styles';

@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
+
 import { View } from 'react-native';
+
 import { Spinner } from '~/components';
 import { colors } from '~/styles';
 

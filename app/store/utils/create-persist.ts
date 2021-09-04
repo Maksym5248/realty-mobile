@@ -1,8 +1,8 @@
 // /* eslint-disable implicit-arrow-linebreak */
 
 import AsyncStorage from '@react-native-community/async-storage';
-
 import { onSnapshot, applySnapshot } from 'mobx-state-tree';
+
 import { storage } from '~/constants';
 
 const defaultProcessor = (v) => v;

@@ -1,10 +1,10 @@
 import React from 'react';
+
 import { ScrollView as ScrollViewRN, RefreshControl } from 'react-native';
 
 import { colors } from '~/styles';
 
 import { Spinner } from '../spinner';
-
 import { ScrollViewProps } from './scroll-view.types';
 import { s } from './scroll-view.styles';
 

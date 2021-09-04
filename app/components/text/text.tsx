@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Caption,
   Title,
@@ -7,6 +8,7 @@ import {
   Paragraph,
   Headline,
 } from 'react-native-paper';
+
 import { TextProps } from './text.types';
 
 const types = {

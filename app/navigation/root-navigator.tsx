@@ -1,4 +1,5 @@
 import React, { forwardRef } from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 
 import { StackNavigator } from './stack-navigator';

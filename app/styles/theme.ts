@@ -1,4 +1,5 @@
 import { DefaultTheme } from 'react-native-paper';
+
 import { colors } from './colors';
 import { dimensions } from './dimensions';
 

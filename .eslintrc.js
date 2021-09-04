@@ -1,11 +1,12 @@
 module.exports = {
   root: true,
   parser: 'babel-eslint',
-  extends: ['@react-native-community'],
+  extends: ['@react-native-community', 'plugin:import/recommended'],
   env: {
     jest: true,
     node: true,
   },
+  plugins: ['import'],
   settings: {
     'import/resolver': {
       'babel-module': {
@@ -25,16 +26,37 @@ module.exports = {
         '~/utils': './app/utils',
       },
     },
+    'import/ignore': ['react-native'],
     node: true,
   },
   rules: {
-    // 'import/prefer-default-export': 0,
-    // 'import/no-default-export': 'error',
+    'import/no-unresolved': 0,
+    'import/order': [
+      'error',
+      {
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'builtin',
+            position: 'before',
+          },
+          {
+            pattern: '~/**',
+            group: 'internal',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        groups: [['builtin'], ['external'], ['internal'], ['parent', 'sibling'], ['object']],
+        'newlines-between': 'always',
+      },
+    ],
+    'import/newline-after-import': 'error',
+    'import/no-default-export': 'error',
+    'import/no-self-import': 'error',
+    'import/no-cycle': ['error', { maxDepth: Infinity }],
+    'import/no-useless-path-segments': 'error',
     // 'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     // 'jsx-a11y/href-no-hash': 'off',
-    // 'import/no-cycle': 0,
-    // 'import/order': 0,
-    // 'import/prefer-default-export': 0,
     // 'no-console': 0,
     // 'max-classes-per-file': 0,
     // 'comma-dangle': [

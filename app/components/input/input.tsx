@@ -1,4 +1,5 @@
 import React, { forwardRef, Ref } from 'react';
+
 import { View, UIManager, LayoutAnimation } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
@@ -7,7 +8,6 @@ import { useOnChange } from '~/hooks';
 import { layoutConfig } from '~/utils';
 
 import { Text } from '../text';
-
 import { InputProps } from './input.types';
 import { s } from './input.styles';
 

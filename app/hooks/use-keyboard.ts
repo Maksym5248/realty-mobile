@@ -1,5 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
+
 import { Keyboard } from 'react-native';
+
 import { device } from '~/utils';
 
 const SHOW_EVENT = device.isAndroid ? 'keyboardDidShow' : 'keyboardWillShow';

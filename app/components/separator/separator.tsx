@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { View } from 'react-native';
+
 import { s } from './separator.styles';
 import { SeparatorProps } from './separator.types';
 

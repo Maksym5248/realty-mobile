@@ -1,4 +1,5 @@
 import SInfo from 'react-native-sensitive-info';
+
 import { config } from '~/config';
 
 /*

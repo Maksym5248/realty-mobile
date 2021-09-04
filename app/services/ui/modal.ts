@@ -1,6 +1,8 @@
 import React, { ElementType } from 'react';
+
 import ModalUI from 'react-native-modal';
 import { v4 as uuid } from 'uuid';
+
 import { styles } from '~/styles';
 
 interface ModalType {

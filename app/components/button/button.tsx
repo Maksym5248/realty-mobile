@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Button as ButtonPaper } from 'react-native-paper';
+
 import { ButtonPropsI } from './button.types';
 import { s } from './button.styles';
 

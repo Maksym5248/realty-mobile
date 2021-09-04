@@ -1,16 +1,15 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 
+import { observer } from 'mobx-react';
 import { View } from 'react-native';
+
 import { useLocalization } from '~/localization';
 import { useStore } from '~/store';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
-
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
 import { Navigation } from '~/services';
-
 import { screens } from '~/constants';
 
 import { s } from './sign-in.styles';

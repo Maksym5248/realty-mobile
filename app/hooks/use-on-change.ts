@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+
 import isEqual from 'lodash/isEqual';
 
 export const useOnChange = (func, props) => {

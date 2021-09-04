@@ -1,11 +1,11 @@
 import React from 'react';
+
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
 import { screens } from '~/constants';
 import { useLocalization } from '~/localization';
-
 import * as components from '~/screens';
 import { useStore } from '~/store';
 import { colors } from '~/styles';

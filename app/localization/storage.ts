@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
+
 import { storage as s } from '~/constants';
 
 const save = async (newData = {}) => {

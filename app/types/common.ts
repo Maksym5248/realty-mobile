@@ -1,4 +1,5 @@
 import { ElementType, ElementRef } from 'react';
+
 import { ViewStyleProp, TextStyleProp } from 'react-native/Libraries/StyleSheet/StyleSheet';
 
 export type ViewStyle = ViewStyleProp;
