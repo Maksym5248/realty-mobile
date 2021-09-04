@@ -19,7 +19,6 @@ export const Icon = ({
   disabled,
   disabledColor = 'grey',
 }: IconProps) => {
-  // $FlowFixMe
   const CurrentIcon = icons[type];
   const isContainer = containerStyle || onPress;
 

@@ -5,7 +5,7 @@ import { Text } from '~/components';
 
 import { styles, colors } from '~/styles';
 
-export const Stub = (props) => (
+export const Stub = () => (
   <View style={styles.container}>
     <Text color={colors.placeholder} text="Stub" />
   </View>

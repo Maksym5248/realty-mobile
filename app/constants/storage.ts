@@ -1,12 +1,13 @@
 import { config } from '~/config';
 
-const addAppName = (appName, constants) => Object.entries(constants).reduce((acc, current) => {
-  const [key, value] = current;
+const addAppName = (appName, constants) =>
+  Object.entries(constants).reduce((acc, current) => {
+    const [key, value] = current;
 
-  acc[key] = `${appName}-${value}`;
+    acc[key] = `${appName}-${value}`;
 
-  return acc;
-}, {});
+    return acc;
+  }, {});
 
 export const storage = Object.freeze(
   addAppName(config.APP_NAME, {

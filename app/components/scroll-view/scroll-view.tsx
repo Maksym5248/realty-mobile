@@ -16,19 +16,17 @@ export const ScrollView = ({
   ...props
 }: ScrollViewProps) => (
   <>
-    {/* $FlowFixMe */}
     <ScrollViewRN
       refreshControl={
-          onRefresh ? (
-            <RefreshControl
-              tintColor={colors.primaryLight}
-              refreshing={isRefreshing}
-              onRefresh={onRefresh}
-            />
-          ) : undefined
-        }
-      {...props}
-    >
+        onRefresh ? (
+          <RefreshControl
+            tintColor={colors.primaryLight}
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+          />
+        ) : undefined
+      }
+      {...props}>
       {isLoading ? undefined : children}
     </ScrollViewRN>
     <Spinner isVisible={isLoading} style={s.spinner} />

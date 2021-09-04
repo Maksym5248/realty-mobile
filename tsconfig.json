@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "jsx": "react-native",
     "module": "es2015",
     "moduleResolution": "node",
-    "strict": true, 
     "noImplicitAny": false,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
     "sourceMap": true,
     "target": "esnext",
     "lib": [
@@ -42,7 +44,7 @@
   "include": [
     "./app",
     "./test",
-    "./index.js",
     "./App.tsx",
+    "babel.config.js"
   ]
 }

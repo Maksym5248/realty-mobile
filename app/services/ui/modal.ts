@@ -1,28 +1,31 @@
-// @flow
-import React, { type ElementType } from 'react';
+import React, { ElementType } from 'react';
 import ModalUI from 'react-native-modal';
 import { v4 as uuid } from 'uuid';
 import { styles } from '~/styles';
 
-type ModalType = {
-  name: string,
-  propsForComponent?: Object,
-  propsForModal?: Object,
-  styles?: Object,
-  renderComponent: (value: any) => ElementType,
-  isVisible?: boolean,
-};
+interface ModalType {
+  name: string;
+  propsForComponent?: Object;
+  propsForModal?: Object;
+  styles?: Object;
+  renderComponent: (value: any) => ElementType;
+  isVisible?: boolean;
+}
 
-type ModalsMap = {
-  [key: string]: ModalType,
-};
+interface ModalsMap {
+  [key: string]: ModalType;
+}
 
+interface IListener {
+  cb: () => void;
+  id: string;
+}
 class ModalServiceClass {
   _modals: Array<ModalType>;
 
   _visibleModals: ModalsMap;
 
-  _listeners: Function[];
+  _listeners: IListener[];
 
   constructor() {
     this._modals = [];
@@ -104,18 +107,16 @@ class ModalServiceClass {
 export const Modal = new ModalServiceClass();
 
 type ModalProviderProps = {
-  modals: ModalsMap,
+  modals: ModalsMap;
 };
 
 type ModalProviderState = {
-  modals: Array<ModalType>,
-  visibleModals: ModalsMap,
+  modals: Array<ModalType>;
+  visibleModals: ModalsMap;
 };
 
 export class ModalProvider extends React.PureComponent<ModalProviderProps, ModalProviderState> {
   _removeListener: () => void;
-
-  hide: (name: string) => void;
 
   constructor(props: ModalProviderProps) {
     super(props);
@@ -173,8 +174,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
           backdropOpacity={0.5}
           coverScreen={false}
           onModalHide={() => this.onModalHide(modal.name)}
-          {...propsForModal}
-        >
+          {...propsForModal}>
           {modal.renderComponent(propsForComponent)}
         </ModalUI>
       );

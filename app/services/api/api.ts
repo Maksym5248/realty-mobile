@@ -1,4 +1,3 @@
-// @flow
 import axios from 'axios';
 
 import { config } from '~/config';
@@ -20,9 +19,10 @@ class Api {
     common.Authorization = token ? `Bearer ${token}` : undefined;
   }
 
-  signUp = (params: { name: string, email: string, password: string }) => this.post('auth/register', params);
+  signUp = (params: { name: string; email: string; password: string }) =>
+    this.post('auth/register', params);
 
-  signIn = (params: { email: string, password: string }) => this.post('auth/login', params);
+  signIn = (params: { email: string; password: string }) => this.post('auth/login', params);
 
   signOut = (params: { refreshToken: string }) => this.post('auth/logout', params);
 

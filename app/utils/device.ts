@@ -1,7 +1,4 @@
-// @flow
-import {
-  AccessibilityInfo, Dimensions, I18nManager, NativeModules, Platform,
-} from 'react-native';
+import { AccessibilityInfo, Dimensions, I18nManager, NativeModules, Platform } from 'react-native';
 import { initialWindowMetrics } from 'react-native-safe-area-context';
 
 const orientations = {
@@ -150,11 +147,17 @@ export const device = {
     const orientation = getOrientation(screenHeight, screenWidth);
     return orientation === orientations.LANDSCAPE
       ? {
-        left: 44, right: 44, bottom: 24, top: 0,
-      }
+          left: 44,
+          right: 44,
+          bottom: 24,
+          top: 0,
+        }
       : {
-        left: 0, right: 0, bottom: 34, top: 44,
-      };
+          left: 0,
+          right: 0,
+          bottom: 34,
+          top: 44,
+        };
   },
 
   get isIphoneX() {

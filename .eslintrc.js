@@ -1,29 +1,17 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
-  extends: [
-    'airbnb',
-    'prettier',
-    'plugin:@typescript-eslint/recommended',
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:react-native/all",
-  ],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    project: "./tsconfig.json"
-  },
+  parser: 'babel-eslint',
+  extends: ['@react-native-community'],
   env: {
     jest: true,
     node: true,
   },
-  plugins: [
-    "@typescript-eslint",
-    "react",
-    "react-native"
-  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    project: './tsconfig.json',
+  },
   settings: {
     'import/resolver': {
       'babel-module': {
@@ -46,11 +34,9 @@ module.exports = {
     node: true,
   },
   rules: {
-    'import/extensions': 0,
-    'import/no-unresolved': 0,
-    'import/prefer-default-export': 0,
-    'import/no-default-export': 'error',
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }]
+    // 'import/prefer-default-export': 0,
+    // 'import/no-default-export': 'error',
+    // 'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     // 'jsx-a11y/href-no-hash': 'off',
     // 'import/no-cycle': 0,
     // 'import/order': 0,
@@ -90,12 +76,6 @@ module.exports = {
     // 'no-nested-ternary': 2,
     // 'function-paren-newline': 0,
     // 'global-require': 0,
-    // 'react/jsx-filename-extension': [
-    //   1,
-    //   {
-    //     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-    //   },
-    // ],
     // 'react/forbid-prop-types': 0,
     // 'react/no-typos': 0,
     // 'react/require-default-props': 0,

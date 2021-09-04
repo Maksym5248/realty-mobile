@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { modals as modalsNames } from '~/constants';
 

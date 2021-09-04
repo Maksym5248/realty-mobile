@@ -23,11 +23,9 @@ const mock = {
   // Provide a simpler implementation with default values.
   SafeAreaProvider: ({ children, initialMetrics }) => (
     <RNSafeAreaContext.SafeAreaFrameContext.Provider
-      value={initialMetrics?.frame ?? MOCK_INITIAL_METRICS.frame}
-    >
+      value={initialMetrics?.frame ?? MOCK_INITIAL_METRICS.frame}>
       <RNSafeAreaContext.SafeAreaInsetsContext.Provider
-        value={initialMetrics?.insets ?? MOCK_INITIAL_METRICS.insets}
-      >
+        value={initialMetrics?.insets ?? MOCK_INITIAL_METRICS.insets}>
         {children}
       </RNSafeAreaContext.SafeAreaInsetsContext.Provider>
     </RNSafeAreaContext.SafeAreaFrameContext.Provider>

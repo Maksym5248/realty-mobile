@@ -1,19 +1,15 @@
-// @flow
 import React from 'react';
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { useLocalization } from '~/localization';
 import { useStore } from '~/store';
-import {
-  Input, KeyboardAwareScrollView, Button, Text,
-} from '~/components';
+import { Input, KeyboardAwareScrollView, Button, Text } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
 import { styles } from '~/styles';
 
 import { s } from './sign-in.styles';
-import { SignUpProps } from './sign-up.types';
 
 const validationSchema = validation.shape({
   name: validation.name,
@@ -21,7 +17,7 @@ const validationSchema = validation.shape({
   password: validation.password,
 });
 
-export const SignUp = observer((props: SignUpProps) => {
+export const SignUp = observer(() => {
   const store = useStore();
   const { t } = useLocalization({ screen: 'sign_up' });
   const [refPassword, onEditedEmail] = useFocusInput();

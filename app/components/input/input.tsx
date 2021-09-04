@@ -11,13 +11,11 @@ import { Text } from '../text';
 import { InputProps } from './input.types';
 import { s } from './input.styles';
 
-UIManager.setLayoutAnimationEnabledExperimental
-  && UIManager.setLayoutAnimationEnabledExperimental(true);
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const InputComponent = (
-  {
-    onChangeValue, containerStyle, style, isValid, message, testID, ...rest
-  }: InputProps,
+  { onChangeValue, containerStyle, style, isValid, message, testID, ...rest }: InputProps,
   ref: Ref<typeof TextInput>,
 ) => {
   useOnChange(() => {

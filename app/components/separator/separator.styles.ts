@@ -7,7 +7,5 @@ export const s = StyleSheet.create({
     width: 1,
     backgroundColor: colors.inert,
   },
-  horizontal: {
-    
-  }
+  horizontal: {},
 });

@@ -22,9 +22,9 @@ export const useForm = (params = {}) => {
 
   const fields = formik.values
     ? Object.keys(formik.values).reduce((prev, key) => {
-      prev[key] = getField(key);
-      return prev;
-    }, {})
+        prev[key] = getField(key);
+        return prev;
+      }, {})
     : {};
 
   return {

@@ -25,8 +25,8 @@ const tabBarOptions = {
 };
 
 const getTabOptions = (label, icon) => ({
-  tabBarIcon: ({ focused, color }) => <Icon name={icon} color={color} size={26} />,
-  tabBarLabel: ({ focused, color }) => <Text text={label} size={10} color={color} />,
+  tabBarIcon: ({ color }) => <Icon name={icon} color={color} size={26} />,
+  tabBarLabel: ({ color }) => <Text text={label} size={10} color={color} />,
 });
 
 const Tabs = createBottomTabNavigator();

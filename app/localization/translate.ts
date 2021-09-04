@@ -1,5 +1,4 @@
-// @flow
-import i18n, { type TranslateOptions } from 'i18n-js';
+import i18n, { TranslateOptions } from 'i18n-js';
 
 /**
  * Translates text.
@@ -9,8 +8,8 @@ import i18n, { type TranslateOptions } from 'i18n-js';
 export function translate(key: string, options?: TranslateOptions = {}) {
   return key
     ? i18n.t(key, {
-      defaultValue: key,
-      ...options,
-    })
+        defaultValue: key,
+        ...options,
+      })
     : null;
 }

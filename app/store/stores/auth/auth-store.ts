@@ -1,7 +1,4 @@
-// @flow
-import {
-  types as t, flow as mstFlow, getRoot, getEnv,
-} from 'mobx-state-tree';
+import { types as t, flow as mstFlow, getRoot, getEnv } from 'mobx-state-tree';
 
 import { secureStorage } from '~/constants';
 import { Alert } from '~/services';
@@ -49,7 +46,7 @@ function signUp(params) {
 }
 
 function signIn(params) {
-  return async (flow, store, root) => {
+  return async (flow, store) => {
     try {
       flow.start();
 

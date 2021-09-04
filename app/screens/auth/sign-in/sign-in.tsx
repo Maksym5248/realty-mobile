@@ -4,12 +4,8 @@ import { observer } from 'mobx-react';
 import { View } from 'react-native';
 import { useLocalization } from '~/localization';
 import { useStore } from '~/store';
-import {
-  Input, KeyboardAwareScrollView, Button, Text, Touchable,
-} from '~/components';
+import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { useForm, useFocusInput } from '~/hooks';
-
-
 
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
@@ -24,10 +20,10 @@ const validationSchema = validation.shape({
   password: validation.password,
 });
 
-const sss = 'asdg aads,m ngds adsgn ds.,gmn,g nsd,mgn m,.dsgn m,dsg dnsm,gn dms,.gn dsm,gn.g ndms.gdmsg dsmg.a nf.gm f.dngm df';
-
 export const SignIn = observer(() => {
-  const store = useStore(); const { t } = useLocalization({ screen: 'sign_in' }); const [refPassword, onEditedEmail] = useFocusInput();
+  const store = useStore();
+  const { t } = useLocalization({ screen: 'sign_in' });
+  const [refPassword, onEditedEmail] = useFocusInput();
 
   const onSubmit = (values) => {
     store?.auth?.signIn.run(values);

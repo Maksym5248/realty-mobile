@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
@@ -11,9 +10,8 @@ import { Button } from '~/components';
 import { styles } from '~/styles';
 
 import { s } from './settings.styles';
-import { SettingsProps } from './settings.types';
 
-export const Settings = observer((props: SettingsProps) => {
+export const Settings = observer(() => {
   const store = useStore();
   const { t } = useLocalization({ screen: 'settings' });
 

@@ -20,7 +20,7 @@ export const ViewerStore = t
   }));
 
 function getUser(retry) {
-  return async (flow, store, root) => {
+  return async (flow, store) => {
     try {
       flow.start(retry);
 

@@ -33,12 +33,10 @@ export const Text = ({
   const additionalStyles = {};
 
   if (color) {
-    // $FlowFixMe
     additionalStyles.color = color;
   }
 
   if (size) {
-    // $FlowFixMe
     additionalStyles.fontSize = size;
   }
 

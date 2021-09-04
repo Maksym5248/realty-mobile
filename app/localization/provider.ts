@@ -1,6 +1,4 @@
-import React, {
-  useState, useEffect, createContext, useContext, useCallback,
-} from 'react';
+import React, { useState, useEffect, createContext, useContext, useCallback } from 'react';
 import { localization } from './localization';
 import { translate } from './translate';
 

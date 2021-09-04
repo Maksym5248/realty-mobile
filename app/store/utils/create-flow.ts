@@ -1,7 +1,4 @@
-// @flow
-import {
-  types, flow, getParent, getRoot, getEnv,
-} from 'mobx-state-tree';
+import { types, flow, getParent, getRoot, getEnv } from 'mobx-state-tree';
 import _ from 'lodash';
 
 const ErrorModel = types.model({
@@ -99,7 +96,7 @@ export const asyncModel = types
     },
   }));
 
-export function createFlow(flowDefinition: (any) => any) {
+export function createFlow(flowDefinition: (...args: any[]) => any) {
   const flowModel = types.compose(
     asyncModel,
     types.model({}).actions((store) => ({

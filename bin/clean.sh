@@ -5,4 +5,4 @@
 watchman watch-del-all
 rm -rf node_modules/
 rm -fr $TMPDIR/metro*
-npm cache clean --force
+yarn cache clean --force

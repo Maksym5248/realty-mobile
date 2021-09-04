@@ -1,12 +1,12 @@
 import './reactotron';
 import 'react-native-gesture-handler';
 
-import { StatusBar } from 'react-native';
 import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Provider as PaperProvider } from 'react-native-paper';
 
+import React, { useEffect } from 'react';
 import { RootNavigation } from '~/navigation';
 import { LocalizationProvider } from '~/localization';
 import { RootStoreProvider, createStore } from '~/store';
@@ -14,7 +14,7 @@ import { Navigation, ModalProvider, AlertProvider } from '~/services';
 import { modals } from '~/modals';
 import { theme } from '~/styles';
 
-import React, { useEffect } from 'react';
+import { StatusBar } from 'react-native';
 
 enableScreens();
 
@@ -48,3 +48,5 @@ export const App = observer(() => {
     </LocalizationProvider>
   );
 });
+
+export default App;

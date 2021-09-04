@@ -31,7 +31,7 @@ class Localization {
   };
 
   _send = () => {
-    this._listeners.forEach(({ callBack, key }) => {
+    this._listeners.forEach(({ callBack }) => {
       callBack({
         languageTag: this.languageTag,
         currency: this.currency,
@@ -73,7 +73,8 @@ class Localization {
       if (savedData?.languageTag) {
         data.languageTag = savedData?.languageTag;
       } else {
-        const bestAvailableLanguage = RNLocalize.findBestAvailableLanguage(Object.keys(i18n.translations)) || fallback;
+        const bestAvailableLanguage =
+          RNLocalize.findBestAvailableLanguage(Object.keys(i18n.translations)) || fallback;
         data.languageTag = bestAvailableLanguage.languageTag;
       }
 

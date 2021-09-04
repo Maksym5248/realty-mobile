@@ -58,8 +58,7 @@ export const AlertProvider = () => {
       action={{
         label: data.buttonLabel,
         onPress: data?.onPress || onDismissSnackBar,
-      }}
-    >
+      }}>
       {data?.text}
     </Snackbar>
   );

@@ -3,9 +3,14 @@ import Tron, { trackGlobalErrors, openInEditor } from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 const noop = () => undefined;
-declare var console: { tron: typeof Tron };
 
-if (process.env.__DEV__) {
+// declare global {
+//   interface Console {
+//     tron: typeof Tron;
+//   }
+// }
+
+if (__DEV__) {
   const host = (NativeModules.SourceCode.scriptURL || 'localhost://9998')
     .split('://')[1]
     .split(':')[0];
@@ -17,7 +22,7 @@ if (process.env.__DEV__) {
     .useReactNative({
       storybook: true,
     })
-    .use(trackGlobalErrors())
+    .use(trackGlobalErrors({}))
     .use(openInEditor())
     .connect();
 } else {
