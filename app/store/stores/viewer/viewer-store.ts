@@ -24,7 +24,7 @@ function getUser(retry) {
     try {
       flow.start(retry);
 
-      const res = await flow.Api.getCurrentUser();
+      const res = await flow.ApiService.getCurrentUser();
 
       store.setUser(res.data);
 

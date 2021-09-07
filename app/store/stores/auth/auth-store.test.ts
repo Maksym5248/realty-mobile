@@ -32,10 +32,10 @@ const getAuthResponse = ({ email }) => ({
 
 const env = {
   Storage: {},
-  SecureStore: {
+  SecureStorageService: {
     set: () => new Promise.resolve(),
   },
-  Api: {
+  ApiService: {
     signIn: (data) => new Promise.resolve(getAuthResponse(data)),
     signUp: (data) => new Promise.resolve(getAuthResponse(data)),
   },

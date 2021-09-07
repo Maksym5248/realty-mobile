@@ -4,10 +4,10 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
-import { screens } from '~/constants';
+import { SCREENS } from '~/constants';
 import { useLocalization } from '~/localization';
 import * as components from '~/screens';
-import { useStore } from '~/store';
+import { useStore } from '~/hooks';
 import { colors } from '~/styles';
 
 import { TabsNavigator } from './tabs-navigator';
@@ -20,16 +20,16 @@ export const StackNavigator = observer(() => {
 
   const params = {
     screenOptions: { headerShown: true, headerTintColor: colors.primary },
-    initialRouteName: screens.SignIn,
+    initialRouteName: SCREENS.SIGN_IN,
   };
 
   function getHeaderTitle(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? screens.Main;
+    const routeName = getFocusedRouteNameFromRoute(route) ?? SCREENS.MAIN;
 
     switch (routeName) {
-      case screens.Main:
+      case SCREENS.MAIN:
         return t('main.title');
-      case screens.Settings:
+      case SCREENS.SETTINGS:
         return t('settings.title');
       case 'stub1':
       case 'stub2':
@@ -44,14 +44,14 @@ export const StackNavigator = observer(() => {
         {!store?.auth?.isAuthorized && (
           <>
             <Stack.Screen
-              name={screens.SignIn}
+              name={SCREENS.SIGN_IN}
               options={{
                 title: t('sign_in.title'),
               }}
               component={components.SignIn}
             />
             <Stack.Screen
-              name={screens.SignUp}
+              name={SCREENS.SIGN_UP}
               options={{
                 title: t('sign_up.title'),
               }}

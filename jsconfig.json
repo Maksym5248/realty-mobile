@@ -16,6 +16,7 @@
             "~/styles": ["./app/styles"],
             "~/types": ["./app/types"],
             "~/utils": ["./app/utils"],
+            "~/context": ["./app/context"],
         }
     },
     "include": [

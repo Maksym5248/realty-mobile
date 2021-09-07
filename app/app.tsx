@@ -11,10 +11,12 @@ import { StatusBar } from 'react-native';
 
 import { RootNavigation } from '~/navigation';
 import { LocalizationProvider } from '~/localization';
-import { RootStoreProvider, createStore } from '~/store';
-import { Navigation, ModalProvider, AlertProvider } from '~/services';
+import { createStore } from '~/store';
+import { NavigationService } from '~/services';
+import { AlertProvider, ModalProvider } from '~/containers';
 import { modals } from '~/modals';
 import { theme } from '~/styles';
+import { RootStoreContext } from '~/context';
 
 enableScreens();
 
@@ -35,16 +37,16 @@ export const App = observer(() => {
 
   return (
     <LocalizationProvider>
-      <RootStoreProvider value={store}>
+      <RootStoreContext.Provider value={store}>
         <SafeAreaProvider>
           <PaperProvider theme={theme}>
             <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
-            <RootNavigation ref={Navigation.init} />
+            <RootNavigation ref={NavigationService.init} />
             <ModalProvider modals={modals} />
             <AlertProvider />
           </PaperProvider>
         </SafeAreaProvider>
-      </RootStoreProvider>
+      </RootStoreContext.Provider>
     </LocalizationProvider>
   );
 });

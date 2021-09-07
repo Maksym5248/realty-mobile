@@ -1,3 +1,3 @@
-export const modals = Object.freeze({
-  Loading: 'Loading',
+export const MODALS = Object.freeze({
+  LOADING: 'LOADING',
 });

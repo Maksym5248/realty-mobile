@@ -6,7 +6,7 @@ import { useLocalization } from '~/localization';
 import { colors } from '~/styles';
 import { Icon, Text } from '~/components';
 import { device } from '~/utils';
-import { screens } from '~/constants';
+import { SCREENS } from '~/constants';
 import * as components from '~/screens';
 
 const tabBarOptions = {
@@ -38,7 +38,7 @@ export const TabsNavigator = () => {
   return (
     <Tabs.Navigator lazy={false} tabBarOptions={tabBarOptions}>
       <Tabs.Screen
-        name={screens.Main}
+        name={SCREENS.MAIN}
         component={components.Main}
         options={getTabOptions(t('main.title'), 'home-outline')}
       />
@@ -53,7 +53,7 @@ export const TabsNavigator = () => {
         options={getTabOptions('stub2', 'square-outline')}
       />
       <Tabs.Screen
-        name={screens.Settings}
+        name={SCREENS.SETTINGS}
         component={components.Settings}
         options={getTabOptions(t('settings.title'), 'settings')}
       />

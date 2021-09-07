@@ -1,8 +1,7 @@
 import { types, flow, getEnv } from 'mobx-state-tree';
 import * as fns from 'date-fns';
 
-import { secureStorage } from '~/constants';
-import { SecureStore } from '~/services';
+import { SECURE_STORAGE } from '~/constants';
 import { localization } from '~/localization';
 
 import { AuthStore } from './auth';
@@ -16,50 +15,56 @@ export const RootStore = types
     isInitialized: false,
   })
   .views((store) => ({
-    get Api() {
-      return getEnv(store).Api;
+    get ApiService() {
+      return getEnv(store).ApiService;
     },
-    get SecureStore() {
-      return getEnv(store).SecureStore;
+    get SecureStorageService() {
+      return getEnv(store).SecureStorageService;
     },
   }))
-  .actions((store) => ({
-    initTokens: flow(function* initTokens() {
-      SecureStore.onChange(secureStorage.AUTH_TOKEN, (tokens) => {
-        store.Api.setAuthToken(tokens?.access?.token || null);
-      });
+  .actions((store) => {
+    const { SecureStorageService, ApiService } = store;
 
-      const tokens = yield SecureStore.get(secureStorage.AUTH_TOKEN);
+    return {
+      initTokens: flow(function* initTokens() {
+        SecureStorageService.onChange(SECURE_STORAGE.AUTH_TOKEN, (tokens) => {
+          ApiService.setAuthToken(tokens?.access?.token || null);
+        });
 
-      if (!tokens) {
-        throw Error('Unauthorized user');
-      }
+        const tokens = yield SecureStorageService.get(SECURE_STORAGE.AUTH_TOKEN);
 
-      const isRefreshTokenExpired = fns.isBefore(new Date(tokens.refresh.expires), Date.now());
+        if (!tokens) {
+          throw Error('Unauthorized user');
+        }
 
-      if (isRefreshTokenExpired) {
-        throw Error('Token expired');
-      }
+        const isRefreshTokenExpired = fns.isBefore(new Date(tokens.refresh.expires), Date.now());
 
-      const isAccessTokenExpired = fns.isBefore(new Date(tokens.access.expires), Date.now());
+        if (isRefreshTokenExpired) {
+          throw Error('Token expired');
+        }
 
-      if (isAccessTokenExpired) {
-        const { data } = yield store.Api.refreshTokens({ refreshToken: tokens.refresh.token });
-        yield SecureStore.set(secureStorage.AUTH_TOKEN, data);
-      }
-    }),
-    init: flow(function* init() {
-      try {
-        yield localization.init();
-        yield store.initTokens();
-        yield store.viewer.getUser.run();
+        const isAccessTokenExpired = fns.isBefore(new Date(tokens.access.expires), Date.now());
 
-        store.auth.setAuthorizationStatus(true);
-      } catch (err) {
-        yield SecureStore.remove(secureStorage.AUTH_TOKEN);
-        console.log(err);
-      } finally {
-        store.isInitialized = true;
-      }
-    }),
-  }));
+        if (isAccessTokenExpired) {
+          const { data } = yield store.ApiService.refreshTokens({
+            refreshToken: tokens.refresh.token,
+          });
+          yield SecureStorageService.set(SECURE_STORAGE.AUTH_TOKEN, data);
+        }
+      }),
+      init: flow(function* init() {
+        try {
+          yield localization.init();
+          yield store.initTokens();
+          yield store.viewer.getUser.run();
+
+          store.auth.setAuthorizationStatus(true);
+        } catch (err) {
+          yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
+          console.log(err);
+        } finally {
+          store.isInitialized = true;
+        }
+      }),
+    };
+  });

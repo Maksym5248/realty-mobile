@@ -23,12 +23,16 @@ export const asyncModel = types
       return Boolean(store.error);
     },
 
-    get Api() {
-      return getEnv(getRoot(store)).Api;
+    get ApiService() {
+      return getEnv(getRoot(store)).ApiService;
     },
 
-    get SecureStore() {
-      return getEnv(getRoot(store)).SecureStore;
+    get StorageService() {
+      return getEnv(getRoot(store)).StorageService;
+    },
+
+    get SecureStorageService() {
+      return getEnv(getRoot(store)).SecureStorageService;
     },
 
     get canBeRun() {

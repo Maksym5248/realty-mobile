@@ -4,9 +4,8 @@ import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { useLocalization } from '~/localization';
-import { useStore } from '~/store';
+import { useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text } from '~/components';
-import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
 import { styles } from '~/styles';
 

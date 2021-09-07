@@ -1,7 +1,7 @@
-export const screens = Object.freeze({
-  SignIn: 'SignIn',
-  SignUp: 'SignUp',
+export const SCREENS = Object.freeze({
+  SIGN_IN: 'SIGN_IN',
+  SIGN_UP: 'SIGN_UP',
 
-  Main: 'Main',
-  Settings: 'Settings',
+  MAIN: 'MAIN',
+  SETTINGS: 'SETTINGS',
 });

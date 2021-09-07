@@ -29,7 +29,8 @@
         "~/services": "./app/services",
         "~/styles": "./app/styles",
         "~/types": "./app/types",
-        "~/utils": "./app/utils"
+        "~/utils": "./app/utils",
+        "~/context": "./app/context"
       }
     },
     "import/ignore": ["react-native"],

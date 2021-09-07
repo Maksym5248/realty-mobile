@@ -20,6 +20,7 @@ module.exports = (api) => {
           '~/styles': './app/styles',
           '~/types': './app/types',
           '~/utils': './app/utils',
+          '~/context': './app/context',
         },
       },
     ],

@@ -1,15 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { storage as s } from '~/constants';
+import { STORAGE } from '~/constants';
 
 const save = async (newData = {}) => {
   try {
-    const json = await AsyncStorage.getItem(s.LOCALIZATION_STORE);
+    const json = await AsyncStorage.getItem(STORAGE.LOCALIZATION_STORE);
 
     const data = json ? JSON.parse(json) : {};
 
     await AsyncStorage.setItem(
-      s.LOCALIZATION_STORE,
+      STORAGE.LOCALIZATION_STORE,
       JSON.stringify({
         ...data,
         ...newData,
@@ -22,7 +22,7 @@ const save = async (newData = {}) => {
 
 const get = async () => {
   try {
-    const json = await AsyncStorage.getItem(s.LOCALIZATION_STORE);
+    const json = await AsyncStorage.getItem(STORAGE.LOCALIZATION_STORE);
 
     if (!json) {
       throw Error();

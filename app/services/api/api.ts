@@ -4,7 +4,7 @@ import { config } from '~/config';
 
 const { common } = axios.defaults.headers;
 
-class Api {
+class ApiClass {
   baseUrl: string;
 
   constructor(baseUrl: string) {
@@ -31,4 +31,4 @@ class Api {
   getCurrentUser = () => this.get('users/current');
 }
 
-export const ApiService = new Api(config.API_URL);
+export const ApiService = new ApiClass(config.API_URL);

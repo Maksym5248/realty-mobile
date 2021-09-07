@@ -3,14 +3,13 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
-import { screens } from '~/constants';
+import { SCREENS } from '~/constants';
 import { useLocalization } from '~/localization';
-import { useStore } from '~/store';
+import { useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
-import { useForm, useFocusInput } from '~/hooks';
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
-import { Navigation } from '~/services';
+import { NavigationService } from '~/services';
 
 import { s } from './sign-in.styles';
 
@@ -38,7 +37,7 @@ export const SignIn = observer(() => {
   });
 
   const onGoToSignUp = () => {
-    Navigation.navigate(screens.SignUp);
+    NavigationService.navigate(SCREENS.SIGN_UP);
   };
 
   return (

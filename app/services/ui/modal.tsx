@@ -1,11 +1,8 @@
-import React, { ElementType } from 'react';
+import { ElementType } from 'react';
 
-import ModalUI from 'react-native-modal';
 import { v4 as uuid } from 'uuid';
 
-import { styles } from '~/styles';
-
-interface ModalType {
+export interface ModalTypeI {
   name: string;
   propsForComponent?: Object;
   propsForModal?: Object;
@@ -14,8 +11,8 @@ interface ModalType {
   isVisible?: boolean;
 }
 
-interface ModalsMap {
-  [key: string]: ModalType;
+export interface ModalsMapI {
+  [key: string]: ModalTypeI;
 }
 
 interface IListener {
@@ -23,9 +20,9 @@ interface IListener {
   id: string;
 }
 class ModalServiceClass {
-  _modals: Array<ModalType>;
+  _modals: Array<ModalTypeI>;
 
-  _visibleModals: ModalsMap;
+  _visibleModals: ModalsMapI;
 
   _listeners: IListener[];
 
@@ -35,7 +32,7 @@ class ModalServiceClass {
     this._listeners = [];
   }
 
-  registerModals(modals: ModalsMap) {
+  registerModals(modals: ModalsMapI) {
     const arr: Array<any> = Object.entries(modals);
 
     this._modals = arr.map<Object>((current: Object) => {
@@ -106,80 +103,4 @@ class ModalServiceClass {
   };
 }
 
-export const Modal = new ModalServiceClass();
-
-type ModalProviderProps = {
-  modals: ModalsMap;
-};
-
-type ModalProviderState = {
-  modals: Array<ModalType>;
-  visibleModals: ModalsMap;
-};
-
-export class ModalProvider extends React.PureComponent<ModalProviderProps, ModalProviderState> {
-  _removeListener: () => void;
-
-  constructor(props: ModalProviderProps) {
-    super(props);
-    this.state = {
-      modals: Modal.registerModals(props.modals),
-      visibleModals: {},
-    };
-
-    this._removeListener = () => undefined;
-  }
-
-  componentDidMount() {
-    this._removeListener = Modal.addListener(async (nextState) => {
-      this.setState({
-        ...this.state,
-        visibleModals: nextState,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    this._removeListener();
-  }
-
-  hide = (name: string) => {
-    Modal.hide(name);
-  };
-
-  onModalHide = (name: string) => {
-    Modal.removeVisibleModal(name);
-  };
-
-  render() {
-    const { modals, visibleModals } = this.state;
-
-    if (modals.length === 0) {
-      return null;
-    }
-
-    return modals.map<Object>((modal: ModalType) => {
-      const visibleModal = visibleModals[modal.name];
-      const propsForModal = { ...modal?.propsForModal, ...visibleModal?.propsForModal };
-      const propsForComponent = {
-        hide: () => this.hide(modal.name),
-        ...modal?.propsForComponent,
-        ...visibleModal?.propsForComponent,
-      };
-
-      return (
-        <ModalUI
-          key={modal?.name}
-          isVisible={visibleModal?.isVisible}
-          style={[styles.modal, modal?.styles]}
-          useNativeDriver
-          backdropOpacity={0.5}
-          coverScreen={false}
-          onModalHide={() => this.onModalHide(modal.name)}
-          {...propsForModal}>
-          {modal.renderComponent(propsForComponent)}
-        </ModalUI>
-      );
-    });
-  }
-}
+export const ModalService = new ModalServiceClass();

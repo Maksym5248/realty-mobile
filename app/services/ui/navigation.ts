@@ -1,6 +1,6 @@
 import { CommonActions, StackActions } from '@react-navigation/native';
 
-class NavigationService {
+class NavigationServiceClass {
   constructor() {
     this.nav = null;
   }
@@ -28,4 +28,4 @@ class NavigationService {
   addListener = (name, func) => this.nav.addListener(name, func);
 }
 
-export const Navigation = new NavigationService();
+export const NavigationService = new NavigationServiceClass();

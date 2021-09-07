@@ -4,7 +4,7 @@ type IconTypes = 'Ionicons';
 
 export interface IconProps {
   type?: IconTypes;
-  name?: any; // should be string
+  name?: string;
   onPress?: () => void;
   style?: TextStyle;
   containerStyle?: ViewStyle;

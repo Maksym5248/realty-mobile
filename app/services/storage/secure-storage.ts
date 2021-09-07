@@ -13,7 +13,7 @@ import { config } from '~/config';
   });
 */
 
-class SecureStoreClass {
+class SecureStorageClass {
   constructor() {
     this.listeners = [];
     this.config = {
@@ -77,4 +77,4 @@ class SecureStoreClass {
   };
 }
 
-export const SecureStore = new SecureStoreClass();
+export const SecureStorageService = new SecureStorageClass();
