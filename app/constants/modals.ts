@@ -1,3 +1,3 @@
-export const MODALS = Object.freeze({
-  LOADING: 'LOADING',
-});
+export enum MODALS {
+  LOADING = 'LOADING',
+}

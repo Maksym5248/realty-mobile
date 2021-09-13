@@ -1,3 +1,3 @@
-export const SECURE_STORAGE = Object.freeze({
-  AUTH_TOKEN: 'AUTH_TOKEN',
-});
+export enum SECURE_STORAGE {
+  AUTH_TOKEN = 'AUTH_TOKEN',
+}

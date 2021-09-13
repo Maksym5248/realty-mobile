@@ -1,7 +1,6 @@
-import { translate } from '~/localization';
+import { t } from '~/localization';
 
-const get = (e) =>
-  e?.response?.data?.message || translate(e?.message) || translate('errors.unexpected_error');
+const get = (e) => e?.response?.data?.message || t(e?.message) || t('errors.unexpected_error');
 
 export const error = {
   get,

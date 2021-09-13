@@ -1,15 +1,14 @@
-import i18n, { TranslateOptions } from 'i18n-js';
+import { TranslateOptions } from 'i18n-js';
+
+import { Localization } from './localization';
 
 /**
  * Translates text.
  *
  * @param key The i18n key.
  */
-export function translate(key: string, options?: TranslateOptions = {}) {
-  return key
-    ? i18n.t(key, {
-        defaultValue: key,
-        ...options,
-      })
-    : null;
+export function translate(key: string, options?: TranslateOptions) {
+  return key ? Localization.t(key, options) : null;
 }
+
+export const t = translate;

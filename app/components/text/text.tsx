@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { TextStyle } from 'react-native';
 import {
   Caption,
   Title,
@@ -32,7 +33,7 @@ export const Text = ({
 }: TextProps) => {
   const Component = types[type];
 
-  const additionalStyles = {};
+  const additionalStyles: TextStyle = {};
 
   if (color) {
     additionalStyles.color = color;

@@ -4,8 +4,7 @@ import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
 import { SCREENS } from '~/constants';
-import { useLocalization } from '~/localization';
-import { useStore, useForm, useFocusInput } from '~/hooks';
+import { useLocalization, useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
@@ -20,7 +19,7 @@ const validationSchema = validation.shape({
 
 export const SignIn = observer(() => {
   const store = useStore();
-  const { t } = useLocalization({ screen: 'sign_in' });
+  const { t } = useLocalization({ prefix: 'sign_in' });
   const [refPassword, onEditedEmail] = useFocusInput();
 
   const onSubmit = (values) => {

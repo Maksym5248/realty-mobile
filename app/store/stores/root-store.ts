@@ -1,8 +1,8 @@
 import { types, flow, getEnv } from 'mobx-state-tree';
 import * as fns from 'date-fns';
 
-import { SECURE_STORAGE } from '~/constants';
-import { localization } from '~/localization';
+import { SECURE_STORAGE, STORAGE } from '~/constants';
+import { Localization } from '~/localization';
 
 import { AuthStore } from './auth';
 import { ViewerStore } from './viewer';
@@ -21,11 +21,21 @@ export const RootStore = types
     get SecureStorageService() {
       return getEnv(store).SecureStorageService;
     },
+    get StorageService() {
+      return getEnv(store).StorageService;
+    },
   }))
   .actions((store) => {
-    const { SecureStorageService, ApiService } = store;
+    const { SecureStorageService, StorageService, ApiService } = store;
 
     return {
+      initLocalization: flow(function* initLocalization() {
+        Localization.onChange((config) => StorageService.set(config));
+
+        const initialData = StorageService.get(STORAGE.LOCALIZATION);
+
+        Localization.init(initialData);
+      }),
       initTokens: flow(function* initTokens() {
         SecureStorageService.onChange(SECURE_STORAGE.AUTH_TOKEN, (tokens) => {
           ApiService.setAuthToken(tokens?.access?.token || null);
@@ -52,19 +62,23 @@ export const RootStore = types
           yield SecureStorageService.set(SECURE_STORAGE.AUTH_TOKEN, data);
         }
       }),
-      init: flow(function* init() {
-        try {
-          yield localization.init();
-          yield store.initTokens();
-          yield store.viewer.getUser.run();
-
-          store.auth.setAuthorizationStatus(true);
-        } catch (err) {
-          yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
-          console.log(err);
-        } finally {
-          store.isInitialized = true;
-        }
-      }),
     };
-  });
+  })
+  .actions((store) => ({
+    init: flow(function* init() {
+      const { SecureStorageService } = store;
+
+      try {
+        yield store.initLocalization();
+        yield store.initTokens();
+        yield store.viewer.getUser.run();
+
+        store.auth.setAuthorizationStatus(true);
+      } catch (err) {
+        yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
+        console.log(err);
+      } finally {
+        store.isInitialized = true;
+      }
+    }),
+  }));

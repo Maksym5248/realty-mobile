@@ -3,8 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { View } from 'react-native';
 
-import { useLocalization } from '~/localization';
-import { useStore, useForm, useFocusInput } from '~/hooks';
+import { useLocalization, useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text } from '~/components';
 import { validation } from '~/utils';
 import { styles } from '~/styles';
@@ -19,7 +18,7 @@ const validationSchema = validation.shape({
 
 export const SignUp = observer(() => {
   const store = useStore();
-  const { t } = useLocalization({ screen: 'sign_up' });
+  const { t } = useLocalization({ prefix: 'sign_up' });
   const [refPassword, onEditedEmail] = useFocusInput();
   const [refEmail, onEditedName] = useFocusInput();
 

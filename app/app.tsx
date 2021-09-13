@@ -10,10 +10,9 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'react-native';
 
 import { RootNavigation } from '~/navigation';
-import { LocalizationProvider } from '~/localization';
 import { createStore } from '~/store';
 import { NavigationService } from '~/services';
-import { AlertProvider, ModalProvider } from '~/containers';
+import { AlertProvider, ModalProvider, LocalizationProvider } from '~/containers';
 import { modals } from '~/modals';
 import { theme } from '~/styles';
 import { RootStoreContext } from '~/context';

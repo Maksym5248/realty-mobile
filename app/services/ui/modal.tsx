@@ -1,45 +1,50 @@
-import { ElementType } from 'react';
+import { ReactNode } from 'react';
 
-import { v4 as uuid } from 'uuid';
+import EventEmitter from 'events';
+
+// @ts-ignore
+const eventEmitter = new EventEmitter();
 
 export interface ModalTypeI {
-  name: string;
   propsForComponent?: Object;
   propsForModal?: Object;
-  styles?: Object;
-  renderComponent: (value: any) => ElementType;
-  isVisible?: boolean;
+  renderComponent: (props: any) => ReactNode;
+}
+export interface ModalTypeInternalI extends ModalTypeI {
+  name: string;
+  isVisible: boolean;
 }
 
 export interface ModalsMapI {
   [key: string]: ModalTypeI;
 }
 
-interface IListener {
-  cb: () => void;
-  id: string;
+export interface ModalsMapInternalI {
+  [key: string]: ModalTypeInternalI;
+}
+
+enum Events {
+  Change = 'change',
 }
 class ModalServiceClass {
-  _modals: Array<ModalTypeI>;
+  _modals: Array<ModalTypeInternalI>;
 
-  _visibleModals: ModalsMapI;
-
-  _listeners: IListener[];
+  _visibleModals: ModalsMapInternalI;
 
   constructor() {
     this._modals = [];
     this._visibleModals = {};
-    this._listeners = [];
   }
 
   registerModals(modals: ModalsMapI) {
-    const arr: Array<any> = Object.entries(modals);
+    const arr: [string, ModalTypeI][] = Object.entries(modals);
 
-    this._modals = arr.map<Object>((current: Object) => {
+    this._modals = arr.map((current: [string, ModalTypeI]) => {
       const [key, value] = current;
 
       return {
         name: key,
+        isVisible: false,
         propsForComponent: {},
         propsForModal: {},
         ...value,
@@ -59,7 +64,7 @@ class ModalServiceClass {
       },
     });
 
-    this.send();
+    eventEmitter.emit(Events.Change);
   }
 
   hide(name: string) {
@@ -68,38 +73,23 @@ class ModalServiceClass {
       isVisible: false,
     };
 
-    this.send();
+    eventEmitter.emit(Events.Change);
   }
 
   removeVisibleModal(name: string) {
     delete this._visibleModals[name];
-    this.send();
+    eventEmitter.emit(Events.Change);
   }
 
   hideAll() {
     this._visibleModals = {};
-    this.send();
+    eventEmitter.emit(Events.Change);
   }
 
-  addListener = (cb: Function) => {
-    const id = uuid();
+  onChange = (callBack: Function) => {
+    eventEmitter.on(Events.Change, callBack);
 
-    this._listeners.push({
-      cb,
-      id,
-    });
-
-    return () => {
-      this._listeners = this._listeners.filter((el) => el.id !== id);
-    };
-  };
-
-  send = () => {
-    if (this._listeners.length) {
-      this._listeners.forEach(({ cb }) => {
-        !!cb && cb({ ...this._visibleModals });
-      });
-    }
+    return () => eventEmitter.removeListener(Events.Change, callBack);
   };
 }
 

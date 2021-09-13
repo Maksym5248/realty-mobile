@@ -1,6 +1,8 @@
 import { CommonActions, StackActions } from '@react-navigation/native';
+import { NavigationContainerRef } from '@react-navigation/core';
 
 class NavigationServiceClass {
+  private nav: NavigationContainerRef;
   constructor() {
     this.nav = null;
   }

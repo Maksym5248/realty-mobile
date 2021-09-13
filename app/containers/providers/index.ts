@@ -1,2 +1,3 @@
-export * from './alert-provider';
-export * from './modal-provider';
+export * from './alert';
+export * from './localization';
+export * from './modal';

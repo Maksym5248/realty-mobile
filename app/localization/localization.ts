@@ -1,98 +1,90 @@
+import EventEmitter from 'events';
+
 import * as RNLocalize from 'react-native-localize';
-import i18n from 'i18n-js';
-import { v4 as uuidv4 } from 'uuid';
+import i18n, { TranslateOptions } from 'i18n-js';
+import { cloneDeep } from 'lodash';
 
-import { storage } from './storage';
+import { ILocalizationData, LocalizationEvents } from './types';
 
-const uk = require('./translations/uk');
+const fallback = {
+  isRTL: false,
+  languageTag: 'uk',
+  countryCode: 'UA',
+};
 
-i18n.fallbacks = true;
-i18n.translations = { uk };
+// @ts-ignore
+const eventEmitter = new EventEmitter();
 
-const fallback = { languageTag: 'uk', isRTL: false, countryCode: 'UA' };
+const findBestAvailableLanguage = (): { languageTag: string } => {
+  return RNLocalize.findBestAvailableLanguage(Object.keys(i18n.translations)) || fallback;
+};
 
-class Localization {
+class LocalizationClass {
+  private data: ILocalizationData;
+
   constructor() {
-    this.languageTag = null;
-    this.currency = null;
+    const uk = require('./translations/uk');
 
-    this._listeners = [];
+    i18n.fallbacks = true;
+    i18n.translations = { uk };
+
+    this.data = {
+      languageTag: undefined,
+    };
   }
 
-  // observer
-  onChange = (callBack) => {
-    const key = uuidv4();
-
-    this._listeners.push({
-      callBack,
-      key,
-    });
-
-    return () => (this._listeners = this._listeners.filter((el) => el.key !== key));
-  };
-
-  _send = () => {
-    this._listeners.forEach(({ callBack }) => {
-      callBack({
-        languageTag: this.languageTag,
-        currency: this.currency,
-      });
-    });
-  };
+  get languageTag() {
+    return this.data.languageTag;
+  }
 
   get countryCode() {
     return RNLocalize.getCountry() || fallback.countryCode;
   }
 
-  set = ({ languageTag, currency }) => {
-    let isSend = false;
+  getData(): ILocalizationData {
+    return cloneDeep(this.data);
+  }
 
-    if (languageTag && languageTag !== this.languageTag) {
-      this.languageTag = languageTag;
-      i18n.locale = languageTag;
-      storage.save({ languageTag });
-      isSend = true;
-    }
+  onChange = (callBack: (value: ILocalizationData) => void) => {
+    eventEmitter.on(LocalizationEvents.ChangeData, callBack);
 
-    if (currency && currency !== this.currency) {
-      this.currency = currency;
-      storage.save({ currency });
-      isSend = true;
-    }
-
-    if (isSend) {
-      this._send();
-    }
+    return () => eventEmitter.removeListener(LocalizationEvents.ChangeData, callBack);
   };
 
-  init = async () => {
+  setLanguageTag = (languageTag: string) => {
+    this.data.languageTag = languageTag;
+    i18n.locale = languageTag;
+
+    eventEmitter.emit(LocalizationEvents.ChangeData, cloneDeep(this.data));
+  };
+
+  // translate
+  t(key: string, options?: TranslateOptions): string {
+    return key
+      ? i18n.t(key, {
+          defaultValue: key,
+          ...(options || {}),
+        })
+      : null;
+  }
+
+  init = async (initialData?: ILocalizationData) => {
+    const data: ILocalizationData = {
+      languageTag: fallback.languageTag,
+    };
+
     try {
-      const data = {};
-
-      const savedData = await storage.get();
-
-      if (savedData?.languageTag) {
-        data.languageTag = savedData?.languageTag;
+      if (initialData?.languageTag) {
+        data.languageTag = initialData?.languageTag;
       } else {
-        const bestAvailableLanguage =
-          RNLocalize.findBestAvailableLanguage(Object.keys(i18n.translations)) || fallback;
+        const bestAvailableLanguage = findBestAvailableLanguage();
         data.languageTag = bestAvailableLanguage.languageTag;
       }
-
-      if (savedData?.currency) {
-        data.currency = savedData?.currency;
-      } else {
-        data.currency = 'uah';
-      }
-
-      this.set(data);
     } catch (e) {
-      this.set({
-        currency: 'uah',
-        languageTag: fallback.languageTag,
-      });
+    } finally {
+      Object.assign(data);
     }
   };
 }
 
-export const localization = new Localization();
+export const Localization = new LocalizationClass();

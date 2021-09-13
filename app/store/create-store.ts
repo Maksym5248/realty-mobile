@@ -1,4 +1,4 @@
-import { ApiService, SecureStorageService, Storage } from '~/services';
+import { ApiService, SecureStorageService, StorageService } from '~/services';
 
 import { RootStore } from './stores';
 import { serialize } from './persist';
@@ -17,7 +17,7 @@ import { createPersist } from './utils';
  */
 export function createStore(initialState = {}) {
   const store = RootStore.create(initialState, {
-    Storage,
+    StorageService,
     SecureStorageService: SecureStorageService,
     ApiService: ApiService,
   });

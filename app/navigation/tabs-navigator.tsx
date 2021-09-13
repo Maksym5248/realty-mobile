@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { useLocalization } from '~/localization';
+import { useLocalization } from '~/hooks';
 import { colors } from '~/styles';
 import { Icon, Text } from '~/components';
 import { device } from '~/utils';

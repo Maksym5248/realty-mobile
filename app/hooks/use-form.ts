@@ -1,15 +1,28 @@
-import { useFormik } from 'formik';
+import { useFormik, FormikConfig } from 'formik';
+import { NativeSyntheticEvent, TextInput } from 'react-native';
 
-import { useLocalization } from '~/localization';
+import { useLocalization } from './context/use-localization';
 
-export const useForm = (params = {}) => {
+interface Field {
+  value: string;
+  onChangeValue: (value: string) => void;
+  message: string;
+  isValid: boolean;
+  onBlur: (value: NativeSyntheticEvent<TextInput>) => void;
+}
+
+interface Fields {
+  [name: string]: Field;
+}
+
+export const useForm = <T>(config: FormikConfig<T>) => {
   const { t } = useLocalization();
   const formik = useFormik({
     validateOnMount: true,
-    ...params,
+    ...config,
   });
 
-  const getField = (name) => {
+  const getField = (name: string): Field => {
     const isValid = !(!!formik.errors[name] && formik.touched[name]);
 
     return {
@@ -22,7 +35,7 @@ export const useForm = (params = {}) => {
   };
 
   const fields = formik.values
-    ? Object.keys(formik.values).reduce((prev, key) => {
+    ? Object.keys(formik.values).reduce((prev: Fields, key: string) => {
         prev[key] = getField(key);
         return prev;
       }, {})

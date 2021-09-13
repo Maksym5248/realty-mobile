@@ -5,9 +5,8 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
 import { SCREENS } from '~/constants';
-import { useLocalization } from '~/localization';
+import { useLocalization, useStore } from '~/hooks';
 import * as components from '~/screens';
-import { useStore } from '~/hooks';
 import { colors } from '~/styles';
 
 import { TabsNavigator } from './tabs-navigator';
@@ -31,8 +30,7 @@ export const StackNavigator = observer(() => {
         return t('main.title');
       case SCREENS.SETTINGS:
         return t('settings.title');
-      case 'stub1':
-      case 'stub2':
+      default:
         return 'Stub';
     }
   }
@@ -41,7 +39,7 @@ export const StackNavigator = observer(() => {
     store?.isInitialized && (
       <Stack.Navigator {...params}>
         {/* Authorization */}
-        {!store?.auth?.isAuthorized && (
+        {!store.auth?.isAuthorized && (
           <>
             <Stack.Screen
               name={SCREENS.SIGN_IN}

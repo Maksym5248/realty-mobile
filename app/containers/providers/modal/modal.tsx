@@ -2,7 +2,7 @@ import React from 'react';
 
 import ModalUI from 'react-native-modal';
 
-import { ModalService, ModalTypeI, ModalsMapI } from '~/services';
+import { ModalService, ModalTypeInternalI, ModalsMapI, ModalsMapInternalI } from '~/services';
 import { styles } from '~/styles';
 
 type ModalProviderProps = {
@@ -10,8 +10,8 @@ type ModalProviderProps = {
 };
 
 type ModalProviderState = {
-  modals: Array<ModalTypeI>;
-  visibleModals: ModalsMapI;
+  modals: ModalTypeInternalI[];
+  visibleModals: ModalsMapInternalI;
 };
 
 export class ModalProvider extends React.PureComponent<ModalProviderProps, ModalProviderState> {
@@ -28,7 +28,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
   }
 
   componentDidMount() {
-    this._removeListener = ModalService.addListener(async (nextState) => {
+    this._removeListener = ModalService.onChange(async (nextState) => {
       this.setState({
         ...this.state,
         visibleModals: nextState,
@@ -55,7 +55,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
       return null;
     }
 
-    return modals.map<Object>((modal: ModalTypeI) => {
+    return modals.map((modal: ModalTypeInternalI) => {
       const visibleModal = visibleModals[modal.name];
       const propsForModal = { ...modal?.propsForModal, ...visibleModal?.propsForModal };
       const propsForComponent = {
@@ -66,9 +66,9 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
 
       return (
         <ModalUI
-          key={modal?.name}
-          isVisible={visibleModal?.isVisible}
-          style={[styles.modal, modal?.styles]}
+          key={modal.name}
+          isVisible={visibleModal.isVisible}
+          style={[styles.modal, modal?.propsForModal?.styles]}
           useNativeDriver
           backdropOpacity={0.5}
           coverScreen={false}
