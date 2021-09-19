@@ -7,7 +7,7 @@ import { colors } from '~/styles';
 import { Icon, Text } from '~/components';
 import { device } from '~/utils';
 import { SCREENS } from '~/constants';
-import * as components from '~/screens';
+import * as screens from '~/screens';
 
 const tabBarOptions = {
   activeTintColor: colors.primary,
@@ -39,22 +39,22 @@ export const TabsNavigator = () => {
     <Tabs.Navigator lazy={false} tabBarOptions={tabBarOptions}>
       <Tabs.Screen
         name={SCREENS.MAIN}
-        component={components.Main}
+        component={screens.Main}
         options={getTabOptions(t('main.title'), 'home-outline')}
       />
       <Tabs.Screen
         name="stub1"
         options={getTabOptions('stub1', 'square-outline')}
-        component={components.Stub}
+        component={screens.Stub}
       />
       <Tabs.Screen
         name="stub2"
-        component={components.Stub}
+        component={screens.Stub}
         options={getTabOptions('stub2', 'square-outline')}
       />
       <Tabs.Screen
         name={SCREENS.SETTINGS}
-        component={components.Settings}
+        component={screens.Settings}
         options={getTabOptions(t('settings.title'), 'settings')}
       />
     </Tabs.Navigator>

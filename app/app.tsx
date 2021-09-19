@@ -1,7 +1,6 @@
-import './reactotron';
 import 'react-native-gesture-handler';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 
 import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -22,16 +21,19 @@ enableScreens();
 const { store, persist } = createStore();
 
 export const App = observer(() => {
-  useEffect(() => {
-    (async () => {
-      try {
-        await persist.rehydrate();
-      } catch (err) {
-        await persist.purge();
-      }
-
+  const initStore = useCallback(async () => {
+    try {
+      await persist.rehydrate();
+    } catch (err) {
+      await persist.purge();
+    } finally {
       store.init();
-    })();
+    }
+  }, []);
+
+  useEffect(() => {
+    initStore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

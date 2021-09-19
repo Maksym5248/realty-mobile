@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle } from '~/types';
+import { TextStyle, ViewStyle } from 'react-native';
 
 type IconTypes = 'Ionicons';
 

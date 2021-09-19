@@ -18,7 +18,6 @@ module.exports = (api) => {
           '~/screens': './app/screens',
           '~/services': './app/services',
           '~/styles': './app/styles',
-          '~/types': './app/types',
           '~/utils': './app/utils',
           '~/context': './app/context',
         },

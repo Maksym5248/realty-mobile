@@ -24,7 +24,7 @@ export const useKeyboard = () => {
   }, []);
 
   const onHide = useCallback(() => {
-    setState((prev) => ({ ...prev, event: { ...initialEvent }, Visible: false }));
+    setState((prev) => ({ ...prev, event: { ...initialEvent }, isVisible: false }));
   }, []);
 
   useEffect(() => {

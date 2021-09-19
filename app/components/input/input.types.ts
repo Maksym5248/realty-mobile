@@ -1,9 +1,9 @@
-import { ViewStyle } from '~/types';
+import { ViewStyle } from 'react-native';
 
 interface CustomInputProps {
   onChangeValue: (text: string) => void;
   style?: ViewStyle;
-  testID: String;
+  testID: string;
 }
 
 export type InputProps = CustomInputProps;

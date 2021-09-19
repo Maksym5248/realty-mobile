@@ -67,7 +67,7 @@ export class ModalProvider extends React.PureComponent<ModalProviderProps, Modal
       return (
         <ModalUI
           key={modal.name}
-          isVisible={visibleModal.isVisible}
+          isVisible={visibleModal?.isVisible}
           style={[styles.modal, modal?.propsForModal?.styles]}
           useNativeDriver
           backdropOpacity={0.5}

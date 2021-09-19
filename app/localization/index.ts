@@ -1,3 +1,3 @@
-export * from './localization';
-export * from './translate';
-export * from './types';
+export const translations = {
+  uk: require('./translations/uk.json'),
+};

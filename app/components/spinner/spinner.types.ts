@@ -1,4 +1,4 @@
-import { ViewStyle } from '~/types';
+import { ViewStyle } from 'react-native';
 
 export type SpinnerProps = {
   isVisible: boolean;

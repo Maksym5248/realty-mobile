@@ -1,2 +1,2 @@
 export * from './scroll-view';
-export * from './types';
+export * from './scroll-view.types';

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "/bin/sh ./bin/run-ios.sh",
+    "ios": "react-native run-ios --scheme=\"realty\" --configuration=\"Debug\" --simulator=\"iPhone 8 (14.5)\"",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",

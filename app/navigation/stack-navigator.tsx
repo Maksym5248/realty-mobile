@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 
 import { SCREENS } from '~/constants';
 import { useLocalization, useStore } from '~/hooks';
-import * as components from '~/screens';
+import * as screens from '~/screens';
 import { colors } from '~/styles';
 
 import { TabsNavigator } from './tabs-navigator';
@@ -46,14 +46,14 @@ export const StackNavigator = observer(() => {
               options={{
                 title: t('sign_in.title'),
               }}
-              component={components.SignIn}
+              component={screens.SignIn}
             />
             <Stack.Screen
               name={SCREENS.SIGN_UP}
               options={{
                 title: t('sign_up.title'),
               }}
-              component={components.SignUp}
+              component={screens.SignUp}
             />
           </>
         )}

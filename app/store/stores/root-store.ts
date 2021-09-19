@@ -2,7 +2,8 @@ import { types, flow, getEnv } from 'mobx-state-tree';
 import * as fns from 'date-fns';
 
 import { SECURE_STORAGE, STORAGE } from '~/constants';
-import { Localization } from '~/localization';
+import { LocalizationService } from '~/services';
+import { translations } from '~/localization';
 
 import { AuthStore } from './auth';
 import { ViewerStore } from './viewer';
@@ -30,11 +31,11 @@ export const RootStore = types
 
     return {
       initLocalization: flow(function* initLocalization() {
-        Localization.onChange((config) => StorageService.set(config));
+        LocalizationService.onChange((data) => StorageService.set(data));
 
-        const initialData = StorageService.get(STORAGE.LOCALIZATION);
+        const initialData = yield StorageService.get(STORAGE.LOCALIZATION);
 
-        Localization.init(initialData);
+        LocalizationService.init(translations, initialData);
       }),
       initTokens: flow(function* initTokens() {
         SecureStorageService.onChange(SECURE_STORAGE.AUTH_TOKEN, (tokens) => {
@@ -72,11 +73,9 @@ export const RootStore = types
         yield store.initLocalization();
         yield store.initTokens();
         yield store.viewer.getUser.run();
-
         store.auth.setAuthorizationStatus(true);
       } catch (err) {
         yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
-        console.log(err);
       } finally {
         store.isInitialized = true;
       }

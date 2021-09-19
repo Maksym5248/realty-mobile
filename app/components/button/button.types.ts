@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ViewStyle } from '~/types';
+import { ViewStyle } from 'react-native';
 
 export interface ButtonPropsI {
   title?: string;

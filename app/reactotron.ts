@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const noop = () => undefined;
 
-// declare global {
-//   interface Console {
-//     tron: typeof Tron;
-//   }
-// }
+declare global {
+  interface Console {
+    tron: typeof Tron;
+  }
+}
 
 if (__DEV__) {
   const host = (NativeModules.SourceCode.scriptURL || 'localhost://9998')

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { TextStyle } from '~/types';
+import { TextStyle } from 'react-native';
 
 export interface TextProps {
   type?: 'caption' | 'title' | 'text' | 'paragraph' | 'subheading' | 'headline';
