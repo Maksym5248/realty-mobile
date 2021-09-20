@@ -1,30 +1,36 @@
+import EventEmitter from 'events';
+
 import S from '@react-native-community/async-storage';
 
+import { Cache } from '~/utils';
+
+// @ts-ignore
+const eventEmitter = new EventEmitter();
+
 class StorageClass {
+  cache: Cache;
+
   constructor() {
-    this.listeners = [];
-    this.caches = {};
+    this.cache = new Cache();
   }
 
-  set = async (key, value) => {
-    this.caches[key] = value;
-    this._send(key);
-
+  set = async (key: string, value: any) => {
     await S.setItem(key, JSON.stringify(value));
+    this.cache.set(key, value);
+    eventEmitter.emit(key, this.cache.get(key));
   };
 
-  get = async (key) => {
-    if (this.caches[key]) {
-      return Promise.resolve(this.caches[key]);
+  get = async (key: string) => {
+    if (this.cache.get(key)) {
+      return Promise.resolve(this.cache.get(key));
     }
 
     try {
-      const valueString = await S.getItem(key);
+      const valueJson = await S.getItem(key);
 
-      const value = JSON.parse(valueString);
+      const value = JSON.parse(valueJson);
 
-      this.caches[key] = value;
-      this._send(key);
+      this.cache.set(key, value);
 
       return value;
     } catch (e) {
@@ -32,30 +38,22 @@ class StorageClass {
     }
   };
 
-  remove = async (key) => {
-    this.caches[key] = null;
-    this._send(key);
+  remove = async (key: string) => {
     await S.removeItem(key);
+    this.cache.remove(key);
+
+    eventEmitter.emit(key, this.cache.get(key));
   };
 
-  onChange = (key, callBack, initWithRun = false) => {
-    this.listeners.push({
-      callBack,
-      key,
-    });
+  onChange = (key: string, callBack: (value: any) => void) => {
+    eventEmitter.on(key, callBack);
 
-    if (initWithRun && this.caches[key]) {
-      callBack(this.caches[key]);
-    }
+    return () => eventEmitter.removeListener(key, callBack);
   };
 
-  _send = (receiverKey) => {
-    this.listeners.forEach(({ callBack, key }) => {
-      if (receiverKey === key) {
-        callBack(this.caches[key]);
-      }
-    });
-  };
+  removeAllListeners() {
+    eventEmitter.removeAllListeners();
+  }
 }
 
 export const StorageService = new StorageClass();

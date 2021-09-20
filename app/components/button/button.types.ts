@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { RefObject, ComponentPropsWithRef } from 'react';
 
-import { ViewStyle } from 'react-native';
+import { ViewStyle, View } from 'react-native';
+import { Button } from 'react-native-paper';
 
-export interface ButtonPropsI {
+export type IButtonProps = Omit<ComponentPropsWithRef<typeof Button>, 'children'> & {
   title?: string;
-  children?: React.ReactChild;
-  mode?: 'text' | 'outlined' | 'contained';
+  children?: React.ReactNode;
   contentStyle?: ViewStyle;
-}
+  ref?: RefObject<View>;
+  testID: string;
+};

@@ -1,5 +1,5 @@
-export interface SignUpPropsI {}
 export interface IFormValues {
+  name: string;
   email: string;
   password: string;
 }

@@ -21,6 +21,10 @@
     "@react-native-community/netinfo": "^5.3.3",
     "@react-navigation/bottom-tabs": "^5.9.2",
     "@react-navigation/native": "^5.7.6",
+    "@types/i18n-js": "^3.8.2",
+    "@types/lodash": "^4.14.173",
+    "@types/react-native-vector-icons": "^6.4.8",
+    "@types/yup": "^0.29.13",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "eslint-plugin-import": "^2.24.2",
@@ -50,8 +54,8 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
-      "tsc-files --noEmit",
-      "eslint . --fix",
+      "yarn check-types",
+      "yarn lint",
       "git add"
     ]
   },
@@ -64,7 +68,7 @@
     "@testing-library/react-native": "^7.2.0",
     "@types/jest": "^27.0.1",
     "@types/react": "^17.0.19",
-    "@types/react-native": "^0.64.13",
+    "@types/react-native": "^0.64.2",
     "@types/react-test-renderer": "^17.0.1",
     "babel-jest": "^26.6.3",
     "babel-plugin-module-resolver": "^4.0.0",

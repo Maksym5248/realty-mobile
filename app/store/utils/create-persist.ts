@@ -1,20 +1,22 @@
 // /* eslint-disable implicit-arrow-linebreak */
 
 import AsyncStorage from '@react-native-community/async-storage';
-import { onSnapshot, applySnapshot } from 'mobx-state-tree';
+import { onSnapshot, applySnapshot, Instance } from 'mobx-state-tree';
 
-import { storage } from '~/constants';
+import { STORAGE } from '~/constants';
 
-const defaultProcessor = (v) => v;
+import { RootStore } from '../stores';
+
+const defaultProcessor = (v: object): object => v;
 
 function purge() {
-  return AsyncStorage.removeItem(storage.PERSIST_STORE);
+  return AsyncStorage.removeItem(STORAGE.PERSIST_STORE);
 }
 
-function createRehydrate(store, deserialize = defaultProcessor) {
+function createRehydrate(store: Instance<typeof RootStore>, deserialize = defaultProcessor) {
   return async function rehydrate() {
     try {
-      const json = await AsyncStorage.getItem(storage.PERSIST_STORE);
+      const json = await AsyncStorage.getItem(STORAGE.PERSIST_STORE);
 
       if (!json) {
         return;
@@ -29,15 +31,21 @@ function createRehydrate(store, deserialize = defaultProcessor) {
   };
 }
 
-function recordSnapshots(store, serialize = defaultProcessor) {
+function recordSnapshots(store: Instance<typeof RootStore>, serialize = defaultProcessor) {
   onSnapshot(store, (snapshot) => {
     const json = JSON.stringify(serialize(snapshot));
 
-    AsyncStorage.setItem(storage.PERSIST_STORE, json);
+    AsyncStorage.setItem(STORAGE.PERSIST_STORE, json);
   });
 }
 
-export function createPersist(store, options = {}) {
+export function createPersist(
+  store: Instance<typeof RootStore>,
+  options: {
+    serialize?: (v: object) => object;
+    deserialize?: (v: object) => object;
+  } = {},
+) {
   const { serialize, deserialize } = options;
 
   recordSnapshots(store, serialize);

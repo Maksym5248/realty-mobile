@@ -1,48 +1,48 @@
 import { useFormik, FormikConfig } from 'formik';
-import { NativeSyntheticEvent, TextInput } from 'react-native';
+import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
 import { useLocalization } from './context/use-localization';
 
 interface Field {
-  value: string;
+  value: any;
   onChangeValue: (value: string) => void;
   message: string;
   isValid: boolean;
-  onBlur: (value: NativeSyntheticEvent<TextInput>) => void;
+  onBlur: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 }
 
 interface Fields {
   [name: string]: Field;
 }
 
-export const useForm = <T>(config: FormikConfig<T>) => {
+export function useForm<T>(config: FormikConfig<T>) {
   const { t } = useLocalization();
-  const formik = useFormik({
+  const formik = useFormik<T>({
     validateOnMount: true,
     ...config,
   });
 
-  const getField = (name: string): Field => {
+  const getField = (name: keyof T): Field => {
     const isValid = !(!!formik.errors[name] && formik.touched[name]);
 
     return {
       value: formik.values[name],
-      message: !isValid ? t(formik.errors[name]) : '',
-      onChangeValue: (value) => formik.setFieldValue(name, value),
+      message: !isValid ? t(formik.errors[name] as string) : '',
+      onChangeValue: (value) => formik.setFieldValue(name as string, value),
       isValid: !(!!formik.errors[name] && formik.touched[name]),
-      onBlur: formik.handleBlur(name),
+      onBlur: formik.handleBlur(name) as (e: NativeSyntheticEvent<TextInputFocusEventData>) => void,
     };
   };
 
-  const fields = formik.values
+  const fields = (formik.values
     ? Object.keys(formik.values).reduce((prev: Fields, key: string) => {
-        prev[key] = getField(key);
+        prev[key] = getField(key as keyof T);
         return prev;
       }, {})
-    : {};
+    : {}) as Record<keyof T, Field>;
 
   return {
     formik,
     fields,
   };
-};
+}

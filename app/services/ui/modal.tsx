@@ -2,44 +2,46 @@ import { ReactNode } from 'react';
 
 import EventEmitter from 'events';
 
+import { ModalProps } from 'react-native-modal';
+
 // @ts-ignore
 const eventEmitter = new EventEmitter();
 
-export interface ModalTypeI {
-  propsForComponent?: Object;
-  propsForModal?: Object;
+export interface IModalType {
+  propsForComponent?: object;
+  propsForModal?: Partial<ModalProps>;
   renderComponent: (props: any) => ReactNode;
 }
-export interface ModalTypeInternalI extends ModalTypeI {
+export interface IModalTypeInternal extends IModalType {
   name: string;
   isVisible: boolean;
 }
 
-export interface ModalsMapI {
-  [key: string]: ModalTypeI;
+export interface IModalsMap {
+  [key: string]: IModalType;
 }
 
-export interface ModalsMapInternalI {
-  [key: string]: ModalTypeInternalI;
+export interface IModalsMapInternal {
+  [key: string]: IModalTypeInternal;
 }
 
 enum Events {
   Change = 'change',
 }
 class ModalServiceClass {
-  _modals: Array<ModalTypeInternalI>;
+  _modals: Array<IModalTypeInternal>;
 
-  _visibleModals: ModalsMapInternalI;
+  _visibleModals: IModalsMapInternal;
 
   constructor() {
     this._modals = [];
     this._visibleModals = {};
   }
 
-  registerModals(modals: ModalsMapI) {
-    const arr: [string, ModalTypeI][] = Object.entries(modals);
+  registerModals(modals: IModalsMap) {
+    const arr: [string, IModalType][] = Object.entries(modals);
 
-    this._modals = arr.map((current: [string, ModalTypeI]) => {
+    this._modals = arr.map((current: [string, IModalType]) => {
       const [key, value] = current;
 
       return {

@@ -2,11 +2,22 @@ import { types, flow, getEnv } from 'mobx-state-tree';
 import * as fns from 'date-fns';
 
 import { SECURE_STORAGE, STORAGE } from '~/constants';
-import { LocalizationService } from '~/services';
 import { translations } from '~/localization';
+import { ILocalizationData } from '~/services';
 
 import { AuthStore } from './auth';
 import { ViewerStore } from './viewer';
+
+interface ITokens {
+  access: {
+    expires: string;
+    token: string;
+  };
+  refresh: {
+    expires: string;
+    token: string;
+  };
+}
 
 export const RootStore = types
   .model({
@@ -15,30 +26,19 @@ export const RootStore = types
 
     isInitialized: false,
   })
-  .views((store) => ({
-    get ApiService() {
-      return getEnv(store).ApiService;
-    },
-    get SecureStorageService() {
-      return getEnv(store).SecureStorageService;
-    },
-    get StorageService() {
-      return getEnv(store).StorageService;
-    },
-  }))
   .actions((store) => {
-    const { SecureStorageService, StorageService, ApiService } = store;
+    const { SecureStorageService, StorageService, ApiService, LocalizationService } = getEnv(store);
 
     return {
       initLocalization: flow(function* initLocalization() {
-        LocalizationService.onChange((data) => StorageService.set(data));
+        LocalizationService.onChange((data: ILocalizationData) => StorageService.set(data));
 
         const initialData = yield StorageService.get(STORAGE.LOCALIZATION);
 
         LocalizationService.init(translations, initialData);
       }),
       initTokens: flow(function* initTokens() {
-        SecureStorageService.onChange(SECURE_STORAGE.AUTH_TOKEN, (tokens) => {
+        SecureStorageService.onChange(SECURE_STORAGE.AUTH_TOKEN, (tokens: ITokens) => {
           ApiService.setAuthToken(tokens?.access?.token || null);
         });
 
@@ -57,7 +57,7 @@ export const RootStore = types
         const isAccessTokenExpired = fns.isBefore(new Date(tokens.access.expires), Date.now());
 
         if (isAccessTokenExpired) {
-          const { data } = yield store.ApiService.refreshTokens({
+          const { data } = yield ApiService.refreshTokens({
             refreshToken: tokens.refresh.token,
           });
           yield SecureStorageService.set(SECURE_STORAGE.AUTH_TOKEN, data);
@@ -65,19 +65,26 @@ export const RootStore = types
       }),
     };
   })
-  .actions((store) => ({
-    init: flow(function* init() {
-      const { SecureStorageService } = store;
+  .actions((store) => {
+    const { SecureStorageService, StorageService, LocalizationService } = getEnv(store);
 
-      try {
-        yield store.initLocalization();
-        yield store.initTokens();
-        yield store.viewer.getUser.run();
-        store.auth.setAuthorizationStatus(true);
-      } catch (err) {
-        yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
-      } finally {
-        store.isInitialized = true;
-      }
-    }),
-  }));
+    return {
+      removeAllListeners() {
+        SecureStorageService.removeAllListeners();
+        StorageService.removeAllListeners();
+        LocalizationService.removeAllListeners();
+      },
+      init: flow(function* init() {
+        try {
+          yield store.initLocalization();
+          yield store.initTokens();
+          yield store.viewer.getUser.run();
+          store.auth.setAuthorizationStatus(true);
+        } catch (err) {
+          yield SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
+        } finally {
+          store.isInitialized = true;
+        }
+      }),
+    };
+  });

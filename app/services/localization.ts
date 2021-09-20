@@ -6,12 +6,16 @@ import { cloneDeep } from 'lodash';
 
 import { translate } from '~/utils';
 
-enum LocalizationEvents {
-  ChangeData = 'ChangeData',
+enum EVENTS {
+  ON_CHANGE = 'ON_CHANGE',
 }
 
 export interface ILocalizationData {
   locale: string;
+}
+
+interface ITranslations {
+  [locale: string]: object;
 }
 
 const fallback = {
@@ -33,7 +37,7 @@ class LocalizationClass {
     i18n.defaultLocale = 'uk';
   }
 
-  private setTranslations = (translations: object) => {
+  private setTranslations = (translations: ITranslations) => {
     i18n.translations = translations;
   };
 
@@ -42,10 +46,10 @@ class LocalizationClass {
   };
 
   private sendEvent() {
-    eventEmitter.emit(LocalizationEvents.ChangeData, cloneDeep(this.data));
+    eventEmitter.emit(EVENTS.ON_CHANGE, cloneDeep(this.data));
   }
 
-  public get data(): ILocalizationData {
+  public get data(): Readonly<ILocalizationData> {
     return {
       locale: i18n.currentLocale(),
     };
@@ -64,12 +68,16 @@ class LocalizationClass {
   }
 
   public onChange = (callBack: (value: ILocalizationData) => void) => {
-    eventEmitter.on(LocalizationEvents.ChangeData, callBack);
+    eventEmitter.on(EVENTS.ON_CHANGE, callBack);
 
-    return () => eventEmitter.removeListener(LocalizationEvents.ChangeData, callBack);
+    return () => eventEmitter.removeListener(EVENTS.ON_CHANGE, callBack);
   };
 
-  public init = async (translations: object, initialData?: ILocalizationData) => {
+  public removeAllListeners() {
+    eventEmitter.removeAllListeners();
+  }
+
+  public init = async (translations: ITranslations, initialData?: ILocalizationData) => {
     this.setTranslations(translations);
 
     try {

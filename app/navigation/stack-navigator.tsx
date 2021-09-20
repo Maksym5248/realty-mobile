@@ -22,7 +22,7 @@ export const StackNavigator = observer(() => {
     initialRouteName: SCREENS.SIGN_IN,
   };
 
-  function getHeaderTitle(route) {
+  function getHeaderTitle(route: string) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? SCREENS.MAIN;
 
     switch (routeName) {

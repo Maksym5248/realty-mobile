@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { IconProps } from './icon.types';
+import { IIconProps } from './icon.types';
 
 const icons = {
   Ionicons,
@@ -19,7 +19,7 @@ export const Icon = ({
   onPress,
   disabled,
   disabledColor = 'grey',
-}: IconProps) => {
+}: IIconProps) => {
   const CurrentIcon = icons[type];
   const isContainer = containerStyle || onPress;
 

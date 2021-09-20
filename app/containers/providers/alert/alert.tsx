@@ -16,7 +16,7 @@ export const AlertProvider = () => {
   }, []);
 
   const onDismissSnackBar = () => {
-    setData({ ...AlertService.getInitialValue() });
+    AlertService.hide();
   };
 
   return (

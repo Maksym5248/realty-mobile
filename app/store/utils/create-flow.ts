@@ -66,7 +66,7 @@ export const asyncModel = types
       }
     },
 
-    failed(err, throwError) {
+    failed(err: Error, throwError: boolean) {
       if (!store.hasEverBeenRan) {
         store.hasEverBeenRan = true;
       }

@@ -11,6 +11,7 @@ import { styles, colors } from '~/styles';
 import { NavigationService } from '~/services';
 
 import { s } from './sign-in.styles';
+import { IFormValues } from './sign-in.types';
 
 const validationSchema = validation.shape({
   email: validation.email,
@@ -22,11 +23,11 @@ export const SignIn = observer(() => {
   const { t } = useLocalization({ prefix: 'sign_in' });
   const [refPassword, onEditedEmail] = useFocusInput();
 
-  const onSubmit = (values) => {
+  const onSubmit = (values: IFormValues) => {
     store?.auth?.signIn.run(values);
   };
 
-  const { formik, fields } = useForm({
+  const { formik, fields } = useForm<IFormValues>({
     initialValues: {
       email: '',
       password: '',
@@ -52,7 +53,7 @@ export const SignIn = observer(() => {
         autoCapitalize="none"
         keyboardType="email-address"
         autoCompleteType="email"
-        testID="input.email"
+        testID="email"
         {...fields.email}
       />
       <Input
@@ -64,7 +65,7 @@ export const SignIn = observer(() => {
         secureTextEntry
         autoCompleteType="password"
         onSubmitEditing={formik.isValid ? formik.handleSubmit : undefined}
-        testID="input.password"
+        testID="password"
         {...fields.password}
       />
       <Button
@@ -72,7 +73,7 @@ export const SignIn = observer(() => {
         title={t('sign_in_btn')}
         onPress={formik.handleSubmit}
         disabled={!formik.isValid}
-        testID="button.sign_in"
+        testID="sign_in"
       />
       <Touchable onPress={onGoToSignUp} style={s.footerContainer} testID="touchable.go_to_sign_up">
         <Text color={colors.placeholder} text={`${t('sign_up_btn')}  `} />

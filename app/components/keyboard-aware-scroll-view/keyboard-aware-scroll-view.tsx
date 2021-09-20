@@ -4,8 +4,8 @@ import { KeyboardAwareScrollView as KeyboardViewRN } from 'react-native-keyboard
 
 import { KeyboardAwareScrollViewProps } from './keyboard-aware-scroll-view.types';
 
-export const KeyboardAwareScrollView = ({ children, ...props }: KeyboardAwareScrollViewProps) => (
-  <KeyboardViewRN bounces={false} keyboardShouldPersistTaps="handled" {...props}>
+export const KeyboardAwareScrollView = ({ children, ...rest }: KeyboardAwareScrollViewProps) => (
+  <KeyboardViewRN bounces={false} keyboardShouldPersistTaps="handled" {...rest}>
     {children}
   </KeyboardViewRN>
 );

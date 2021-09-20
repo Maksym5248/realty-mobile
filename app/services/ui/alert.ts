@@ -1,45 +1,50 @@
+import EventEmitter from 'events';
+
 import { isString } from 'lodash';
 
-const initialData = {
+interface IAlertShowParams {
+  text: string;
+  buttonLabel: string;
+  onPress: (...args: any[]) => void;
+}
+
+interface IAlertHideValue extends IAlertShowParams {
+  isVisible: boolean;
+}
+
+enum EVENTS {
+  ON_CHANGE_VISIBLE = 'ON_CHANGE_VISIBLE',
+}
+
+// @ts-ignore
+const eventEmitter = new EventEmitter();
+
+const initialData: IAlertHideValue = {
   isVisible: false,
   text: '',
   buttonLabel: 'Ok',
   onPress: undefined,
 };
 
-interface AlertParamsI {
-  text: string;
-  buttonLabel: string;
-  onPress: (...args: any[]) => void;
-}
-
-interface AlertInitialValue extends AlertParamsI {
-  isVisible: boolean;
-}
-
 class AlertClass {
-  constructor() {
-    this._listener = null;
-  }
+  getInitialValue = (): IAlertHideValue => ({ ...initialData });
 
-  getInitialValue = (): AlertInitialValue => ({ ...initialData });
+  show = (params: IAlertShowParams | string) => {
+    const data = { ...initialData, isVisible: true };
 
-  show = (params: AlertParamsI) => {
-    isString(params)
-      ? this._send({ text: params, isVisible: true })
-      : this._send({ ...params, isVisible: true });
+    isString(params) ? (data.text = params) : Object.assign(data, params);
+
+    eventEmitter.emit(EVENTS.ON_CHANGE_VISIBLE, data);
   };
 
   hide = () => {
-    this._send({ ...initialData, isVisible: false });
+    eventEmitter.emit(EVENTS.ON_CHANGE_VISIBLE, { ...initialData, isVisible: false });
   };
 
-  onChange = (callBack) => {
-    this._listener = callBack;
-  };
+  onChange = (callBack: (value: IAlertHideValue) => void) => {
+    eventEmitter.on(EVENTS.ON_CHANGE_VISIBLE, callBack);
 
-  _send = (params: AlertParamsI) => {
-    this._listener && this._listener(params);
+    return () => eventEmitter.removeListener(EVENTS.ON_CHANGE_VISIBLE, callBack);
   };
 }
 

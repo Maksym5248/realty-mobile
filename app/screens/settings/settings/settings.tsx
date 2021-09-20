@@ -24,6 +24,7 @@ export const Settings = observer(() => {
         mode="text"
         onPress={onSignOut}
         loading={store?.auth?.signOut.inProgress}
+        testID="sign_out"
       />
     </View>
   );

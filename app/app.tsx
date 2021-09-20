@@ -33,6 +33,7 @@ export const App = observer(() => {
 
   useEffect(() => {
     initStore();
+    return () => store.removeAllListeners();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

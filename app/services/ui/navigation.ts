@@ -1,17 +1,24 @@
-import { CommonActions, StackActions } from '@react-navigation/native';
+import {
+  CommonActions,
+  StackActions,
+  NavigationState,
+  EventListenerCallback,
+  NavigationContainerEventMap,
+} from '@react-navigation/native';
 import { NavigationContainerRef } from '@react-navigation/core';
 
 class NavigationServiceClass {
   private nav: NavigationContainerRef;
+
   constructor() {
     this.nav = null;
   }
 
-  init = (navigatorRef) => {
+  init = (navigatorRef: NavigationContainerRef) => {
     this.nav = navigatorRef;
   };
 
-  navigate = (routeName, params = {}) => {
+  navigate = (routeName: string, params = {}) => {
     this.nav.dispatch(CommonActions.navigate(routeName, params));
   };
 
@@ -23,11 +30,18 @@ class NavigationServiceClass {
     this.nav.dispatch(CommonActions.goBack());
   };
 
-  reset = (state) => {
+  reset = (state: NavigationState) => {
     this.nav.dispatch(CommonActions.reset(state));
   };
 
-  addListener = (name, func) => this.nav.addListener(name, func);
+  onChange = (
+    name: keyof NavigationContainerEventMap,
+    callBack: EventListenerCallback<NavigationContainerEventMap, any>,
+  ) => {
+    this.nav.addListener(name, callBack);
+
+    return () => this.nav.removeListener(name, callBack);
+  };
 }
 
 export const NavigationService = new NavigationServiceClass();

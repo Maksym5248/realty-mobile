@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const withPrefix = (v) => `errors.${v}`;
+const withPrefix = (v: string) => `errors.${v}`;
 
 const password = Yup.string().required(withPrefix('required')).min(8, withPrefix('min'));
 const name = Yup.string().required(withPrefix('required')).min(2, withPrefix('min'));
@@ -10,7 +10,7 @@ const email = Yup.string()
   .required(withPrefix('required'))
   .trim(withPrefix('required'));
 
-const shape = (rules) => Yup.object().shape(rules);
+const shape = (fields: object) => Yup.object().shape(fields);
 
 export const validation = {
   shape,

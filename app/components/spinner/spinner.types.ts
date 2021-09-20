@@ -2,6 +2,6 @@ import { ViewStyle } from 'react-native';
 
 export type SpinnerProps = {
   isVisible: boolean;
-  color: string;
+  color?: string;
   style?: ViewStyle;
 };

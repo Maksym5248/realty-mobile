@@ -2,7 +2,7 @@ import { types, getParent, getRoot } from 'mobx-state-tree';
 
 import { asyncModel } from './create-flow';
 
-export function asyncAction(action: Function, auto?: boolean, throwError?: boolean = true) {
+export function asyncAction(action: Function, auto?: boolean, throwError: boolean = true) {
   const flowModel = types.compose(
     asyncModel,
     types.model({}).actions((store) => ({

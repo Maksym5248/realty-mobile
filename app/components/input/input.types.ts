@@ -1,9 +1,13 @@
+import { ComponentPropsWithRef } from 'react';
+
 import { ViewStyle } from 'react-native';
+import { TextInput } from 'react-native-paper';
 
-interface CustomInputProps {
+export type IInputProps = ComponentPropsWithRef<typeof TextInput> & {
   onChangeValue: (text: string) => void;
-  style?: ViewStyle;
+  containerStyle?: ViewStyle | ViewStyle[];
+  label?: string;
   testID: string;
-}
-
-export type InputProps = CustomInputProps;
+  isValid?: boolean;
+  message?: string;
+};

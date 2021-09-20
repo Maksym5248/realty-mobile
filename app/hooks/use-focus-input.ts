@@ -1,8 +1,13 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, MutableRefObject } from 'react';
 
-import { TextInput } from 'react-native';
+import { TextInput, NativeSyntheticEvent, TextInputEndEditingEventData } from 'react-native';
 
-export function useFocusInput() {
+type IUseFocusInput = [
+  MutableRefObject<TextInput>,
+  (e: NativeSyntheticEvent<TextInputEndEditingEventData>) => void,
+];
+
+export function useFocusInput(): IUseFocusInput {
   const ref = useRef<TextInput>(null);
 
   const onEdited = useCallback(() => {

@@ -33,12 +33,13 @@ ESLINT/TYPEXCRIPT
 - improve flow model in mobx
 
             LOCALIZATON
-- + refactoring localization
+- refactoring localization
 
             REFACTORING
 - + move the alert to modals dir
 - + to think, do we need to split modal service on diff components
 - + integrate events library
+- + refactoring store and security store
 - do i need config file for layot animation and modals ????
 - update react-navigation
 

@@ -1,5 +1,10 @@
-import React from 'react';
+import { ComponentPropsWithRef, ReactNode } from 'react';
 
-export interface KeyboardAwareScrollViewProps {
-  children?: React.ReactChildren;
-}
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+export type KeyboardAwareScrollViewProps = Omit<
+  ComponentPropsWithRef<typeof KeyboardAwareScrollView>,
+  'children'
+> & {
+  children?: ReactNode;
+};

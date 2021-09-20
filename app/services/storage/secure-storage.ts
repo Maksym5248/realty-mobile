@@ -1,48 +1,49 @@
+import EventEmitter from 'events';
+
 import SInfo from 'react-native-sensitive-info';
 
 import { config } from '~/config';
+import { Cache } from '~/utils';
 
-/*
-@examples
-  SecureStore.set(tokens.AUTH, token);
-  SecureStore.get(tokens.AUTH);
-  SecureStore.remove(tokens.AUTH);
-  SecureStore.onChange(tokens.AUTH, (value) => {
-    this._token = value;
-    common.Authorization = `Bearer ${value}`;
-  });
-*/
+// @ts-ignore
+const eventEmitter = new EventEmitter();
+
+interface IConfig {
+  sharedPreferencesName: string;
+  keychainService: string;
+}
 
 class SecureStorageClass {
+  config: IConfig;
+  cache: Cache;
+
   constructor() {
-    this.listeners = [];
     this.config = {
       sharedPreferencesName: config.APP_NAME,
       keychainService: config.APP_NAME,
     };
 
-    this.caches = {};
+    this.cache = new Cache();
   }
 
-  set = async (key, value) => {
-    this.caches[key] = value;
-    this._send(key);
-
+  set = async (key: string, value: any) => {
     await SInfo.setItem(key, JSON.stringify(value), this.config);
+    this.cache.set(key, value);
+
+    eventEmitter.emit(key, this.cache.get(key));
   };
 
-  get = async (key) => {
-    if (this.caches[key]) {
-      return Promise.resolve(this.caches[key]);
+  get = async (key: string) => {
+    if (this.cache.get(key)) {
+      return Promise.resolve(this.cache.get(key));
     }
 
     try {
-      const valueString = await SInfo.getItem(key, this.config);
+      const valueJson = await SInfo.getItem(key, this.config);
 
-      const value = JSON.parse(valueString);
+      const value = JSON.parse(valueJson);
 
-      this.caches[key] = value;
-      this._send(key);
+      this.cache.set(key, value);
 
       return value;
     } catch (e) {
@@ -50,31 +51,22 @@ class SecureStorageClass {
     }
   };
 
-  remove = async (key) => {
-    this.caches[key] = null;
-    this._send(key);
-
+  remove = async (key: string) => {
     await SInfo.deleteItem(key, this.config);
+    this.cache.remove(key);
+
+    eventEmitter.emit(key, this.cache.get(key));
   };
 
-  onChange = (key, callBack, initWithRun = false) => {
-    this.listeners.push({
-      callBack,
-      key,
-    });
+  onChange = (key: string, callBack: (value: any) => void) => {
+    eventEmitter.on(key, callBack);
 
-    if (initWithRun && this.caches[key]) {
-      callBack(this.caches[key]);
-    }
+    return () => eventEmitter.removeListener(key, callBack);
   };
 
-  _send = (receiverKey) => {
-    this.listeners.forEach(({ callBack, key }) => {
-      if (receiverKey === key) {
-        callBack(this.caches[key]);
-      }
-    });
-  };
+  removeAllListeners() {
+    eventEmitter.removeAllListeners();
+  }
 }
 
 export const SecureStorageService = new SecureStorageClass();
