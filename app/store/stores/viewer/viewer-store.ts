@@ -1,36 +1,37 @@
-import { types as t } from 'mobx-state-tree';
+import { types, Instance, applySnapshot } from 'mobx-state-tree';
 
-import { CurrentUserModel } from './current-user';
+import { CurrentUserModel, ICurrentUser } from './current-user';
 import { asyncAction } from '../../utils';
 
-export const ViewerStore = t
-  .model('Viewer', {
-    user: t.maybe(CurrentUserModel),
-
-    getUser: asyncAction(getUser),
+const Store = types
+  .model('ViewerStore', {
+    user: types.maybe(CurrentUserModel),
   })
-  .actions((store) => ({
-    setUser(user) {
-      const newUser = { ...user };
-      store.user = newUser;
+  .actions((self) => ({
+    setUser(user: ICurrentUser) {
+      applySnapshot(self.user, user);
     },
     removeUser() {
-      store.user = undefined;
+      applySnapshot(self.user, undefined);
     },
   }));
 
-function getUser(retry) {
-  return async (flow, store) => {
+const fetchUser = asyncAction<Instance<typeof Store>>(() => {
+  return async ({ flow, self, env }) => {
     try {
-      flow.start(retry);
+      flow.start();
 
-      const res = await flow.ApiService.getCurrentUser();
+      const res = await env.Api.getCurrentUser();
 
-      store.setUser(res.data);
+      self.setUser(res.data);
 
       flow.success();
     } catch (e) {
       flow.failed(e);
     }
   };
-}
+});
+
+export const ViewerStore = Store.props({
+  fetchUser,
+});

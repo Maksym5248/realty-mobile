@@ -16,6 +16,7 @@
   "settings": {
     "import/resolver": {
       "babel-module": {
+        "~/api": "./app/api",
         "~/components": "./app/components",
         "~/containers": "./app/containers",
         "~/config": "./app/config",
@@ -29,7 +30,8 @@
         "~/services": "./app/services",
         "~/styles": "./app/styles",
         "~/utils": "./app/utils",
-        "~/context": "./app/context"
+        "~/context": "./app/context",
+        "~/types": "./app/types"
       }
     },
     "import/ignore": ["react-native"],

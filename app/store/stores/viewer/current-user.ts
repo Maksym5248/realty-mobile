@@ -1,4 +1,6 @@
-import { types as t } from 'mobx-state-tree';
+import { types as t, SnapshotOut, applySnapshot } from 'mobx-state-tree';
+
+export interface ICurrentUser extends SnapshotOut<typeof CurrentUserModel> {}
 
 export const CurrentUserModel = t
   .model('CurrentUser', {
@@ -8,7 +10,7 @@ export const CurrentUserModel = t
     email: t.string,
   })
   .actions((self) => ({
-    set(user) {
-      Object.assign(self, user);
+    set(user: ICurrentUser) {
+      applySnapshot(self, user);
     },
   }));

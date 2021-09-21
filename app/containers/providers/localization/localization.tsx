@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { LocalizationService, ILocalizationData } from '~/services';
+import { Localization, ILocalizationData } from '~/localization';
 import { LocalizationContext } from '~/context';
 
 export const LocalizationProvider = ({ children }) => {
-  const [data, setData] = useState<ILocalizationData>(LocalizationService.data);
+  const [data, setData] = useState<ILocalizationData>(Localization.data);
 
   useEffect(() => {
-    const remove = LocalizationService.onChange((newData) => setData(newData));
+    const remove = Localization.onChange((newData) => setData(newData));
 
     return remove;
   }, []);

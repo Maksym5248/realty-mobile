@@ -1,3 +1,5 @@
+import { ISignInParams, ISignUpParams } from '~/api';
+
 import { RootStore } from '../root-store';
 import { AuthStore } from './auth-store';
 
@@ -9,7 +11,7 @@ const testUser = {
   password: '12345678',
 };
 
-const getAuthResponse = ({ email }) => ({
+const getAuthResponse = ({ email }: { email: string }) => ({
   data: {
     tokens: {
       refresh: {
@@ -32,47 +34,47 @@ const getAuthResponse = ({ email }) => ({
 
 const env = {
   Storage: {},
-  SecureStorageService: {
-    set: () => new Promise.resolve(),
+  SecureStorage: {
+    set: (): Promise<any> => Promise.resolve(),
   },
-  ApiService: {
-    signIn: (data) => new Promise.resolve(getAuthResponse(data)),
-    signUp: (data) => new Promise.resolve(getAuthResponse(data)),
+  Api: {
+    signIn: (data: ISignInParams) => Promise.resolve(getAuthResponse(data)),
+    signUp: (data: ISignUpParams) => Promise.resolve(getAuthResponse(data)),
   },
 };
 
 describe('Store: auth-store', () => {
   it('Action, setAuthorizationStatus', () => {
-    const store = AuthStore.create({});
+    const self = AuthStore.create({});
 
-    store.setAuthorizationStatus(true);
+    self.setAuthorizationStatus(true);
 
-    expect(store.isAuthorized).toBe(true);
+    expect(self.isAuthorized).toBe(true);
   });
 
   it('Async action, signIn', async () => {
-    const store = RootStore.create({}, env);
+    const self = RootStore.create({}, env);
 
-    await store.auth.signIn.run(testUser);
+    await self.auth.signIn.run(testUser);
 
-    expect(store.auth.isAuthorized).toBe(true);
+    expect(self.auth.isAuthorized).toBe(true);
 
-    expect(store.viewer.user.email).toBe(testUser.email);
-    expect(store.viewer.user.id).toBe(testUser.id);
-    expect(store.viewer.user.name).toBe(testUser.name);
-    expect(store.viewer.user.role).toBe(testUser.role);
+    expect(self.viewer.user.email).toBe(testUser.email);
+    expect(self.viewer.user.id).toBe(testUser.id);
+    expect(self.viewer.user.name).toBe(testUser.name);
+    expect(self.viewer.user.role).toBe(testUser.role);
   });
 
   it('Async action, signUp', async () => {
-    const store = RootStore.create({}, env);
+    const self = RootStore.create({}, env);
 
-    await store.auth.signUp.run(testUser);
+    await self.auth.signUp.run(testUser);
 
-    expect(store.auth.isAuthorized).toBe(true);
+    expect(self.auth.isAuthorized).toBe(true);
 
-    expect(store.viewer.user.email).toBe(testUser.email);
-    expect(store.viewer.user.id).toBe(testUser.id);
-    expect(store.viewer.user.name).toBe(testUser.name);
-    expect(store.viewer.user.role).toBe(testUser.role);
+    expect(self.viewer.user.email).toBe(testUser.email);
+    expect(self.viewer.user.id).toBe(testUser.id);
+    expect(self.viewer.user.name).toBe(testUser.name);
+    expect(self.viewer.user.role).toBe(testUser.role);
   });
 });

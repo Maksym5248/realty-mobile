@@ -22,15 +22,17 @@ TODO:
 
 ESLINT/TYPEXCRIPT
 - + rewirite it with typescript
-- +- setup eslint rules and use ts lint rules
-- check rules for typescript
+- + setup eslint rules and use ts lint rules
+- + check rules for typescript
   
   
             MOBX
+- types for mobx and definition, support for parent
+- normalize before apply data
 - update library
 - entities for mobx, create collection function
-- types for mobx and definition
-- improve flow model in mobx
+- +- improve flow model in mobx
+- useStore with onReaction ??? works as useRedux 
 
             LOCALIZATON
 - refactoring localization

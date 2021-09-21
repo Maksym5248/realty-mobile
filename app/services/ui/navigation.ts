@@ -7,7 +7,7 @@ import {
 } from '@react-navigation/native';
 import { NavigationContainerRef } from '@react-navigation/core';
 
-class NavigationServiceClass {
+class NavigationClass {
   private nav: NavigationContainerRef;
 
   constructor() {
@@ -44,4 +44,4 @@ class NavigationServiceClass {
   };
 }
 
-export const NavigationService = new NavigationServiceClass();
+export const Navigation = new NavigationClass();

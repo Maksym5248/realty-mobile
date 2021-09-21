@@ -1,82 +1,85 @@
-import { types as t, flow as mstFlow, getRoot, getEnv } from 'mobx-state-tree';
+import { types, flow as mstFlow, Instance } from 'mobx-state-tree';
 
 import { SECURE_STORAGE } from '~/constants';
-import { AlertService } from '~/services';
-import { error } from '~/utils';
+import { Alert } from '~/services';
+import { t } from '~/localization';
+import { IApiAuth, ISignInParams, ISignUpParams } from '~/api';
 
-import { asyncAction } from '../../utils';
+import { asyncAction, getRoot, getEnv } from '../../utils';
 
-export const AuthStore = t
-  .model('Auth', {
+interface IStore extends Instance<typeof Store> {}
+
+const Store = types
+  .model('AuthStore', {
     isAuthorized: false,
-
-    signUp: asyncAction(signUp),
-    signIn: asyncAction(signIn),
-    signOut: asyncAction(signOut),
   })
-  .actions((store) => ({
-    setAuthorizationStatus(status) {
-      store.isAuthorized = status;
+  .actions((self) => ({
+    setAuthorizationStatus(status: boolean) {
+      self.isAuthorized = status;
     },
-    authorize: mstFlow(async ({ user, tokens }) => {
-      const root = getRoot(store);
-      const env = getEnv(store);
+  }))
+  .actions((self) => ({
+    authorize: mstFlow(function* ({ user, tokens }: IApiAuth) {
+      const root = getRoot(self);
+      const env = getEnv(self);
 
-      env.SecureStorageService.set(SECURE_STORAGE.AUTH_TOKEN, tokens);
+      env.SecureStorage.set(SECURE_STORAGE.AUTH_TOKEN, tokens);
       root.viewer.setUser(user);
-      store.setAuthorizationStatus(true);
+      self.setAuthorizationStatus(true);
     }),
   }));
 
-function signUp(params) {
-  return async (flow, store) => {
+const signUp = asyncAction<IStore>((params: ISignUpParams) => async ({ flow, self, env }) => {
+  try {
+    flow.start();
+
+    const { data } = await env.Api.signUp(params);
+    await self.authorize(data);
+
+    flow.success();
+  } catch (e) {
+    flow.failed(e);
+    Alert.show(t(flow.errorMessage));
+  }
+});
+
+const signIn = asyncAction<IStore>((params: ISignInParams) => {
+  return async ({ flow, self, env }) => {
     try {
       flow.start();
 
-      const { data } = await flow.Api.signUp(params);
-
-      await store.authorize(data);
+      const { data } = await env.Api.signIn(params);
+      await self.authorize(data);
 
       flow.success();
     } catch (e) {
-      AlertService.show(error.get(e));
       flow.failed(e);
+      Alert.show(t(flow.errorMessage));
     }
   };
-}
+});
 
-function signIn(params) {
-  return async (flow, store) => {
+const signOut = asyncAction<IStore>(() => {
+  return async ({ flow, self, root, env }) => {
     try {
       flow.start();
+      const tokens = await env.SecureStorage.get(SECURE_STORAGE.AUTH_TOKEN);
 
-      const { data } = await flow.Api.signIn(params);
+      await env.Api.signOut({ refreshToken: tokens.refresh.token });
+      await env.SecureStorage.remove(SECURE_STORAGE.AUTH_TOKEN);
 
-      await store.authorize(data);
-
-      flow.success();
-    } catch (e) {
-      AlertService.show(error.get(e));
-      flow.failed(e);
-    }
-  };
-}
-
-function signOut() {
-  return async (flow, store, root) => {
-    try {
-      flow.start();
-      const tokens = await flow.SecureStorageService.get(SECURE_STORAGE.AUTH_TOKEN);
-
-      flow.ApiService.signOut({ refreshToken: tokens.refresh.token });
-      await flow.SecureStorageService.remove(SECURE_STORAGE.AUTH_TOKEN);
-
-      store.setAuthorizationStatus(false);
+      self.setAuthorizationStatus(false);
       root.viewer.removeUser();
-
+      root.viewer.fetchUser.run();
       flow.success();
     } catch (e) {
       flow.failed(e);
     }
   };
-}
+});
+
+export const AuthStore = Store.props({
+  signUp,
+  signIn,
+  signOut,
+});

@@ -4,7 +4,11 @@ import * as RNLocalize from 'react-native-localize';
 import i18n, { TranslateOptions } from 'i18n-js';
 import { cloneDeep } from 'lodash';
 
-import { translate } from '~/utils';
+import { translate } from './translate';
+
+const translations = {
+  uk: require('./translations/uk.json'),
+};
 
 enum EVENTS {
   ON_CHANGE = 'ON_CHANGE',
@@ -12,10 +16,6 @@ enum EVENTS {
 
 export interface ILocalizationData {
   locale: string;
-}
-
-interface ITranslations {
-  [locale: string]: object;
 }
 
 const fallback = {
@@ -35,11 +35,8 @@ class LocalizationClass {
   constructor() {
     i18n.fallbacks = true;
     i18n.defaultLocale = 'uk';
-  }
-
-  private setTranslations = (translations: ITranslations) => {
     i18n.translations = translations;
-  };
+  }
 
   private setLocale = (languageTag: string) => {
     i18n.locale = languageTag;
@@ -77,9 +74,7 @@ class LocalizationClass {
     eventEmitter.removeAllListeners();
   }
 
-  public init = async (translations: ITranslations, initialData?: ILocalizationData) => {
-    this.setTranslations(translations);
-
+  public init = async (initialData?: ILocalizationData) => {
     try {
       if (initialData?.locale) {
         this.setLocale(initialData?.locale);
@@ -94,4 +89,4 @@ class LocalizationClass {
   };
 }
 
-export const LocalizationService = new LocalizationClass();
+export const Localization = new LocalizationClass();

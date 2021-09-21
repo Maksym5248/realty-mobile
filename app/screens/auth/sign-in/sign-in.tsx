@@ -8,7 +8,7 @@ import { useLocalization, useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
-import { NavigationService } from '~/services';
+import { Navigation } from '~/services';
 
 import { s } from './sign-in.styles';
 import { IFormValues } from './sign-in.types';
@@ -37,7 +37,7 @@ export const SignIn = observer(() => {
   });
 
   const onGoToSignUp = () => {
-    NavigationService.navigate(SCREENS.SIGN_UP);
+    Navigation.navigate(SCREENS.SIGN_UP);
   };
 
   return (

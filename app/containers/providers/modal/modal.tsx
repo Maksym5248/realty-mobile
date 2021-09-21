@@ -2,7 +2,7 @@ import React from 'react';
 
 import ModalUI from 'react-native-modal';
 
-import { ModalService, IModalTypeInternal, IModalsMap, IModalsMapInternal } from '~/services';
+import { Modal, IModalTypeInternal, IModalsMap, IModalsMapInternal } from '~/services';
 import { styles } from '~/styles';
 
 interface IModalProviderProps {
@@ -20,7 +20,7 @@ export class ModalProvider extends React.PureComponent<IModalProviderProps, IMod
   constructor(props: IModalProviderProps) {
     super(props);
     this.state = {
-      modals: ModalService.registerModals(props.modals),
+      modals: Modal.registerModals(props.modals),
       visibleModals: {},
     };
 
@@ -28,7 +28,7 @@ export class ModalProvider extends React.PureComponent<IModalProviderProps, IMod
   }
 
   componentDidMount() {
-    this._removeListener = ModalService.onChange(async (nextState) => {
+    this._removeListener = Modal.onChange(async (nextState) => {
       this.setState({
         ...this.state,
         visibleModals: nextState,
@@ -41,11 +41,11 @@ export class ModalProvider extends React.PureComponent<IModalProviderProps, IMod
   }
 
   hide = (name: string) => {
-    ModalService.hide(name);
+    Modal.hide(name);
   };
 
   onModalHide = (name: string) => {
-    ModalService.removeVisibleModal(name);
+    Modal.removeVisibleModal(name);
   };
 
   render() {

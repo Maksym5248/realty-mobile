@@ -1,34 +1,55 @@
-import { types, getParent, getRoot } from 'mobx-state-tree';
+import { types, getParent, getEnv, Instance } from 'mobx-state-tree';
 
-import { asyncModel } from './create-flow';
+import { AsyncModel } from './create-flow';
+import { getRoot } from './get-root';
+import { IEnv } from '../env';
+import { IRootStore } from '../stores/root-store';
 
-export function asyncAction(action: Function, auto?: boolean, throwError: boolean = true) {
-  const flowModel = types.compose(
-    asyncModel,
-    types.model({}).actions((store) => ({
-      async auto(promise) {
+export interface IFlow extends Instance<typeof AsyncModel> {}
+
+export interface IAsyncAction<T> {
+  flow: Instance<typeof AsyncModel>;
+  env: IEnv;
+  self: T;
+  root: IRootStore;
+}
+
+export function asyncAction<T>(
+  action: (...args: any[]) => (value: IAsyncAction<T>) => any,
+  auto?: boolean,
+  throwError: boolean = true,
+) {
+  const FlowModel = AsyncModel.named('FlowModel')
+    .actions((self) => ({
+      async auto(promise: () => Promise<any>) {
         try {
-          store.start();
+          self.start();
 
           await promise();
 
-          store.success();
+          self.success();
         } catch (err) {
-          store.failed(err, throwError);
+          self.failed(err, throwError);
         }
       },
-
-      run: (...args) => {
-        const promise = () => action(...args)(store, getParent(store), getRoot(store));
+    }))
+    .actions((self) => ({
+      run: (...args: any[]): Promise<any> => {
+        const promise = () =>
+          action(...args)({
+            flow: self,
+            self: getParent(self) as T,
+            root: getRoot(self),
+            env: getEnv(getRoot(self)) as IEnv,
+          });
 
         if (auto) {
-          return store.auto(promise);
+          return self.auto(promise);
         }
 
         return promise();
       },
-    })),
-  );
+    }));
 
-  return types.optional(flowModel, {});
+  return types.optional(FlowModel, {});
 }

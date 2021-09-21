@@ -2,7 +2,7 @@ import { useContext, useCallback } from 'react';
 
 import { TranslateOptions } from 'i18n-js';
 
-import { LocalizationService, ILocalizationData } from '~/services';
+import { Localization, ILocalizationData } from '~/localization';
 import { LocalizationContext } from '~/context';
 
 interface UseLocalizationOptions {
@@ -16,7 +16,7 @@ export const useLocalization = ({ prefix }: UseLocalizationOptions = {}) => {
     (key: string, options?: TranslateOptions) => {
       const _key = prefix ? `${prefix}.${key}` : key;
 
-      return LocalizationService.t(_key, options);
+      return Localization.t(_key, options);
     },
     [prefix],
   );

@@ -1,8 +1,7 @@
-import { ApiService, SecureStorageService, StorageService, LocalizationService } from '~/services';
-
 import { RootStore } from './stores';
 import { serialize } from './persist';
 import { createPersist } from './utils';
+import { env } from './env';
 
 /**
  * Setup the environment that all the models will be sharing.
@@ -16,12 +15,7 @@ import { createPersist } from './utils';
  * Setup the root state.
  */
 export function createStore(initialState = {}) {
-  const store = RootStore.create(initialState, {
-    StorageService,
-    SecureStorageService,
-    ApiService,
-    LocalizationService,
-  });
+  const store = RootStore.create(initialState, env);
 
   const persist = createPersist(store, { serialize });
 

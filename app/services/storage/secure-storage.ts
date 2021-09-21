@@ -69,4 +69,4 @@ class SecureStorageClass {
   }
 }
 
-export const SecureStorageService = new SecureStorageClass();
+export const SecureStorage = new SecureStorageClass();

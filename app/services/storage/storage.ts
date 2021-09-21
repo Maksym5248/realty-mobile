@@ -56,4 +56,4 @@ class StorageClass {
   }
 }
 
-export const StorageService = new StorageClass();
+export const Storage = new StorageClass();

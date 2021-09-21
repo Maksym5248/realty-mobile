@@ -21,7 +21,7 @@ const mock = {
   ...RNSafeAreaContext,
   initialWindowMetrics: MOCK_INITIAL_METRICS,
   // Provide a simpler implementation with default values.
-  SafeAreaProvider: ({ children, initialMetrics }) => (
+  SafeAreaProvider: ({ children, initialMetrics }: { children: any; initialMetrics: any }) => (
     <RNSafeAreaContext.SafeAreaFrameContext.Provider
       value={initialMetrics?.frame ?? MOCK_INITIAL_METRICS.frame}>
       <RNSafeAreaContext.SafeAreaInsetsContext.Provider

@@ -10,7 +10,7 @@ import { StatusBar } from 'react-native';
 
 import { RootNavigation } from '~/navigation';
 import { createStore } from '~/store';
-import { NavigationService } from '~/services';
+import { Navigation } from '~/services';
 import { AlertProvider, ModalProvider, LocalizationProvider } from '~/containers';
 import { modals } from '~/modals';
 import { theme } from '~/styles';
@@ -43,7 +43,7 @@ export const App = observer(() => {
         <SafeAreaProvider>
           <PaperProvider theme={theme}>
             <StatusBar translucent barStyle="dark-content" backgroundColor="transparent" />
-            <RootNavigation ref={NavigationService.init} />
+            <RootNavigation ref={Navigation.init} />
             <ModalProvider modals={modals} />
             <AlertProvider />
           </PaperProvider>

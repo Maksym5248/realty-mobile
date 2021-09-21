@@ -19,6 +19,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "~/api": ["./app/api"],
       "~/components": ["./app/components"],
       "~/containers": ["./app/containers"],
       "~/config": ["./app/config"],
@@ -33,6 +34,8 @@
       "~/styles": ["./app/styles"],
       "~/utils": ["./app/utils"],
       "~/context": ["./app/context"],
+      "~/types": ["./app/types"],
+
     }
   },
   "exclude": [

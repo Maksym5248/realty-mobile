@@ -6,6 +6,7 @@ module.exports = (api) => {
       'module-resolver',
       {
         alias: {
+          "~/api": "./app/api",
           '~/components': './app/components',
           '~/containers': './app/containers',
           '~/config': './app/config',
@@ -20,6 +21,7 @@ module.exports = (api) => {
           '~/styles': './app/styles',
           '~/utils': './app/utils',
           '~/context': './app/context',
+          "~/types": "./app/types"
         },
       },
     ],

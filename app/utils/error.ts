@@ -1,10 +1,9 @@
 import { AxiosError } from 'axios';
+import { get } from 'lodash';
 
-import { t } from './localization';
-
-const get = (e: AxiosError) =>
-  e?.response?.data?.message || t(e?.message) || t('errors.unexpected_error');
+const getMessage = (e: AxiosError | Error) =>
+  get(e, 'response.data.message') || get(e, 'message') || 'errors.unexpected_error';
 
 export const error = {
-  get,
+  getMessage,
 };

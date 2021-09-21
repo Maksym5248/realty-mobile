@@ -1,94 +1,74 @@
 import { types, flow, getParent, getRoot, getEnv } from 'mobx-state-tree';
 import _ from 'lodash';
 
+import { error } from '~/utils';
+
+const integrateDevTools = (err: Error) => {
+  if (__DEV__ && process.env.JEST_WORKER_ID === undefined) {
+    const Reactotron = require('reactotron-react-native').default;
+    const { message, stack } = err;
+    if (stack) {
+      Reactotron.error(message, stack);
+    } else {
+      Reactotron.log(`Error:\n${message}`);
+    }
+  }
+};
+
 const ErrorModel = types.model({
   message: '',
   status: types.maybeNull(types.number),
   reason: types.maybeNull(types.string),
 });
 
-export const asyncModel = types
+export const AsyncModel = types
   .model({
     inProgress: false,
-    inProgressRetry: false,
     error: types.optional(types.maybeNull(ErrorModel), null),
     hasEverBeenRan: false,
   })
-  .views((store) => ({
-    get errorMessage() {
-      return _.get(store, 'error.message', null);
-    },
-
+  .views((self) => ({
     get isError() {
-      return Boolean(store.error);
+      return Boolean(self.error);
     },
 
-    get ApiService() {
-      return getEnv(getRoot(store)).ApiService;
-    },
-
-    get StorageService() {
-      return getEnv(getRoot(store)).StorageService;
-    },
-
-    get SecureStorageService() {
-      return getEnv(getRoot(store)).SecureStorageService;
-    },
-
-    get canBeRun() {
-      return !store.error && !store.inProgress;
+    get errorMessage(): string | null {
+      return _.get(self, 'error.message', null);
     },
 
     get inProgressAgain() {
-      return store.inProgress && store.hasEverBeenRan;
+      return self.inProgress && self.hasEverBeenRan;
+    },
+
+    get canBeRun() {
+      return !self.error && !self.inProgress;
     },
   }))
-  .actions((store) => ({
-    start(retry = false) {
-      if (retry) {
-        store.inProgressRetry = true;
-      } else {
-        store.inProgress = true;
-      }
-
-      store.error = null;
+  .actions((self) => ({
+    start() {
+      self.inProgress = true;
+      self.error = null;
     },
 
     success() {
-      if (!store.hasEverBeenRan) {
-        store.hasEverBeenRan = true;
+      if (!self.hasEverBeenRan) {
+        self.hasEverBeenRan = true;
       }
 
-      if (store.inProgressRetry) {
-        store.inProgressRetry = false;
-      } else {
-        store.inProgress = false;
-      }
+      self.inProgress = false;
     },
 
-    failed(err: Error, throwError: boolean) {
-      if (!store.hasEverBeenRan) {
-        store.hasEverBeenRan = true;
+    failed(err: Error, throwError?: boolean) {
+      if (!self.hasEverBeenRan) {
+        self.hasEverBeenRan = true;
       }
 
-      if (__DEV__ && process.env.JEST_WORKER_ID === undefined) {
-        const Reactotron = require('reactotron-react-native').default;
-        const { message, stack } = err;
-        if (stack) {
-          Reactotron.error(message, stack);
-        } else {
-          Reactotron.log(`Error:\n${message}`);
-        }
-      }
+      integrateDevTools(err);
 
-      if (store.inProgressRetry) {
-        store.inProgressRetry = false;
-      } else {
-        store.inProgress = false;
-      }
+      self.inProgress = false;
 
-      store.error = {
-        message: _.get(err, 'response.data.message', err.message),
+      self.error = {
+        message: error.getMessage(err),
         status: _.get(err, 'response.status', null),
         reason: _.get(err, 'response.data.reason', null),
       };
@@ -100,12 +80,16 @@ export const asyncModel = types
   }));
 
 export function createFlow(flowDefinition: (...args: any[]) => any) {
-  const flowModel = types.compose(
-    asyncModel,
-    types.model({}).actions((store) => ({
-      run: flow((...args) => flowDefinition(...args)(store, getParent(store), getRoot(store))),
-    })),
-  );
+  const FlowModel = AsyncModel.named('FlowModel').actions((store) => ({
+    run: flow((...args) =>
+      flowDefinition(...args)({
+        store,
+        parent: getParent(store),
+        root: getRoot(store),
+        env: getEnv(getRoot(store)),
+      }),
+    ),
+  }));
 
-  return types.optional(flowModel, {});
+  return types.optional(FlowModel, {});
 }

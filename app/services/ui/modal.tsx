@@ -28,7 +28,7 @@ export interface IModalsMapInternal {
 enum Events {
   Change = 'change',
 }
-class ModalServiceClass {
+class ModalClass {
   _modals: Array<IModalTypeInternal>;
 
   _visibleModals: IModalsMapInternal;
@@ -95,4 +95,4 @@ class ModalServiceClass {
   };
 }
 
-export const ModalService = new ModalServiceClass();
+export const Modal = new ModalClass();
