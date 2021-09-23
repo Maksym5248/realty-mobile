@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 import { Localization, ILocalizationData } from '~/localization';
-import { LocalizationContext } from '~/context';
+import { TranslateContext } from '~/context';
 
-export const LocalizationProvider = ({ children }) => {
+import { ILocalizationProps } from './localization.types';
+
+export const LocalizationProvider = ({ children }: ILocalizationProps) => {
   const [data, setData] = useState<ILocalizationData>(Localization.data);
 
   useEffect(() => {
-    const remove = Localization.onChange((newData) => setData(newData));
+    const removeListener = Localization.onChange((newData) => setData(newData));
 
-    return remove;
+    return removeListener;
   }, []);
 
-  return <LocalizationContext.Provider value={data}>{children}</LocalizationContext.Provider>;
+  return <TranslateContext.Provider value={data.locale}>{children}</TranslateContext.Provider>;
 };

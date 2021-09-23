@@ -5,4 +5,4 @@ import { Instance } from 'mobx-state-tree';
 import { RootStore } from '~/store';
 
 export const RootStoreContext = createContext<Instance<typeof RootStore>>(null);
-export const LocalizationContext = createContext({});
+export const TranslateContext = createContext({});

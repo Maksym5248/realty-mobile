@@ -1,4 +1,4 @@
-import { types, Instance, applySnapshot } from 'mobx-state-tree';
+import { types, Instance } from 'mobx-state-tree';
 
 import { CurrentUserModel, ICurrentUser } from './current-user';
 import { asyncAction } from '../../utils';
@@ -9,10 +9,15 @@ const Store = types
   })
   .actions((self) => ({
     setUser(user: ICurrentUser) {
-      applySnapshot(self.user, user);
+      self.user = {
+        id: user.id,
+        name: user.name,
+        role: user.role,
+        email: user.email,
+      };
     },
     removeUser() {
-      applySnapshot(self.user, undefined);
+      self.user = undefined;
     },
   }));
 

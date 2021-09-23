@@ -10,7 +10,7 @@ const translations = {
   uk: require('./translations/uk.json'),
 };
 
-enum EVENTS {
+enum LOCALIZATION_EVENTS {
   ON_CHANGE = 'ON_CHANGE',
 }
 
@@ -43,7 +43,7 @@ class LocalizationClass {
   };
 
   private sendEvent() {
-    eventEmitter.emit(EVENTS.ON_CHANGE, cloneDeep(this.data));
+    eventEmitter.emit(LOCALIZATION_EVENTS.ON_CHANGE, cloneDeep(this.data));
   }
 
   public get data(): Readonly<ILocalizationData> {
@@ -65,9 +65,9 @@ class LocalizationClass {
   }
 
   public onChange = (callBack: (value: ILocalizationData) => void) => {
-    eventEmitter.on(EVENTS.ON_CHANGE, callBack);
+    eventEmitter.on(LOCALIZATION_EVENTS.ON_CHANGE, callBack);
 
-    return () => eventEmitter.removeListener(EVENTS.ON_CHANGE, callBack);
+    return () => eventEmitter.removeListener(LOCALIZATION_EVENTS.ON_CHANGE, callBack);
   };
 
   public removeAllListeners() {

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import { observer } from 'mobx-react';
 
 import { SCREENS } from '~/constants';
-import { useLocalization, useStore } from '~/hooks';
+import { useTranslate, useStore } from '~/hooks';
 import * as screens from '~/screens';
 import { colors } from '~/styles';
 
@@ -15,14 +15,14 @@ const Stack = createNativeStackNavigator();
 
 export const StackNavigator = observer(() => {
   const store = useStore();
-  const { t } = useLocalization();
+  const { t } = useTranslate();
 
   const params = {
     screenOptions: { headerShown: true, headerTintColor: colors.primary },
     initialRouteName: SCREENS.SIGN_IN,
   };
 
-  function getHeaderTitle(route: string) {
+  function getHeaderTitle(route: Partial<Route<string, object>>) {
     const routeName = getFocusedRouteNameFromRoute(route) ?? SCREENS.MAIN;
 
     switch (routeName) {

@@ -5,7 +5,7 @@ import { colors } from '~/styles';
 export const s = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.blackOpacity,
+    backgroundColor: colors.onBackground,
     justifyContent: 'center',
     alignItems: 'center',
   },

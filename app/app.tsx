@@ -27,6 +27,8 @@ export const App = observer(() => {
     } catch (err) {
       await persist.purge();
     } finally {
+      console.tron.trackMstNode(store);
+
       store.init();
     }
   }, []);

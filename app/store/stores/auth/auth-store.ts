@@ -24,6 +24,7 @@ const Store = types
       const env = getEnv(self);
 
       env.SecureStorage.set(SECURE_STORAGE.AUTH_TOKEN, tokens);
+
       root.viewer.setUser(user);
       self.setAuthorizationStatus(true);
     }),
@@ -43,12 +44,13 @@ const signUp = asyncAction<IStore>((params: ISignUpParams) => async ({ flow, sel
   }
 });
 
-const signIn = asyncAction<IStore>((params: ISignInParams) => {
+const signIn = asyncAction<IStore>(function (params: ISignInParams) {
   return async ({ flow, self, env }) => {
     try {
       flow.start();
 
       const { data } = await env.Api.signIn(params);
+
       await self.authorize(data);
 
       flow.success();
@@ -70,7 +72,6 @@ const signOut = asyncAction<IStore>(() => {
 
       self.setAuthorizationStatus(false);
       root.viewer.removeUser();
-      root.viewer.fetchUser.run();
       flow.success();
     } catch (e) {
       flow.failed(e);

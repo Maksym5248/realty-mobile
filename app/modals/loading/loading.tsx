@@ -9,6 +9,6 @@ import { s } from './loading.styles';
 
 export const Loading = memo(() => (
   <View style={s.container}>
-    <Spinner isVisible color={colors.white} />
+    <Spinner isVisible color={colors.background} />
   </View>
 ));

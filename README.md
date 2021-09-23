@@ -7,8 +7,7 @@ navigation
 screens, modals
 containers
 store
-services
-components
+services - components
 hooks
 utils
 localization
@@ -27,23 +26,24 @@ ESLINT/TYPEXCRIPT
   
   
             MOBX
-- types for mobx and definition, support for parent
-- normalize before apply data
+- +- types for mobx and definition, add support for parent
 - update library
+- normalize before apply data
 - entities for mobx, create collection function
 - +- improve flow model in mobx
 - useStore with onReaction ??? works as useRedux 
+- fix setting fields and types for them
 
             LOCALIZATON
-- refactoring localization
+- + refactoring localization, splite useLocalization on useTranslate and useCurrency
 
             REFACTORING
 - + move the alert to modals dir
 - + to think, do we need to split modal service on diff components
 - + integrate events library
 - + refactoring store and security store
-- do i need config file for layot animation and modals ????
 - update react-navigation
+- device util
 
             STYLES
 - theme service and styles naming
@@ -52,8 +52,10 @@ ESLINT/TYPEXCRIPT
 - check ui libraries for RN
   
             TESTS
+- what is the best structure for tests ?
+- move mocks to mock and use jest.mock ??
 - finish test, where to write integration test ?
-
+- jest vscode plugin
 
             DEBUG
-- fix tron usage
+- + fix tron usage

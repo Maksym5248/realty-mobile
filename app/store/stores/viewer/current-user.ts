@@ -1,16 +1,12 @@
-import { types as t, SnapshotOut, applySnapshot } from 'mobx-state-tree';
+import { types, SnapshotIn } from 'mobx-state-tree';
 
-export interface ICurrentUser extends SnapshotOut<typeof CurrentUserModel> {}
+import { ROLES } from '~/constants';
 
-export const CurrentUserModel = t
-  .model('CurrentUser', {
-    id: t.identifier,
-    name: t.string,
-    role: t.enumeration(['user', 'admin']),
-    email: t.string,
-  })
-  .actions((self) => ({
-    set(user: ICurrentUser) {
-      applySnapshot(self, user);
-    },
-  }));
+export interface ICurrentUser extends SnapshotIn<typeof CurrentUserModel> {}
+
+export const CurrentUserModel = types.model('CurrentUser', {
+  id: types.identifier,
+  name: types.string,
+  role: types.enumeration([ROLES.USER, ROLES.ADMIN]),
+  email: types.string,
+});

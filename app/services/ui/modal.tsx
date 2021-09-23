@@ -29,13 +29,13 @@ enum Events {
   Change = 'change',
 }
 class ModalClass {
-  _modals: Array<IModalTypeInternal>;
+  private _modals: Array<IModalTypeInternal>;
 
-  _visibleModals: IModalsMapInternal;
+  visibleModals: IModalsMapInternal;
 
   constructor() {
     this._modals = [];
-    this._visibleModals = {};
+    this.visibleModals = {};
   }
 
   registerModals(modals: IModalsMap) {
@@ -57,7 +57,7 @@ class ModalClass {
   }
 
   show(name: string, propsForComponent: Object = {}, propsForModal: Object = {}) {
-    Object.assign(this._visibleModals, {
+    Object.assign(this.visibleModals, {
       [name]: {
         name,
         propsForComponent,
@@ -70,8 +70,8 @@ class ModalClass {
   }
 
   hide(name: string) {
-    this._visibleModals[name] = {
-      ...this._visibleModals[name],
+    this.visibleModals[name] = {
+      ...this.visibleModals[name],
       isVisible: false,
     };
 
@@ -79,16 +79,16 @@ class ModalClass {
   }
 
   removeVisibleModal(name: string) {
-    delete this._visibleModals[name];
-    eventEmitter.emit(Events.Change);
+    delete this.visibleModals[name];
+    eventEmitter.emit(Events.Change, this.visibleModals);
   }
 
   hideAll() {
-    this._visibleModals = {};
+    this.visibleModals = {};
     eventEmitter.emit(Events.Change);
   }
 
-  onChange = (callBack: Function) => {
+  onChange = (callBack: (visibleModals: IModalsMapInternal) => void) => {
     eventEmitter.on(Events.Change, callBack);
 
     return () => eventEmitter.removeListener(Events.Change, callBack);

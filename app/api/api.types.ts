@@ -1,3 +1,5 @@
+import { ROLES } from '~/constants';
+
 export interface ISignInParams {
   email: string;
   password: string;
@@ -25,7 +27,7 @@ export interface IApiTokens {
 export interface IApiCurrentUser {
   id: string;
   name: string;
-  role: 'user' | 'admin';
+  role: ROLES;
   email: string;
 }
 

@@ -1,8 +1,9 @@
 import { NativeModules } from 'react-native';
 import Tron, { trackGlobalErrors, openInEditor } from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { mst } from 'reactotron-mst';
 
-const noop = () => undefined;
+const noop = (v: any = undefined): any => v;
 
 declare global {
   interface Console {
@@ -15,13 +16,14 @@ if (__DEV__) {
     .split('://')[1]
     .split(':')[0];
 
-  console.tron = Tron; // attach reactotron to `console.tron`
+  global.console.tron = Tron; // attach reactotron to `console.tron`
 
   Tron.setAsyncStorageHandler(AsyncStorage)
     .configure({ host })
     .useReactNative({
       storybook: true,
     })
+    .use(mst())
     .use(trackGlobalErrors({}))
     .use(openInEditor())
     .connect();
@@ -47,5 +49,6 @@ if (__DEV__) {
     use: noop,
     useReactNative: noop,
     warn: noop,
+    trackMstNode: noop,
   };
 }

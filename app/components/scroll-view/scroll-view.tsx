@@ -20,7 +20,7 @@ export const ScrollView = ({
       refreshControl={
         onRefresh ? (
           <RefreshControl
-            tintColor={colors.primaryLight}
+            tintColor={colors.primary}
             refreshing={isRefreshing}
             onRefresh={onRefresh}
           />

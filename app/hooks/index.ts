@@ -3,4 +3,4 @@ export * from './use-form';
 export * from './use-keyboard';
 export * from './use-on-change';
 export * from './context/use-store';
-export * from './context/use-localization';
+export * from './context/use-translate';

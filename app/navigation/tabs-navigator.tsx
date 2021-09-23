@@ -2,7 +2,7 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { useLocalization } from '~/hooks';
+import { useTranslate } from '~/hooks';
 import { colors } from '~/styles';
 import { Icon, Text } from '~/components';
 import { device } from '~/utils';
@@ -33,7 +33,7 @@ const getTabOptions = (label: string, icon: string) => ({
 const Tabs = createBottomTabNavigator();
 
 export const TabsNavigator = () => {
-  const { t } = useLocalization();
+  const { t } = useTranslate();
 
   return (
     <Tabs.Navigator lazy={false} tabBarOptions={tabBarOptions}>
