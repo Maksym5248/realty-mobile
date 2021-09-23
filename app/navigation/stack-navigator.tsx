@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native';
 import { createNativeStackNavigator } from 'react-native-screens/native-stack';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 import { SCREENS } from '~/constants';
 import { useTranslate, useStore } from '~/hooks';

@@ -54,7 +54,6 @@
   },
   "lint-staged": {
     "*.{js,ts,tsx,jsx}": [
-      "tsc-files --noEmit --project ./tsconfig.json",
       "yarn lint",
       "git add"
     ]

@@ -27,7 +27,7 @@ ESLINT/TYPEXCRIPT
   
             MOBX
 - +- types for mobx and definition, add support for parent
-- update library
+- + update library
 - normalize before apply data
 - entities for mobx, create collection function
 - +- improve flow model in mobx

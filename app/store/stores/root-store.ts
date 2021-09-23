@@ -10,6 +10,9 @@ import { ViewerStore } from './viewer';
 
 export interface IRootStore extends Instance<typeof RootStore> {}
 
+const isExpired = (token: { expires: string }): {} =>
+  fns.isBefore(new Date(token.expires), Date.now());
+
 export const RootStore = types
   .model('RootStore', {
     auth: types.optional(AuthStore, {}),
@@ -39,19 +42,17 @@ export const RootStore = types
           throw Error('Unauthorized user');
         }
 
-        const isRefreshTokenExpired = fns.isBefore(new Date(tokens.refresh.expires), Date.now());
-
-        if (isRefreshTokenExpired) {
+        if (isExpired(tokens.refresh)) {
           throw Error('Token expired');
         }
 
-        const isAccessTokenExpired = fns.isBefore(new Date(tokens.access.expires), Date.now());
-
-        if (isAccessTokenExpired) {
+        if (isExpired(tokens.access)) {
           const { data } = yield Api.refreshTokens({
             refreshToken: tokens.refresh.token,
           });
           yield SecureStorage.set(SECURE_STORAGE.AUTH_TOKEN, data);
+        } else {
+          Api.setAuthToken(tokens?.access?.token);
         }
       }),
     };
