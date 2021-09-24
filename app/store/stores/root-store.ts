@@ -5,8 +5,7 @@ import { SECURE_STORAGE, STORAGE } from '~/constants';
 import { ILocalizationData } from '~/localization';
 import { IApiTokens } from '~/api';
 
-import { AuthStore } from './auth';
-import { ViewerStore } from './viewer';
+import { AuthStore, ViewerStore } from '.';
 
 export interface IRootStore extends Instance<typeof RootStore> {}
 

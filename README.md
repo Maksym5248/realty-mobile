@@ -1,21 +1,26 @@
 
-to avoid cyclic dependencies, only directories above in the list can be used
 
+High-level elements should not depend on high-level ones. To avoid cyclic dependencies, only directories above in the list can be used
 
 app
 navigation
 screens, modals
 containers
+hooks
 store
 services - components
-hooks
 utils
 localization
 styles
 config
 constants, types
 
-error handling in store and screens
+TODO: Подумати як це правильно розділяти !!!
+Чи використовується prod варіант в react-native, для уникнення крешів в проді
+
+Entities використовуються як DTO(Data transfer Object) - можуть мати методи роботи із ним, але не реалізовуються бізнес логіку
+
+Stores - використовуються для бізнес логіки
 
 TODO:
 
@@ -28,12 +33,12 @@ ESLINT/TYPEXCRIPT
             MOBX
 - +- types for mobx and definition, add support for parent
 - + update library
-- normalize before apply data
-- entities for mobx, create collection function
-- +- improve flow model in mobx
+- +* normalize with normalazer and normaliza types of object before set it
+- +* create collection function, create list
+- + improve flow model in mobx
 - useStore with onReaction ??? works as useRedux 
-- fix setting fields and types for them
-
+- +fix setting fields and types for them
+- lazy loading
             LOCALIZATON
 - + refactoring localization, splite useLocalization on useTranslate and useCurrency
 

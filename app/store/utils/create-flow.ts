@@ -1,4 +1,4 @@
-import { types, flow, getParent, getRoot, getEnv } from 'mobx-state-tree';
+import { types } from 'mobx-state-tree';
 import _ from 'lodash';
 
 import { error } from '~/utils';
@@ -24,6 +24,7 @@ const ErrorModel = types.model({
 export const AsyncModel = types
   .model({
     inProgress: false,
+    isLoaded: false,
     error: types.optional(types.maybeNull(ErrorModel), null),
     hasEverBeenRan: false,
   })
@@ -55,6 +56,10 @@ export const AsyncModel = types
         self.hasEverBeenRan = true;
       }
 
+      if (!self.isLoaded) {
+        self.isLoaded = true;
+      }
+
       self.inProgress = false;
     },
 
@@ -78,18 +83,3 @@ export const AsyncModel = types
       }
     },
   }));
-
-export function createFlow(flowDefinition: (...args: any[]) => any) {
-  const FlowModel = AsyncModel.named('FlowModel').actions((store) => ({
-    run: flow((...args) =>
-      flowDefinition(...args)({
-        store,
-        parent: getParent(store),
-        root: getRoot(store),
-        env: getEnv(getRoot(store)),
-      }),
-    ),
-  }));
-
-  return types.optional(FlowModel, {});
-}

@@ -1,20 +1,18 @@
 import { types, Instance } from 'mobx-state-tree';
 
-import { CurrentUserModel, ICurrentUser } from './current-user';
+import { CurrentUser, ICurrentUser, normalizeCurrentUser } from './data-structures';
 import { asyncAction } from '../../utils';
 
 const Store = types
   .model('ViewerStore', {
-    user: types.maybe(CurrentUserModel),
+    // collection
+    // list
+    // filteredList
+    user: types.maybe(CurrentUser),
   })
   .actions((self) => ({
     setUser(user: ICurrentUser) {
-      self.user = {
-        id: user.id,
-        name: user.name,
-        role: user.role,
-        email: user.email,
-      };
+      self.user = normalizeCurrentUser(user);
     },
     removeUser() {
       self.user = undefined;
@@ -27,7 +25,6 @@ const fetchUser = asyncAction<Instance<typeof Store>>(() => {
       flow.start();
 
       const res = await env.Api.getCurrentUser();
-
       self.setUser(res.data);
 
       flow.success();
