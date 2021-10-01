@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "jsx": "react-native",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "sourceMap": true,
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/api": ["./app/api"],
+      "~/components": ["./app/components"],
+      "~/containers": ["./app/containers"],
+      "~/config": ["./app/config"],
+      "~/constants": ["./app/constants"],
+      "~/hooks": ["./app/hooks"],
+      "~/localization": ["./app/localization"],
+      "~/modals": ["./app/modals"],
+      "~/stores": ["./app/stores"],
+      "~/navigation": ["./app/navigation"],
+      "~/screens": ["./app/screens"],
+      "~/services": ["./app/services"],
+      "~/styles": ["./app/styles"],
+      "~/utils": ["./app/utils"],
+      "~/context": ["./app/context"],
+      "~/types": ["./app/types"],
+
+    }
+  },
+  "exclude": [
+    "./node_modules",
+    "./babel.config.js",
+    "./metro.config.js",
+    "./jest.config.js",
+  ],
+  "include": [
+    "./app",
+    "./test",
+    "./index.js",
+    "./App.tsx",
+    "./babel.config.js"
+  ]
+}

@@ -4,5 +4,3 @@ react-native.config.js
 babel.config.js
 .prettierrc
 post-install
-/components
-/node_modules

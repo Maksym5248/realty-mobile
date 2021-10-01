@@ -6,10 +6,7 @@
         "importPath": "contextlib",
         "description": "contextlib",
         "detail": "contextlib",
-        "documentation": {
-            "value": "\n```python\nimport contextlib\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "os",
@@ -18,10 +15,7 @@
         "importPath": "os",
         "description": "os",
         "detail": "os",
-        "documentation": {
-            "value": "\n```python\nimport os\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "shutil",
@@ -30,10 +24,7 @@
         "importPath": "shutil",
         "description": "shutil",
         "detail": "shutil",
-        "documentation": {
-            "value": "\n```python\nimport shutil\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "sys",
@@ -42,10 +33,7 @@
         "importPath": "sys",
         "description": "sys",
         "detail": "sys",
-        "documentation": {
-            "value": "\n```python\nimport sys\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "tempfile",
@@ -54,10 +42,7 @@
         "importPath": "tempfile",
         "description": "tempfile",
         "detail": "tempfile",
-        "documentation": {
-            "value": "\n```python\nimport tempfile\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "zipfile",
@@ -66,10 +51,7 @@
         "importPath": "zipfile",
         "description": "zipfile",
         "detail": "zipfile",
-        "documentation": {
-            "value": "\n```python\nimport zipfile\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     },
     {
         "label": "cleanup",
@@ -78,9 +60,6 @@
         "description": "node_modules.react-native.ReactAndroid.src.main.third-party.android.support.v7.appcompat.aar-unpacker",
         "peekOfCode": "def cleanup(path):\n    yield path\n    shutil.rmtree(path)\nif __name__ == '__main__':\n    with zipfile.ZipFile(sys.argv[1], 'r') as z:\n        with cleanup(tempfile.mkdtemp()) as temp_path:\n            z.extractall(temp_path, filter(lambda n: n.startswith(sys.argv[2]), z.namelist()))\n            shutil.move(os.path.join(temp_path, sys.argv[2]), sys.argv[3])",
         "detail": "node_modules.react-native.ReactAndroid.src.main.third-party.android.support.v7.appcompat.aar-unpacker",
-        "documentation": {
-            "value": "\n```python\nfrom node_modules.react-native.ReactAndroid.src.main.third-party.android.support.v7.appcompat.aar-unpacker import cleanup\n```\n\n```python\n\n\n```\n\n```python\ndef cleanup(path):\n    yield path\n    shutil.rmtree(path)\nif __name__ == '__main__':\n    with zipfile.ZipFile(sys.argv[1], 'r') as z:\n        with cleanup(tempfile.mkdtemp()) as temp_path:\n            z.extractall(temp_path, filter(lambda n: n.startswith(sys.argv[2]), z.namelist()))\n            shutil.move(os.path.join(temp_path, sys.argv[2]), sys.argv[3])\n```\n",
-            "supportThemeIcons": false
-        }
+        "documentation": {}
     }
 ]

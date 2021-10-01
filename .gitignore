@@ -57,6 +57,6 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-/app/config/config.dev.js
-/app/config/config.prod.js
-/app/config/config.stag.js
+/app/config/config.dev.ts
+/app/config/config.prod.ts
+/app/config/config.stag.ts
