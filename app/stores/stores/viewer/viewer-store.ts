@@ -1,6 +1,6 @@
 import { types, Instance } from 'mobx-state-tree';
 
-import { CurrentUser, ICurrentUser, normalizeCurrentUser } from './data-structures';
+import { CurrentUser, ICurrentUser, normalizeCurrentUser } from './entities';
 import { asyncAction } from '../../utils';
 
 const Store = types
