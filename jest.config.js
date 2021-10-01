@@ -10,4 +10,7 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?@react-native|react-native|@react-navigation|@react-native-community)',
   ],
+  moduleNameMapper: {
+    'react-dom': 'react-native',
+  },
 };
