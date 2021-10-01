@@ -14,7 +14,7 @@ module.exports = (api) => {
           '~/hooks': './app/hooks',
           '~/localization': './app/localization',
           '~/modals': './app/modals',
-          '~/store': './app/store',
+          '~/stores': './app/stores',
           '~/navigation': './app/navigation',
           '~/screens': './app/screens',
           '~/services': './app/services',

@@ -8,7 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'react-native';
 
 import { RootNavigation } from '~/navigation';
-import { createStore } from '~/store';
+import { createStore } from '~/stores';
 import { Navigation } from '~/services';
 import { AlertProvider, ModalProvider, LocalizationProvider } from '~/containers';
 import { modals } from '~/modals';
