@@ -26,3 +26,7 @@ export const dimensions = {
   s: indent * 2,
   xs: indent,
 };
+
+export const elements = {
+  tabBarHeight: indent * 14,
+};

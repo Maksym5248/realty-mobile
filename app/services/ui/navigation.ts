@@ -8,13 +8,13 @@ import {
 import { NavigationContainerRef } from '@react-navigation/core';
 
 class NavigationClass {
-  private nav: NavigationContainerRef;
+  private nav: NavigationContainerRef<any>;
 
   constructor() {
     this.nav = null;
   }
 
-  init = (navigatorRef: NavigationContainerRef) => {
+  init = (navigatorRef: NavigationContainerRef<any>) => {
     this.nav = navigatorRef;
   };
 

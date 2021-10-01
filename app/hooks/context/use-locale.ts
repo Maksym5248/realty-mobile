@@ -9,7 +9,7 @@ interface UseLocalizationOptions {
   prefix?: string;
 }
 
-export const useTranslate = ({ prefix }: UseLocalizationOptions = {}) => {
+export const useLocale = ({ prefix }: UseLocalizationOptions = {}) => {
   const locale = useContext(TranslateContext) as ILocalizationData;
 
   const t = useCallback(

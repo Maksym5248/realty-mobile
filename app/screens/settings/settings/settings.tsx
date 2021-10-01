@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 
-import { useStore, useTranslate } from '~/hooks';
+import { useStore, useLocale } from '~/hooks';
 import { Button } from '~/components';
 import { styles } from '~/styles';
 
@@ -11,7 +11,7 @@ import { s } from './settings.styles';
 
 export const Settings = observer(() => {
   const store = useStore();
-  const { t } = useTranslate({ prefix: 'settings' });
+  const { t } = useLocale({ prefix: 'settings' });
 
   const onSignOut = () => {
     store?.auth?.signOut.run();

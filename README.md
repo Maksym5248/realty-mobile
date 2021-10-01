@@ -9,9 +9,9 @@ containers
 hooks
 store
 services - components
+styles
 utils
 localization
-styles
 config
 constants, types
 
@@ -47,8 +47,9 @@ ESLINT/TYPEXCRIPT
 - + to think, do we need to split modal service on diff components
 - + integrate events library
 - + refactoring store and security store
-- update react-navigation
-- device util
+- + update react-navigation
+- + refactoring device util
+- make device dynamic and do we need to hook for it ?
 
             STYLES
 - theme service and styles naming

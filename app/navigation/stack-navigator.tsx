@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { getFocusedRouteNameFromRoute, Route } from '@react-navigation/native';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
 import { SCREENS } from '~/constants';
-import { useTranslate, useStore } from '~/hooks';
+import { useLocale, useStore } from '~/hooks';
 import * as screens from '~/screens';
 import { colors } from '~/styles';
 
@@ -15,7 +15,7 @@ const Stack = createNativeStackNavigator();
 
 export const StackNavigator = observer(() => {
   const store = useStore();
-  const { t } = useTranslate();
+  const { t } = useLocale();
 
   const params = {
     screenOptions: { headerShown: true, headerTintColor: colors.primary },

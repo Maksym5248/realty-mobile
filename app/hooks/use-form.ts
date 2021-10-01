@@ -1,7 +1,7 @@
 import { useFormik, FormikConfig } from 'formik';
 import { NativeSyntheticEvent, TextInputFocusEventData } from 'react-native';
 
-import { useTranslate } from './context/use-translate';
+import { useLocale } from './context/use-locale';
 
 interface Field {
   value: any;
@@ -16,7 +16,7 @@ interface Fields {
 }
 
 export function useForm<T>(config: FormikConfig<T>) {
-  const { t } = useTranslate();
+  const { t } = useLocale();
   const formik = useFormik<T>({
     validateOnMount: true,
     ...config,

@@ -5,8 +5,10 @@ import { NavigationContainerRef } from '@react-navigation/core';
 
 import { StackNavigator } from './stack-navigator';
 
-export const RootNavigation = forwardRef((props, ref: React.RefObject<NavigationContainerRef>) => (
-  <NavigationContainer ref={ref} {...props}>
-    <StackNavigator />
-  </NavigationContainer>
-));
+export const RootNavigation = forwardRef(
+  (props, ref: React.RefObject<NavigationContainerRef<any>>) => (
+    <NavigationContainer ref={ref} {...props}>
+      <StackNavigator />
+    </NavigationContainer>
+  ),
+);

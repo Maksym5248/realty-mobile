@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 
-import { useTranslate, useStore, useForm, useFocusInput } from '~/hooks';
+import { useLocale, useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text } from '~/components';
 import { validation } from '~/utils';
 import { styles } from '~/styles';
@@ -19,7 +19,7 @@ const validationSchema = validation.shape({
 
 export const SignUp = observer(() => {
   const store = useStore();
-  const { t } = useTranslate({ prefix: 'sign_up' });
+  const { t } = useLocale({ prefix: 'sign_up' });
   const [refPassword, onEditedEmail] = useFocusInput();
   const [refEmail, onEditedName] = useFocusInput();
 

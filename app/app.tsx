@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 
 import React, { useEffect, useCallback } from 'react';
 
-import { enableScreens } from 'react-native-screens';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -15,8 +14,6 @@ import { AlertProvider, ModalProvider, LocalizationProvider } from '~/containers
 import { modals } from '~/modals';
 import { theme } from '~/styles';
 import { RootStoreContext } from '~/context';
-
-enableScreens();
 
 const { store, persist } = createStore();
 

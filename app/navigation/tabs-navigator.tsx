@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { useTranslate } from '~/hooks';
-import { colors } from '~/styles';
+import { useLocale } from '~/hooks';
+import { colors, elements } from '~/styles';
 import { Icon, Text } from '~/components';
 import { device } from '~/utils';
 import { SCREENS } from '~/constants';
@@ -21,7 +21,7 @@ const tabBarOptions = {
     paddingRight: 20,
     paddingBottom: device.isIphoneX ? device.insetBottom - 6 : 10,
     paddingTop: 10,
-    minHeight: device.tabBarHeight,
+    minHeight: elements.tabBarHeight,
   },
 };
 
@@ -33,10 +33,10 @@ const getTabOptions = (label: string, icon: string) => ({
 const Tabs = createBottomTabNavigator();
 
 export const TabsNavigator = () => {
-  const { t } = useTranslate();
+  const { t } = useLocale();
 
   return (
-    <Tabs.Navigator lazy={false} tabBarOptions={tabBarOptions}>
+    <Tabs.Navigator tabBarOptions={tabBarOptions}>
       <Tabs.Screen
         name={SCREENS.MAIN}
         component={screens.Main}

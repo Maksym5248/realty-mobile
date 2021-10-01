@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { View } from 'react-native';
 
 import { SCREENS } from '~/constants';
-import { useTranslate, useStore, useForm, useFocusInput } from '~/hooks';
+import { useLocale, useStore, useForm, useFocusInput } from '~/hooks';
 import { Input, KeyboardAwareScrollView, Button, Text, Touchable } from '~/components';
 import { validation } from '~/utils';
 import { styles, colors } from '~/styles';
@@ -20,7 +20,7 @@ const validationSchema = validation.shape({
 
 export const SignIn = observer(() => {
   const store = useStore();
-  const { t } = useTranslate({ prefix: 'sign_in' });
+  const { t } = useLocale({ prefix: 'sign_in' });
   const [refPassword, onEditedEmail] = useFocusInput();
 
   const onSubmit = (values: IFormValues) => {
